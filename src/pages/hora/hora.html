@@ -1,0 +1,56 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>HORA</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content padding>
+
+    <ion-card>
+        <ion-card-header >
+            CARGAR HORAS
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list no-lines>
+
+                <ion-item>
+                    <ion-label>Proyecto</ion-label>
+                    <ion-select [(ngModel)]="tarea.IdProyecto" (change)="onProyectoChange()>
+                      <ion-option *ngFor="let proyecto of proyectos" [value]="proyecto.IdProyecto">{{proyecto.Nombre}}</ion-option>
+                    </ion-select>
+                  </ion-item>
+
+                  <ion-item>
+                      <ion-label>Tarea</ion-label>
+                      <ion-select [(ngModel)]="hora.IdTarea" >
+                        <ion-option *ngFor="let tarea of tareas" [value]="tarea.IdTarea">{{tarea.Nombre}}</ion-option>
+                      </ion-select>
+                    </ion-item>
+                    <ion-item>
+                            <ion-label floating>Descripcion de la Hora</ion-label>
+                            <ion-input [(ngModel)]="tarea.Descripcion" type="text" ></ion-input>                    
+                        </ion-item>
+                <ion-item>
+                    <ion-label floating>Cantidad de Horas</ion-label>
+                    <ion-input [(ngModel)]="hora.CantidadHoras" type="number" ></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Descripcion de la Hora</ion-label>
+                    <ion-input [(ngModel)]="tarea.Descripcion" type="text" ></ion-input>                    
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>Fecha</ion-label>
+                    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="hora.Fecha"></ion-datetime>
+                  </ion-item>
+
+                <button ion-button color="primary" block outline
+                  (click)="CargarHoras()"
+                >GUARDAR</button>
+  
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

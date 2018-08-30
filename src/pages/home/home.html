@@ -1,14 +1,29 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            TIMESHEET
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding class="background">
+    <ion-card>
+        <ion-card-header>
+            LOGIN
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list no-lines>
+                <ion-item>
+                    <ion-label floating>Email de ODOO</ion-label>
+                    <ion-input type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Contraseña</ion-label>
+                    <ion-input type="password"></ion-input>
+                </ion-item>
+                <button ion-button color="danger" block outline>ENTRAR</button>
+
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

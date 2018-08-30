@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title class="Col">
+          TIMESHEET
+      </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="background ">
+  <ion-card>
+      <ion-card-header >
+          LOGIN
+      </ion-card-header>
+      <ion-card-content>
+          <ion-list no-lines>
+              <ion-item>
+                  <ion-label floating>Email de ODOO</ion-label>
+                  <ion-input [(ngModel)]="email" type="email" ></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label floating>Contraseña</ion-label>
+                  <ion-input [(ngModel)]="pass" type="password" ></ion-input>
+                  <!-- <ion-input type="password"></ion-input> -->
+              </ion-item>
+              <button ion-button color="secondary" block outline
+                (click)="logueo()"
+              >ENTRAR</button>
+
+          </ion-list>
+      </ion-card-content>
+  </ion-card>
+</ion-content>

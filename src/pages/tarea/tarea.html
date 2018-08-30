@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>TAREA</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content padding>
+
+
+    <ion-card>
+        <ion-card-header >
+            AGREGAR NUEVA TAREA
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list no-lines>
+                <ion-item>
+                    <ion-label floating>Nombre de la tarea</ion-label>
+                    <ion-input [(ngModel)]="tarea.Nombre" type="text" ></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Descripcion de la tarea</ion-label>
+                    <ion-input [(ngModel)]="tarea.Descripcion" type="text" ></ion-input>                    
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>Proyecto</ion-label>
+                    <ion-select [(ngModel)]="tarea.IdProyecto" >
+                      <ion-option *ngFor="let proyecto of proyectos" [value]="proyecto.IdProyecto">{{proyecto.Nombre}}</ion-option>
+                    </ion-select>
+                  </ion-item>
+
+                <ion-item>
+                    <ion-label>Fecha de Inicio</ion-label>
+                    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="tarea.FechaInicio"></ion-datetime>
+                  </ion-item>
+
+                  <ion-item>
+                      <ion-label>Fecha de Fin</ion-label>
+                      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="tarea.FechaFIn"></ion-datetime>
+                    </ion-item>
+
+
+                <button ion-button color="primary" block outline
+                  (click)="crearTareas()"
+                >GUARDAR</button>
+  
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+    
+
+</ion-content>

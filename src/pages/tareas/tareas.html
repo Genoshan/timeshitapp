@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>TAREAS</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content >
+
+  <ion-searchbar
+  [(ngModel)]="termino"    
+  (ionInput)="buscar(termino)">
+</ion-searchbar>
+
+<div class="btn-wrapper">       
+
+    <button ion-button icon-only color="secondary" outline padding="true">
+      <ion-icon name="alarm" ></ion-icon>
+      Horas
+    </button>
+    
+    <button ion-button icon-only color="primary" outline padding="false" (click)="IraTareadeProyecto(IdTarea)">
+        <ion-icon name="add-circle"></ion-icon>
+        Nueva Tarea
+      </button>    
+                
+</div>
+
+<ion-list>
+    <ion-list-header>
+      Tareas
+    </ion-list-header>    
+        <ion-item *ngFor="let k of tareas">
+          <ion-col><strong>Tarea:</strong>
+            {{k.Nombre}}                
+          </ion-col>
+          <ion-row justify-content-end>
+            <ion-col><strong>Fecha Inicio:</strong>
+              {{k.FechaInicio | date: "dd-MM-yyyy"}}
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-end>
+          <ion-col><strong>Proyecto:</strong>
+              {{proyecto.Nombre}}
+          </ion-col>
+      </ion-row>
+      <ion-row justify-content-end>
+          <ion-col>            
+                      <button ion-button icon-only color="secondary" clear (click)="IraHorasdeTarea(k.IdTarea)">
+                  <ion-icon name="alarm"></ion-icon>
+                </button>    
+                <button ion-button icon-only color="secondary" clear>
+                  <ion-icon name="add-circle"></ion-icon>
+                </button>      
+                <button ion-button icon-only clear (click)="IraTareadeProyecto(k.IdTarea)">
+                  <ion-icon name="create"></ion-icon>
+                </button>
+                <button ion-button icon-only color="danger" clear (click)="borrarTarea(k.IdTarea)">
+                    <ion-icon name="trash"></ion-icon>
+                  </button>
+          </ion-col>
+        </ion-row>
+    </ion-item>
+    
+    </ion-list>
+</ion-content>
+
+
+
+

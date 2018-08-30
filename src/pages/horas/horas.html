@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>HORAS</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content padding>
+
+    <ion-searchbar
+  [(ngModel)]="termino"    
+  (ionInput)="buscar(termino)">
+</ion-searchbar>
+
+<div class="btn-wrapper">       
+
+  
+    <button ion-button icon-only color="secondary" outline padding="true" (click)="IraHoradeTarea(IdHora)" >
+      <ion-icon name="alarm"></ion-icon>
+      Horas
+    </button>                
+</div>
+
+<ion-list>
+    <ion-list-header>
+      Horas
+    </ion-list-header>    
+        <ion-item *ngFor="let k of horas">
+          <ion-col><strong>Descripcion:</strong>
+            {{k.Descripcion}}                
+          </ion-col>
+          <ion-row justify-content-end>
+            <ion-col><strong>Fecha:</strong>
+              {{k.Fecha | date: "dd-MM-yyyy"}}
+            </ion-col>
+            <ion-row justify-content-end>
+            <ion-col><strong>Cantidad de Horas:</strong>
+              {{k.CantidadHoras}}                
+            </ion-col>
+          </ion-row>
+        </ion-row>
+        <ion-row justify-content-end>
+          <ion-col><strong>Tarea:</strong>
+              {{tarea.Nombre}}
+          </ion-col>
+      </ion-row>
+      <ion-row justify-content-end>
+          <ion-col>               
+                <button ion-button icon-only clear (click)="IraHoradeTarea(k.IdTarea)">
+                  <ion-icon name="create"></ion-icon>
+                </button>
+                <button ion-button icon-only color="danger" clear (click)="borrarTarea(k.IdTarea)">
+                    <ion-icon name="trash"></ion-icon>
+                  </button>
+          </ion-col>
+        </ion-row>
+    </ion-item>
+    
+    </ion-list>
+
+</ion-content>
