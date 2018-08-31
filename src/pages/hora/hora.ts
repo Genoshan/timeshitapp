@@ -28,6 +28,7 @@ export class HoraPage {
     
 nuevo:boolean=false;
 id:string;
+ruta: string;
 
 proyectos:Proyecto[] = [];
 tareas:Tarea[] = [];
@@ -71,14 +72,18 @@ status:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private pr: ProyectosserviceProvider, private ts: TareasserviceProvider,private hs: HorasserviceProvider) {
+      this.id = navParams.get('IdHora');
+      this.ruta = navParams.get('Ruta');
+            
   }
 
   /*****OPERACIONES*****/
 
   getHora(){
-        
+      console.log(this.id);
+      console.log(this.ruta);  
     //FLUJO NORMAL: LLEGO NAVEGANDO DESDE PROYECTO Y DE UNA TAREA Y VEO LAS HORAS CARGADAS y cargo una nueva
-    if (this.router.url == '/horas/nueva')
+    if (this.ruta == '/horas/'&&this.id=='nueva')
     {
       //FLUJO NORMAL: LLEGO NAVEGANDO DESDE PROYECTO Y DE UNA TAREA Y VEO LAS HORAS CARGADAS
       //OBTENGO, USUARIO, TAREA Y PROYECTO POR EL CUAL LLEGO DE LA NAVEGACION DEL LOCALSTORAGE    
@@ -102,7 +107,7 @@ status:string;
       
       //CONTROL DESDE DONDE ESTOY ACCEDIENDO    
       //SI ES DESDE TAREAS (ICONO + EN CADA TAREA)
-      if((this.router.url == '/horas/tarea/'+this.id)&&this.id!='nueva'){
+      if((this.ruta == '/horas/tarea/'+'')&&this.id!='nueva'){
         
         //OBTENGO LA TAREA            
         this.tarea = this.ts.getTarea(Number(this.id));          
@@ -128,7 +133,7 @@ status:string;
       else {
         //CONTROL DESDE DONDE ESTOY ACCEDIENDO    
         //SI ES DESDE TAREAS (ICONO + GRANDE)  
-        if(this.router.url == '/horas/tarea/nueva')
+        if(this.ruta == '/horas/tarea/'&&this.id=='nueva')
         {
           //OBTENGO EL PROYECTO
           this.proyecto = JSON.parse(localStorage.getItem('proyecto'));
@@ -163,7 +168,7 @@ status:string;
           }
           else {
             //CARGANDO HORAS DESDE UN PROYECTO dado boton +
-            if((this.router.url == '/horas/proyecto/nueva/'+this.id)&&this.id!='nueva'){
+            if((this.ruta == '/horas/proyecto/nueva/')&&this.id!='nueva'){
               
               //OBTENGO EL PROYECTO:        
               this.proyecto = this.pr.getProyecto(Number(this.id));
@@ -198,7 +203,7 @@ status:string;
               else {
                 
                 //CARGANDO HORAS DESDE PROYECTOS BOTON GRANDE+  
-                if (this.router.url == '/horas/proyecto/nueva')
+                if (this.ruta == '/horas/proyecto/'&&this.id=='nueva')
                 {
                   
                   //listo todos los proyectos del usuario --
@@ -310,7 +315,7 @@ status:string;
           }
           else
           {
-            if(this.router.url == '/horas/tarea/'+this.id){
+            if(this.ruta == '/horas/tarea/'+this.id){
               //cargando una hora nueva desde boton + de tareas
               this.hs.CargarHoras(this.hora, this.user["CI"])
               .subscribe(        
@@ -331,7 +336,7 @@ status:string;
             else
             {
               
-              if(this.router.url == '/horas/proyecto/nueva'){
+              if(this.ruta == '/horas/proyecto/nueva'){
 
                 this.hs.CargarHoras(this.hora, this.user["CI"])
                 .subscribe(        
@@ -350,7 +355,7 @@ status:string;
                 )
               }
               else{
-                if ((this.router.url == '/horas/proyecto/nueva/'+this.id)&&this.id!='nueva'){
+                if ((this.ruta == '/horas/proyecto/nueva/'+this.id)&&this.id!='nueva'){
                   //cargando horas desde un proyecto dado boton + de un proyecto
                   //cargando una hora nueva desde boton + de tareas
                   this.hs.CargarHoras(this.hora, this.user["CI"])

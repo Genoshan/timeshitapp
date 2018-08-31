@@ -65,8 +65,10 @@ export class HorasPage {
     this.horas=this.hservice.getHorasxTermino(termino);   
   }
 
-  IraHoradeTarea(idHora){    
-    this.navCtrl.push(HoraPage , {IdHora:idHora});    
+  IraHoradeTarea(idHora,ruta){
+    console.log(idHora);
+    console.log(ruta);    
+    this.navCtrl.push(HoraPage , {IdHora:idHora,Ruta:ruta});    
   }  
 
 

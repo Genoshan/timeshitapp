@@ -16,7 +16,7 @@
 
                 <ion-item>
                     <ion-label>Proyecto</ion-label>
-                    <ion-select [(ngModel)]="tarea.IdProyecto" (change)="onProyectoChange()>
+                    <ion-select [(ngModel)]="tarea.IdProyecto" (change)="onProyectoChange()">
                       <ion-option *ngFor="let proyecto of proyectos" [value]="proyecto.IdProyecto">{{proyecto.Nombre}}</ion-option>
                     </ion-select>
                   </ion-item>
@@ -27,10 +27,7 @@
                         <ion-option *ngFor="let tarea of tareas" [value]="tarea.IdTarea">{{tarea.Nombre}}</ion-option>
                       </ion-select>
                     </ion-item>
-                    <ion-item>
-                            <ion-label floating>Descripcion de la Hora</ion-label>
-                            <ion-input [(ngModel)]="tarea.Descripcion" type="text" ></ion-input>                    
-                        </ion-item>
+                
                 <ion-item>
                     <ion-label floating>Cantidad de Horas</ion-label>
                     <ion-input [(ngModel)]="hora.CantidadHoras" type="number" ></ion-input>

@@ -15,7 +15,7 @@
 <div class="btn-wrapper">       
 
   
-    <button ion-button icon-only color="secondary" outline padding="true" (click)="IraHoradeTarea(IdHora)" >
+    <button ion-button icon-only color="secondary" outline padding="true" (click)="IraHoradeTarea('nueva','/horas/')" >
       <ion-icon name="alarm"></ion-icon>
       Horas
     </button>                
@@ -46,7 +46,7 @@
       </ion-row>
       <ion-row justify-content-end>
           <ion-col>               
-                <button ion-button icon-only clear (click)="IraHoradeTarea(k.IdTarea)">
+                <button ion-button icon-only clear (click)="IraHoradeTarea('/horas/'+k.Idhora)">
                   <ion-icon name="create"></ion-icon>
                 </button>
                 <button ion-button icon-only color="danger" clear (click)="borrarTarea(k.IdTarea)">
