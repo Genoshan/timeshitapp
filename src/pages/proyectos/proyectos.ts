@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {TareasPage} from '../index.paginas'
+import {TareasPage, HorasPage, HoraPage} from '../index.paginas'
 import { Usuario } from '../../interfaces/usuario';
 import { ProyectosserviceProvider } from '../../providers/proyectosservice/proyectosservice';
 import { Proyecto } from '../../interfaces/proyecto';
@@ -58,7 +58,17 @@ export class ProyectosPage {
   IraTareas(idProyecto){
     console.log(idProyecto);
     this.navCtrl.push(TareasPage, {IdProyecto:idProyecto});
-  }  
+  }
+  
+  IraHorasdeProyecto(idProyecto){    
+    this.navCtrl.push(HorasPage , {IdProyecto:idProyecto});    
+  }
+  
+   IraHoradeProyecto(idHora,ruta){
+    console.log(idHora);
+    console.log(ruta);    
+    this.navCtrl.push(HoraPage , {IdHora:idHora,Ruta:ruta});    
+  }
 
   /**** CARGA INICIAL DEL COMPONENTE *****/
   ionViewDidLoad() {

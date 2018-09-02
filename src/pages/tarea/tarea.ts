@@ -65,7 +65,7 @@ export class TareaPage {
 
 getTarea(){
 
-  this.id 
+   
   if (this.id== null)
   {
       //console.log(this.proyecto);
@@ -132,6 +132,7 @@ crearTareas(){
           //alert('El usuario no esta');
         }
     },(error) => {
+      alert("Tarea No Fue Editada");
       this.status = 'error';
       console.log(error);
       alert(""+error);                                        

@@ -46,10 +46,10 @@
       </ion-row>
       <ion-row justify-content-end>
           <ion-col>               
-                <button ion-button icon-only clear (click)="IraHoradeTarea('/horas/'+k.Idhora)">
+                <button ion-button icon-only clear (click)="IraHoradeTarea(''+k.Idhora,'/horas/')">
                   <ion-icon name="create"></ion-icon>
                 </button>
-                <button ion-button icon-only color="danger" clear (click)="borrarTarea(k.IdTarea)">
+                <button ion-button icon-only color="danger" clear (click)="borrarHora(k.Idhora)">
                     <ion-icon name="trash"></ion-icon>
                   </button>
           </ion-col>

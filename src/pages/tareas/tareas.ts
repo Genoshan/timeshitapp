@@ -62,7 +62,13 @@ export class TareasPage {
 
   IraHorasdeTarea(idTarea){    
     this.navCtrl.push(HorasPage , {IdTarea:idTarea});    
-  }  
+  }
+  
+   IraHoradeTarea(idHora,ruta){
+    console.log(idHora);
+    console.log(ruta);    
+    this.navCtrl.push(HoraPage , {IdHora:idHora,Ruta:ruta});    
+  } 
 
 
   Volver(){
@@ -114,17 +120,20 @@ export class TareasPage {
               correcto => { 
                 if(correcto)
                 {
-                  console.log(correcto);    
+                  //console.log(correcto);    
                   //recargo las tareas
+                  alert("Tarea Eliminada con exito");
                   this.tareas = null;
                   this.listarTareasDeProyecto();
                   //console.log(this.tareas);
                 }
                 else{
+                  alert("La Tarea no fue Eliminada");
                   this.status = 'error';
                   console.log(correcto);                        
                 }
             },(error) => {
+              alert("La Tarea no fue Eliminada");
               this.status = 'error';
               console.log(error);
               } 

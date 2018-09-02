@@ -69,7 +69,7 @@ export class HorasPage {
     console.log(idHora);
     console.log(ruta);    
     this.navCtrl.push(HoraPage , {IdHora:idHora,Ruta:ruta});    
-  }  
+  } 
 
 
   borrarHora(k: Number) {
@@ -80,13 +80,16 @@ export class HorasPage {
            if(correcto)
            {            
             //vuelvo a cargar la lista
+            alert("Hora Eliminada con exito");
             this.horas = null;              
             this.listarHorasdeTarea();                 
            }
-           else{            
+           else{
+            alert("La Hora No Fue Eliminada");            
              this.status = 'error';            
            }
        },(error) => {
+        alert("La Hora No Fue Eliminada");            
          this.status = 'error';
          console.log(error);                    
          } 
