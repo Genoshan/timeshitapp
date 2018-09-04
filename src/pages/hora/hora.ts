@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Proyecto } from '../../interfaces/proyecto';
 import { Tarea } from '../../interfaces/tarea';
 import { Usuario } from '../../interfaces/usuario';
@@ -8,6 +8,7 @@ import { TareasserviceProvider } from '../../providers/tareasservice/tareasservi
 import { HorasPage } from '../index.paginas';
 import { Hora } from '../../interfaces/hora';
 import { HorasserviceProvider } from '../../providers/horasservice/horasservice';
+
 
 
 /**
@@ -71,21 +72,21 @@ export class HoraPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private pr: ProyectosserviceProvider, private ts: TareasserviceProvider, private hs: HorasserviceProvider) {
+    private pr: ProyectosserviceProvider, private ts: TareasserviceProvider, 
+    private hs: HorasserviceProvider, private toastCtrl: ToastController) 
+    {
     this.id = navParams.get('IdHora');
     this.ruta = navParams.get('Ruta');
-
   }
 
   /*****OPERACIONES*****/
   IraHoras(idTarea) {
-    console.log(idTarea);
+
     this.navCtrl.push(HorasPage, { IdTarea: idTarea });
   }
 
   getHora() {
-    console.log(this.id);
-    console.log(this.ruta);
+    
     //FLUJO NORMAL: LLEGO NAVEGANDO DESDE PROYECTO Y DE UNA TAREA Y VEO LAS HORAS CARGADAS y cargo una nueva
     if (this.ruta == '/horas/' && this.id == 'nueva') {
       //FLUJO NORMAL: LLEGO NAVEGANDO DESDE PROYECTO Y DE UNA TAREA Y VEO LAS HORAS CARGADAS
@@ -112,7 +113,7 @@ export class HoraPage {
       //SI ES DESDE TAREAS (ICONO + EN CADA TAREA)
       if ((this.ruta == '/horas/tarea/') && this.id != 'nueva') {
         
-        console.log("QuieroCargarHsDesdeUnaTareaDeGrillaDeTareas");
+        //console.log("QuieroCargarHsDesdeUnaTareaDeGrillaDeTareas");
         
         //OBTENGO LA TAREA            
         this.tarea = this.ts.getTarea(Number(this.id));
@@ -140,7 +141,7 @@ export class HoraPage {
         //SI ES DESDE TAREAS (ICONO + GRANDE)  
         if (this.ruta == '/horas/tarea/' && this.id == 'nueva') {
 
-          console.log("QuieroCargarHsDesdeBotonGrandeDeCargarHsDeTareas");
+          //console.log("QuieroCargarHsDesdeBotonGrandeDeCargarHsDeTareas");
           //OBTENGO EL PROYECTO
           this.proyecto = JSON.parse(localStorage.getItem('proyecto'));
           this.proyectos.push(this.proyecto);
@@ -163,7 +164,16 @@ export class HoraPage {
                 }
               }, (error) => {
                 this.status = 'error';
-                console.log(error);
+                //console.log(error);
+                let toast = this.toastCtrl.create({
+                  message: error,
+                  duration: 3000,
+                  position: 'top'
+                });            
+                toast.onDidDismiss(() => {
+                  //console.log('Dismissed toast');
+                });            
+                toast.present(); 
               })
 
           //OBTENGO LA TAREA      
@@ -175,7 +185,7 @@ export class HoraPage {
           //CARGANDO HORAS DESDE UN PROYECTO dado boton +
           if ((this.ruta == '/horas/proyecto/') && this.id != 'nueva') {
 
-            console.log("QuieroCargarHsDesdeUnProyectoDeGrillaDeProyectos");
+            //console.log("QuieroCargarHsDesdeUnProyectoDeGrillaDeProyectos");
 
             //OBTENGO EL PROYECTO:        
             this.proyecto = this.pr.getProyecto(Number(this.id));
@@ -198,7 +208,16 @@ export class HoraPage {
                   }
                 }, (error) => {
                   this.status = 'error';
-                  console.log(error);
+                  //console.log(error);
+                  let toast = this.toastCtrl.create({
+                    message: error,
+                    duration: 3000,
+                    position: 'top'
+                  });            
+                  toast.onDidDismiss(() => {
+                    //console.log('Dismissed toast');
+                  });            
+                  toast.present(); 
                 })
 
             //OBTENGO LA TAREA      
@@ -211,7 +230,7 @@ export class HoraPage {
             //CARGANDO HORAS DESDE PROYECTOS BOTON GRANDE+  
             if (this.ruta == '/horas/proyecto/' && this.id == 'nueva') {
 
-              console.log("QuieroCargarHsDesdeBotonGrandeDeCargarHsDeProyectos");
+              //console.log("QuieroCargarHsDesdeBotonGrandeDeCargarHsDeProyectos");
               //listo todos los proyectos del usuario --
               //LISTA PROYECTOS DEL USUARIO DESDE API
               this.user = JSON.parse(localStorage.getItem('usuario'));
@@ -243,28 +262,47 @@ export class HoraPage {
                             }
                           }, (error) => {
                             this.status = 'error';
-                            console.log(error);
+                            //console.log(error);
+                            let toast = this.toastCtrl.create({
+                              message: error,
+                              duration: 3000,
+                              position: 'top'
+                            });            
+                            toast.onDidDismiss(() => {
+                              //console.log('Dismissed toast');
+                            });            
+                            toast.present(); 
                           })
 
-                      console.log(this.tarea.IdProyecto);
+                      //console.log(this.tarea.IdProyecto);
                     }
                     else {
                       this.status = 'error';
                     }
                   }, (error) => {
                     this.status = 'error';
-                    console.log(error);
+                    let toast = this.toastCtrl.create({
+                      message: error,
+                      duration: 3000,
+                      position: 'top'
+                    });            
+                    toast.onDidDismiss(() => {
+                      //console.log('Dismissed toast');
+                    });            
+                    toast.present(); 
+                    
+                    //console.log(error);
                   }
                 )
 
               //en base al proyecto seleccionado, listar las tareas de ese proyecto
               //para esto utilizo el evento onProyectoChange
-              console.log("antes de cargar las tareas");
+              //console.log("antes de cargar las tareas");
               //TODO
               //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS
               /* console.log(this.proyectos); */
-              console.log(this.proyecto.IdProyecto);
-              console.log(this.tarea.IdProyecto);
+              //console.log(this.proyecto.IdProyecto);
+              //console.log(this.tarea.IdProyecto);
 
 
 
@@ -295,7 +333,7 @@ export class HoraPage {
       }
     }
   }
-
+ 
 
   CargarHoras() {
     //creando
@@ -304,95 +342,157 @@ export class HoraPage {
       this.hs.CargarHoras(this.hora, this.user["CI"])
         .subscribe(
           correcto => {
-            if (correcto) {
-              //this.hora = correcto;
-              alert("Hora Guardada con exito");
+            if (correcto) {              
+                let toast = this.toastCtrl.create({
+                  message: 'Hora Guardada con exito',
+                  duration: 3000,
+                  position: 'top'
+                });
+              
+                toast.onDidDismiss(() => {
+                  //console.log('Dismissed toast');
+                });
+              
+              toast.present();              
               this.IraHoras(this.hora.IdTarea);
             }
             else {
-
-              alert("La Hora No fue Guardada");
+              let toast = this.toastCtrl.create({
+                message: 'La Hora No fue Guardada',
+                duration: 3000,
+                position: 'top'
+              });
+            
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });
+            
+              toast.present();
+              //alert("La Hora No fue Guardada");
               this.status = 'error';
             }
           }, (error) => {
-
-            alert("La Hora No fue Guardada");
-            this.status = 'error';
-            console.log(error);
+            this.status = 'error';            
+            let toast = this.toastCtrl.create({
+              message: error,
+              duration: 3000,
+              position: 'top'
+            });          
+            toast.onDidDismiss(() => {
+              //console.log('Dismissed toast');
+            });          
+            toast.present();
+            //alert("La Hora No fue Guardada");
+            //console.log(error);
           }
         )
     }
     else {
       if (this.ruta == '/horas/tarea/') {
         //cargando una hora nueva desde boton + de tareas
-        console.log("cargohorasdesdeunaTareaDeGrillaDeTareasODesdeBotonGrande");
+        //console.log("cargohorasdesdeunaTareaDeGrillaDeTareasODesdeBotonGrande");
+
         this.hs.CargarHoras(this.hora, this.user["CI"])
           .subscribe(
             correcto => {
               if (correcto) {
-                alert("Hora Guardada con exito");
+                //alert("Hora Guardada con exito");
+                let toast = this.toastCtrl.create({
+                  message: 'Hora Guardada con exito',
+                  duration: 3000,
+                  position: 'top'
+                });              
+                toast.onDidDismiss(() => {
+                  //console.log('Dismissed toast');
+                });             
+                toast.present();
                 this.IraHoras(this.hora.IdTarea);
                 //this.hora = correcto;          
               }
               else {
-                alert("La Hora No fue Guardada");
+                //alert("La Hora No fue Guardada");
+                let toast = this.toastCtrl.create({
+                  message: 'La Hora No fue Guardada',
+                  duration: 3000,
+                  position: 'top'
+                });              
+                toast.onDidDismiss(() => {
+                  //console.log('Dismissed toast');
+                });              
+                toast.present();
                 this.status = 'error';
               }
             }, (error) => {
-              alert("La Hora No fue Guardada");
+
               this.status = 'error';
-              console.log(error);
+
+              let toast = this.toastCtrl.create({
+                message: error,
+                duration: 3000,
+                position: 'top'
+              });            
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });            
+              toast.present();
+              //alert("La Hora No fue Guardada");
+              
+              //console.log(error);
             }
           )
       }
       else {
         if (this.ruta == '/horas/proyecto/') {
-          console.log("cargohorasdesdeunProyectoDeGrillaDeProyectosODesdeBotonGrande");
+          //console.log("cargohorasdesdeunProyectoDeGrillaDeProyectosODesdeBotonGrande");
           this.hs.CargarHoras(this.hora, this.user["CI"])
             .subscribe(
               correcto => {
                 if (correcto) {
                   //this.hora = correcto; 
-                  alert("Hora Guardada con exito");
+                  //alert("Hora Guardada con exito");
+                  let toast = this.toastCtrl.create({
+                    message: 'Hora Guardada con exito',
+                    duration: 3000,
+                    position: 'top'
+                  });              
+                  toast.onDidDismiss(() => {
+                    //console.log('Dismissed toast');
+                  });             
+                  toast.present();
+  
                   this.IraHoras(this.hora.IdTarea);
                 }
                 else {
-                  alert("La Hora No fue Guardada");
+                  //alert("La Hora No fue Guardada");
+                  let toast = this.toastCtrl.create({
+                    message: 'La Hora No fue Guardada',
+                    duration: 3000,
+                    position: 'top'
+                  });              
+                  toast.onDidDismiss(() => {
+                    //console.log('Dismissed toast');
+                  });              
+                  toast.present();  
                   this.status = 'error';
                 }
               }, (error) => {
-                alert("La Hora No fue Guardada");
+                //alert("La Hora No fue Guardada");
+                let toast = this.toastCtrl.create({
+                  message: error,
+                  duration: 3000,
+                  position: 'top'
+                });            
+                toast.onDidDismiss(() => {
+                  //console.log('Dismissed toast');
+                });            
+                toast.present();
                 this.status = 'error';
-                console.log(error);
+                //console.log(error);
               }
             )
-        }
-        /* else {
-          if ((this.ruta == '/horas/proyecto/nueva/' + this.id) && this.id != 'nueva') {
-            //cargando horas desde un proyecto dado boton + de un proyecto
-            //cargando una hora nueva desde boton + de tareas
-            this.hs.CargarHoras(this.hora, this.user["CI"])
-              .subscribe(
-                correcto => {
-                  if (correcto) {
-                    //this.hora = correcto;
-                    alert("Hora Guardada con exito");
-                    this.IraHoras(this.hora.IdTarea);
-
-                  }
-                  else {
-                    alert("La Hora No fue Guardada");
-                    this.status = 'error';
-                  }
-                }, (error) => {
-                  alert("La Hora No fue Guardada");
-                  this.status = 'error';
-                  console.log(error);
-                }
-              )
-          } */
+        }        
           else {
-            console.log('EditaLaHora');
+            //console.log('EditaLaHora');
             //actualizando una hora ya existente   
             this.hs.editarHoras(this.hora)
               .subscribe(
@@ -400,19 +500,46 @@ export class HoraPage {
                   if (correcto) {
                     //this.proyectos = JSON.parse(correcto.proyectos);
                     //this.hora = correcto;
-                    alert("Hora Modificada con exito");
+                    //alert("Hora Modificada con exito");
+                    let toast = this.toastCtrl.create({
+                      message: 'Hora Modificada con exito',
+                      duration: 3000,
+                      position: 'top'
+                    });              
+                    toast.onDidDismiss(() => {
+                      //console.log('Dismissed toast');
+                    });             
+                    toast.present();                    
                     this.IraHoras(this.hora.IdTarea);
                     //console.log(this.tareas);
                   }
                   else {
-                    alert("La Hora No fue Guardada");
+                    //alert("La Hora No fue Guardada");
+                    let toast = this.toastCtrl.create({
+                      message: 'La Hora No fue Modificada',
+                      duration: 3000,
+                      position: 'top'
+                    });              
+                    toast.onDidDismiss(() => {
+                      //console.log('Dismissed toast');
+                    });              
+                    toast.present();    
                     this.status = 'error';
                     //alert('El usuario no esta');
                   }
                 }, (error) => {
-                  alert("La Hora No fue Guardada");
-                  this.status = 'error';
-                  console.log(error);
+                  //alert("La Hora No fue Guardada");
+                  let toast = this.toastCtrl.create({
+                    message: error,
+                    duration: 3000,
+                    position: 'top'
+                  });            
+                  toast.onDidDismiss(() => {
+                    //console.log('Dismissed toast');
+                  });            
+                  toast.present();
+                  this.status = 'error';                  
+                  //console.log(error);
                 }
               )
           }
@@ -441,7 +568,16 @@ export class HoraPage {
           }
         }, (error) => {
           this.status = 'error';
-          console.log(error);
+          let toast = this.toastCtrl.create({
+            message: error,
+            duration: 3000,
+            position: 'top'
+          });            
+          toast.onDidDismiss(() => {
+            //console.log('Dismissed toast');
+          });            
+          toast.present(); 
+          //console.log(error);
         })
 
     //OBTENGO LA TAREA      
