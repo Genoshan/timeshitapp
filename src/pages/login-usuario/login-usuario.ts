@@ -21,35 +21,26 @@ export class LoginUsuarioPage {
   pass:string;  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public us: UsuarioserviceProvider) {
+    
   }
 
   logueo(){
-    this.us.login(this.email,this.pass)
-//console.log();
-    //this.navCtrl.push(ProyectosPage);
-    
+    this.us.login(this.email,this.pass)    
     .subscribe(        
     correcto => { 
       if(correcto)
       {
         this.navCtrl.push(ProyectosPage);
       }
-
       else{     
         alert("Credenciales incorrectas");             
         console.log(correcto);
         console.log(this.email);
       }
   },(error) => {
-    
-    
-    
-} 
-  )    
 
-
-
-  }
+  })
+}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginUsuarioPage');
