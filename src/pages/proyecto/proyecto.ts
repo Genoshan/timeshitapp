@@ -19,7 +19,7 @@ export class ProyectoPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProyectoPage');
+    //console.log('ionViewDidLoad ProyectoPage');
   }
 
 }

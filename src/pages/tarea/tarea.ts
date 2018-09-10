@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Proyecto } from '../../interfaces/proyecto';
 import { Tarea } from '../../interfaces/tarea';
 import { Usuario } from '../../interfaces/usuario';
@@ -15,142 +15,188 @@ import { TareasPage } from '../index.paginas';
 })
 export class TareaPage {
 
-  
 
-    /*****ATRIBUTOS******/  
 
-    nuevo:boolean=false;
-    id:string;
-    proyectos:Proyecto[] = [];
-  
-     tarea:Tarea = {
-  
-      IdTarea: 0,
-      Nombre: "",
-      Descripcion: "",
-      FechaInicio:new Date(Date.now()),
-      FechaFIn: new Date(Date.now()),
-      IdProyecto:0  
-    }
-  
-    user: Usuario = {
-      nombre: "",
-      email: "",
-      //password: string;
-      img: "",
-      ci: ""
-    }
-  
-    proyecto:Proyecto = {
-      Nombre:"",
-      FechaInicio:new Date(Date.now()),
-      Estado:true,
-      codigoProyecto:"",    
-      IdProyecto: 0,
-    }
-  
-    status:string;
+  /*****ATRIBUTOS******/
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-    private ts:TareasserviceProvider ,private pr:ProyectosserviceProvider) {
+  nuevo: boolean = false;
+  id: string;
+  proyectos: Proyecto[] = [];
+
+  tarea: Tarea = {
+
+    IdTarea: 0,
+    Nombre: "",
+    Descripcion: "",
+    FechaInicio: new Date(Date.now()),
+    FechaFIn: new Date(Date.now()),
+    IdProyecto: 0
+  }
+
+  user: Usuario = {
+    nombre: "",
+    email: "",
+    //password: string;
+    img: "",
+    ci: ""
+  }
+
+  proyecto: Proyecto = {
+    Nombre: "",
+    FechaInicio: new Date(Date.now()),
+    Estado: true,
+    codigoProyecto: "",
+    IdProyecto: 0,
+  }
+
+  status: string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private ts: TareasserviceProvider, private pr: ProyectosserviceProvider, private toastCtrl: ToastController) {
   }
 
 
   /*****OPERACIONES*****/
-  IraTareas(idProyecto){
+  IraTareas(idProyecto) {
     console.log(idProyecto);
-    this.navCtrl.push(TareasPage, {IdProyecto:idProyecto});
-  }  
-  
+    this.navCtrl.push(TareasPage, { IdProyecto: idProyecto });
+  }
 
-getTarea(){
 
-   
-  if (this.id== null)
-  {
+  getTarea() {
+
+    if (this.id == null) {
       //console.log(this.proyecto);
       this.tarea.IdProyecto = this.proyecto.IdProyecto;
+    }
+    else {
+      this.tarea = this.ts.getTarea(Number(this.id));
+      //OBTENGO EL PROYECTO DE LA TAREA SELECCIONADA
+      this.proyecto = this.pr.getProyecto(this.tarea.IdProyecto);
+    }
   }
-  else{
-
-    this.tarea=this.ts.getTarea(Number(this.id));
-    //OBTENGO EL PROYECTO DE LA TAREA SELECCIONADA
-    this.proyecto=this.pr.getProyecto(this.tarea.IdProyecto);
-
-  }        
-}
 
 
-crearTareas(){
-  if (this.id== null)
-  {
-    // insertando
-    
-    this.ts.crearTareas(this.tarea)
-    .subscribe(        
-      correcto => { 
-        if(correcto)
-        {
-          //this.proyectos = JSON.parse(correcto.proyectos);
-          //this.tarea = correcto;
-          alert("Tarea Creada con exito");
-          this.IraTareas(this.tarea.IdProyecto);
+  crearTareas() {
+    if (this.id == null) {
+      // insertando    
+      this.ts.crearTareas(this.tarea)
+        .subscribe(
+          correcto => {
+            if (correcto) {
+              //this.proyectos = JSON.parse(correcto.proyectos);
+              //this.tarea = correcto;
+              let toast = this.toastCtrl.create({
+                message: 'Tarea Guardada con exito',
+                duration: 3000,
+                position: 'top'
+              });
 
-          //console.log(this.tareas);
-        }
-        else{
-          this.status = 'error';
-          alert("Tarea No Fue Creada");
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });
 
-          //alert('El usuario no esta');
-        }
-    },(error) => {
-      this.status = 'error';
-      console.log(error);
-      alert(""+error);                    
-      } 
-    )
+              toast.present();
+              //alert("Tarea Creada con exito");
+              this.IraTareas(this.tarea.IdProyecto);
+
+              //console.log(this.tareas);
+            }
+            else {
+              this.status = 'error';
+              let toast = this.toastCtrl.create({
+                message: 'La Tarea No fue Guardada',
+                duration: 3000,
+                position: 'top'
+              });
+
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });
+
+              toast.present();
+              //alert("La Hora No fue Guardada");
+              this.status = 'error';
+
+              //alert('El usuario no esta');
+            }
+          }, (error) => {
+            this.status = 'error';
+            let toast = this.toastCtrl.create({
+              message: error,
+              duration: 3000,
+              position: 'top'
+            });
+            toast.onDidDismiss(() => {
+              //console.log('Dismissed toast');
+            });
+            toast.present();
+          }
+        )
+    }
+    else {
+      //actualizando
+
+      this.ts.editarTarea(this.tarea)
+        .subscribe(
+          correcto => {
+            if (correcto) {
+              //this.proyectos = JSON.parse(correcto.proyectos);
+              //this.tarea = correcto;
+              //alert("Tarea Editada con exito");
+              let toast = this.toastCtrl.create({
+                message: 'Tarea Editada con exito',
+                duration: 3000,
+                position: 'top'
+              });              
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });             
+              toast.present();                    
+              this.IraTareas(this.tarea.IdProyecto);
+              //console.log(this.tareas);
+            }
+            else {
+              this.status = 'error';              
+              //alert("Tarea No Fue Editada");
+              let toast = this.toastCtrl.create({
+                message: 'Tarea No Fue Editada',
+                duration: 3000,
+                position: 'top'
+              });              
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });              
+              toast.present();    
+              this.status = 'error';
+
+              //alert('El usuario no esta');
+            }
+          }, (error) => {
+            this.status = 'error';
+            let toast = this.toastCtrl.create({
+              message: error,
+              duration: 3000,
+              position: 'top'
+            });
+            toast.onDidDismiss(() => {
+              //console.log('Dismissed toast');
+            });
+            toast.present();
+          }
+        )
+
+    }
   }
-  else
-  {
-    //actualizando
-    
-    this.ts.editarTarea(this.tarea)   
-    .subscribe(        
-      correcto => { 
-        if(correcto)
-        {
-          //this.proyectos = JSON.parse(correcto.proyectos);
-          //this.tarea = correcto;
-          alert("Tarea Editada con exito");
-          this.IraTareas(this.tarea.IdProyecto);          
-          //console.log(this.tareas);
-        }
-        else{
-          this.status = 'error';
-          alert("Tarea No Fue Editada");
-          //alert('El usuario no esta');
-        }
-    },(error) => {
-      alert("Tarea No Fue Editada");
-      this.status = 'error';
-      console.log(error);
-      alert(""+error);                                        
-      } 
-    )
-               
-  }
-}
 
-/**** CARGA INICIAL DEL COMPONENTE *****/
+  /**** CARGA INICIAL DEL COMPONENTE *****/
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TareaPage');
-    
-    this.user=JSON.parse(localStorage.getItem('usuario'));
-    this.proyecto = JSON.parse(localStorage.getItem('proyecto'));  
-    this.id= this.navParams.get('IdTarea');        
+
+    this.user = JSON.parse(localStorage.getItem('usuario'));
+    this.proyecto = JSON.parse(localStorage.getItem('proyecto'));
+    this.id = this.navParams.get('IdTarea');
     //LEVANTO DATOS DE TAREA PARA EDITAR O CREO UNA NUEVA  
-    this.getTarea();        
+    this.getTarea();
     this.proyectos.push(this.proyecto);
   }
 

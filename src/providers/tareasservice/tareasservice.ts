@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+
 import {Http,Headers, RequestOptions} from "@angular/http";
 
 
@@ -120,7 +122,7 @@ crearTareas(t: Tarea) {
 
     //eliminarTarea
     eliminarTarea(k: Number) {
-      console.log(k);
+      //console.log(k);
       //let headers = new Headers();
       var body = k
       ;   
@@ -133,9 +135,8 @@ crearTareas(t: Tarea) {
       return this.mihttp
         .post(this.url + 'EliminarTarea', body, { headers: headers })
         .map((resp: any) => {
-          //swal('Tarea Actualizada', t.Nombre, 'success');
-          
-          console.log(resp);
+          //swal('Tarea Actualizada', t.Nombre, 'success');          
+          //console.log(resp);
           return resp;
           
         })

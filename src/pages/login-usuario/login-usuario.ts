@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import {ProyectosPage} from '../index.paginas';
 import { UsuarioserviceProvider } from '../../providers/usuarioservice/usuarioservice';
 
@@ -20,7 +20,7 @@ export class LoginUsuarioPage {
   email:string;
   pass:string;  
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public us: UsuarioserviceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public us: UsuarioserviceProvider, private toastCtrl: ToastController) {
     
   }
 
@@ -32,18 +32,33 @@ export class LoginUsuarioPage {
       {
         this.navCtrl.push(ProyectosPage);
       }
-      else{     
-        alert("Credenciales incorrectas");             
-        console.log(correcto);
-        console.log(this.email);
+      else{
+        let toast = this.toastCtrl.create({
+          message: 'Credenciales incorrectas',
+          duration: 3000,
+          position: 'middle'
+        });
+        toast.onDidDismiss(() => {
+          //console.log('Dismissed toast');
+        });
+        toast.present();             
       }
   },(error) => {
-
+    //console.log(error);
+    let toast = this.toastCtrl.create({
+      message: error,
+      duration: 3000,
+      position: 'middle'
+    });            
+    toast.onDidDismiss(() => {
+      //console.log('Dismissed toast');
+    });            
+    toast.present();    
   })
 }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginUsuarioPage');
+    //console.log('ionViewDidLoad LoginUsuarioPage');
   }
 
 }

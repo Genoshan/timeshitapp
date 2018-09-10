@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { Tarea } from '../../interfaces/tarea';
 import { Proyecto } from '../../interfaces/proyecto';
 import { ProyectosserviceProvider } from '../../providers/proyectosservice/proyectosservice';
@@ -23,126 +23,185 @@ import { HorasPage } from '../horas/horas';
 export class TareasPage {
 
   p: number = 1;
-  tareas:Tarea[] = [];
+  tareas: Tarea[] = [];
   id: number;
-  loading:boolean;
-  
-  proyecto:Proyecto = {
+  loading: boolean;
 
-    Nombre:"",
-    FechaInicio:new Date(Date.now()),
-    Estado:true,
-    codigoProyecto:"",    
+  proyecto: Proyecto = {
+
+    Nombre: "",
+    FechaInicio: new Date(Date.now()),
+    Estado: true,
+    codigoProyecto: "",
     IdProyecto: 0,
   }
 
-  tarea:Tarea = {
+  tarea: Tarea = {
 
     IdTarea: 0,
     Nombre: "",
     Descripcion: "",
-    FechaInicio:new Date(Date.now()),
+    FechaInicio: new Date(Date.now()),
     FechaFIn: new Date(Date.now()),
-    IdProyecto: 0  
+    IdProyecto: 0
   }
   status: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private pservice: ProyectosserviceProvider, private tservice: TareasserviceProvider) {
+    private pservice: ProyectosserviceProvider, private tservice: TareasserviceProvider, private toastCtrl: ToastController, private alertCtrl: AlertController) {
   }
 
   buscar(termino: string) {
     this.loading = true;
-    this.tareas=this.tservice.getTareasxTermino(termino);  
+    this.tareas = this.tservice.getTareasxTermino(termino);
   }
 
-  IraTareadeProyecto(idTarea){    
-    this.navCtrl.push(TareaPage , {IdTarea:idTarea});    
-  }  
-
-  IraHorasdeTarea(idTarea){    
-    this.navCtrl.push(HorasPage , {IdTarea:idTarea});    
+  IraTareadeProyecto(idTarea) {
+    this.navCtrl.push(TareaPage, { IdTarea: idTarea });
   }
-  
-   IraHoradeTarea(idHora,ruta){
-    console.log(idHora);
-    console.log(ruta);    
-    this.navCtrl.push(HoraPage , {IdHora:idHora,Ruta:ruta});    
-  } 
+
+  IraHorasdeTarea(idTarea) {
+    this.navCtrl.push(HorasPage, { IdTarea: idTarea });
+  }
+
+  IraHoradeTarea(idHora, ruta) {
+    this.navCtrl.push(HoraPage, { IdHora: idHora, Ruta: ruta });
+  }
 
 
-  Volver(){
+  Volver() {
     this.navCtrl.pop();
   }
 
 
-  listarTareasDeProyecto(){
+  listarTareasDeProyecto() {
 
     //OBTENGO EL PROYECTO        
-    this.id=this.navParams.get('IdProyecto');
+    this.id = this.navParams.get('IdProyecto');
 
-    this.proyecto=this.pservice.getProyecto(this.id);
-    
+    this.proyecto = this.pservice.getProyecto(this.id);
+
     //almaceno en localstorage para poder acceder desde una tarea nueva    
-    localStorage.setItem('proyecto',JSON.stringify(this.proyecto)); 
-    
+    localStorage.setItem('proyecto', JSON.stringify(this.proyecto));
+
     //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS    
-     this.tservice.getTareasDeProyecto(this.id)
-     .subscribe(        
-     correcto => { 
-       if(correcto)
-       {
-         //vacio las tareas y las vuelvo a cargar.
-         this.tareas = null;
-         this.tareas = correcto;
-         //console.log(this.tareas);
-       }
-       else{
-         this.status = 'error';
-    
-         //alert('El usuario no esta');
-       }
-    },(error) => {
-     this.status = 'error';
-     console.log(error);                    
-     } 
-    )
-    }
-
-
-
-
-    borrarTarea(k: Number) {      
-           
-            //llamo al metodo
-            this.tservice.eliminarTarea(k)
-            .subscribe(        
-              correcto => { 
-                if(correcto)
-                {
-                  //console.log(correcto);    
-                  //recargo las tareas
-                  alert("Tarea Eliminada con exito");
-                  this.tareas = null;
-                  this.listarTareasDeProyecto();
-                  //console.log(this.tareas);
-                }
-                else{
-                  alert("La Tarea no fue Eliminada");
-                  this.status = 'error';
-                  console.log(correcto);                        
-                }
-            },(error) => {
-              alert("La Tarea no fue Eliminada");
-              this.status = 'error';
-              console.log(error);
-              } 
-            )  
+    this.tservice.getTareasDeProyecto(this.id)
+      .subscribe(
+        correcto => {
+          if (correcto) {
+            //vacio las tareas y las vuelvo a cargar.
+            this.tareas = null;
+            this.tareas = correcto;
+            //console.log(this.tareas);
           }
+          else {
+            this.status = 'error';
+            this.status = 'error';
+            let toast = this.toastCtrl.create({
+              message: 'No se obtuvieron las tareas',
+              duration: 3000,
+              position: 'middle'
+            });
+            toast.onDidDismiss(() => {
+              //console.log('Dismissed toast');
+            });
+            toast.present();
 
-/**** CARGA INICIAL DEL COMPONENTE *****/          
+            //alert('El usuario no esta');
+          }
+        }, (error) => {
+          this.status = 'error';
+          let toast = this.toastCtrl.create({
+            message: error,
+            duration: 3000,
+            position: 'middle'
+          });
+          toast.onDidDismiss(() => {
+            //console.log('Dismissed toast');
+          });
+          toast.present();
+        }
+      )
+  }
+
+
+
+
+  borrarTarea(k: Number) {
+
+    let alert = this.alertCtrl.create({
+      title: 'La tarea se eliminará, está seguro?',
+      message: 'La tarea no se podrá recuperar.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            //console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Si, confirmo!',
+          handler: () => {
+            //console.log('Buy clicked');
+            this.tservice.eliminarTarea(k)
+              .subscribe(
+                correcto => {
+                  if (correcto) {
+                    //vuelvo a cargar la lista
+                    let toast = this.toastCtrl.create({
+                      message: 'Tarea Eliminada',
+                      duration: 3000,
+                      position: 'middle'
+                    });
+                    toast.onDidDismiss(() => {
+                      //console.log('Dismissed toast');
+                    });
+                    toast.present();
+
+                    this.tareas = null;
+                    this.listarTareasDeProyecto();
+
+                  }
+                  else {
+                    //alert("La tarea No Fue Eliminada");                                
+                    this.status = 'error';
+                    let toast = this.toastCtrl.create({
+                      message: 'La Tarea No Fue Eliminada',
+                      duration: 3000,
+                      position: 'middle'
+                    });
+                    toast.onDidDismiss(() => {
+                      //console.log('Dismissed toast');
+                    });
+                    toast.present();
+
+                  }
+                }, (error) => {
+                  //alert("La tarea No Fue Eliminada");            
+                  this.status = 'error';
+                  let toast = this.toastCtrl.create({
+                    message: error,
+                    duration: 3000,
+                    position: 'middle'
+                  });
+                  toast.onDidDismiss(() => {
+                    //console.log('Dismissed toast');
+                  });
+                  toast.present();
+                  //console.log(error);
+                }
+              )
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  /**** CARGA INICIAL DEL COMPONENTE *****/
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TareasPage');
+    //console.log('ionViewDidLoad TareasPage');
     this.listarTareasDeProyecto();
   }
 

@@ -19,7 +19,7 @@ export class NavbarPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NavbarPage');
+    //console.log('ionViewDidLoad NavbarPage');
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import {TareasPage, HorasPage, HoraPage} from '../index.paginas'
 import { Usuario } from '../../interfaces/usuario';
 import { ProyectosserviceProvider } from '../../providers/proyectosservice/proyectosservice';
@@ -45,7 +45,7 @@ export class ProyectosPage {
   status:string;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private pservice: ProyectosserviceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private pservice: ProyectosserviceProvider, private toastCtrl: ToastController) {
   }
 
 
@@ -56,7 +56,7 @@ export class ProyectosPage {
   }
 
   IraTareas(idProyecto){
-    console.log(idProyecto);
+    //console.log(idProyecto);
     this.navCtrl.push(TareasPage, {IdProyecto:idProyecto});
   }
   
@@ -65,14 +65,13 @@ export class ProyectosPage {
   }
   
    IraHoradeProyecto(idHora,ruta){
-    console.log(idHora);
-    console.log(ruta);    
+    //console.log(idHora);
+    //console.log(ruta);    
     this.navCtrl.push(HoraPage , {IdHora:idHora,Ruta:ruta});    
   }
 
   /**** CARGA INICIAL DEL COMPONENTE *****/
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProyectosPage');
+  ionViewDidLoad() {   
 
         //LISTA PROYECTOS DEL USUARIO DESDE API
         this.user=JSON.parse(localStorage.getItem('usuario'));
@@ -88,15 +87,32 @@ export class ProyectosPage {
             }
             else{
               this.status = 'error';          
+              let toast = this.toastCtrl.create({
+                message: 'No se obtuvieron los proyectos',
+                duration: 3000,
+                position: 'middle'
+              });
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });
+              toast.present();             
             }
         },(error) => {
           this.status = 'error';
-          console.log(error);                    
-          } 
-        )    
+          let toast = this.toastCtrl.create({
+            message: error,
+            duration: 3000,
+            position: 'middle'
+          });            
+          toast.onDidDismiss(() => {
+            //console.log('Dismissed toast');
+          });            
+          toast.present();
 
-        this.proyecto.codigoProyecto = this.navParams.get('codigoProyecto');
-        console.log(this.proyecto.codigoProyecto);
+          //console.log(error);                    
+          } 
+        )
+        this.proyecto.codigoProyecto = this.navParams.get('codigoProyecto');        
   }    
 
 }
