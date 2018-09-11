@@ -95,10 +95,9 @@ export class TareasPage {
             //console.log(this.tareas);
           }
           else {
-            this.status = 'error';
-            this.status = 'error';
+            this.status = 'error';            
             let toast = this.toastCtrl.create({
-              message: 'No se obtuvieron las tareas',
+              message: 'No hay tareas cargadas para el proyecto',
               duration: 3000,
               position: 'middle'
             });

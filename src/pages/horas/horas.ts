@@ -164,7 +164,7 @@ export class HorasPage {
           else {
             this.status = 'error';
             let toast = this.toastCtrl.create({
-              message: 'No se pudieron listar las horas',
+              message: 'No hay horas cargadas para la tarea',
               duration: 3000,
               position: 'middle'
             });              

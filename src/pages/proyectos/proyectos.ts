@@ -88,7 +88,7 @@ export class ProyectosPage {
             else{
               this.status = 'error';          
               let toast = this.toastCtrl.create({
-                message: 'No se obtuvieron los proyectos',
+                message: 'No tiene proyectos asignados',
                 duration: 3000,
                 position: 'middle'
               });

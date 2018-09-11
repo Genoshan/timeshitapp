@@ -52,6 +52,7 @@ export class TareasserviceProvider {
           if (this.tareas.length > 0) {
             return this.tareas;
           } else {
+            console.log('No hay tareas');
             return false;
           }
         })
