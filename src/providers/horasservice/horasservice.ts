@@ -119,6 +119,8 @@ export class HorasserviceProvider {
       Fecha: h.Fecha
     };
 
+    //prueba
+
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
