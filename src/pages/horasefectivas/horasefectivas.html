@@ -4,7 +4,6 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
 
 <ion-list>
@@ -30,18 +29,28 @@
             {{k.oTarea.Nombre}}
         </ion-col>
     </ion-row>
-    <ion-row justify-content-end>
-        <ion-col>               
-              <button ion-button icon-only clear (click)="IraHoradeTarea(''+k.Idhora,'/horas/')">
-                <ion-icon name="create"></ion-icon>                
-              </button>
-              <button ion-button icon-only color="danger" clear (click)="borrarHora(k.Idhora)">
-                  <ion-icon name="trash"></ion-icon>
-                </button>
-        </ion-col>
-      </ion-row>
+
   </ion-item>
   
   </ion-list>
+
+<hr>
+
+  <ion-item *ngFor="let k of horasefectivas">
+
+  <ion-col><strong>Codigo:</strong>
+    {{k.CodigoProyecto}}                
+  </ion-col>
+  <ion-row justify-content-end>
+      <ion-col><strong>Nombre:</strong>
+          {{k.Nombre}}
+      </ion-col>
+  </ion-row>
+  <ion-row justify-content-end>
+      <ion-col><strong>Fecha De Inicio:</strong>
+          {{k.FechaInicio | date: "dd-MM-yyyy"}}
+      </ion-col>
+  </ion-row>
+</ion-item>
 
 </ion-content>
