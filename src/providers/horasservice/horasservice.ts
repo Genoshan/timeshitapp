@@ -9,6 +9,7 @@ import { Http, Headers, RequestOptions } from "@angular/http";
 import { Hora } from '../../interfaces/hora';
 import { Usuario } from '../../interfaces/usuario';
 import { Tarea } from '../../interfaces/tarea';
+import { HoraEfectiva } from '../../interfaces/horaefectiva';
 
 
 @Injectable()
@@ -16,6 +17,9 @@ export class HorasserviceProvider {
 
   //ATRIBUTOS
   private horas: Hora[] = [];
+
+  private horasefectivas: HoraEfectiva[]=[];
+
   private url: string;
 
   private user: Usuario = {
@@ -153,6 +157,36 @@ export class HorasserviceProvider {
       .map(res => res.json())
 
       .catch(this.handleError);
+  }
+
+  ListarHorasMensualesDeUsuario(ci:string){   
+    
+    var body = ci;  
+    
+    console.log(body);
+
+    let params = JSON.stringify({ pCI: ci });
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this.mihttp
+      .get(this.url + "ListarHorasMensualesDeUsuario?pDocumento=" + ci + "", params)
+      .map((res: any) => {
+        console.log(res);
+        this.horasefectivas = res.json();
+        console.log(this.horasefectivas);
+
+        if (this.horasefectivas.length > 0) {
+          return this.horasefectivas;
+        } else {
+          return false;
+        }
+      })
+      .catch(this.handleError);
+
   }
 
   //MANEJADOR DE ERRORES DE SERVICIO

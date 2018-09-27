@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>HORAS EFECTIVAS</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+<ion-list>
+  <ion-list-header>
+    Horas
+  </ion-list-header>    
+      <ion-item *ngFor="let k of horasefectivas">
+        <ion-row justify-content-end>
+          <ion-col><strong>Fecha:</strong>
+            {{k.oHora.Fecha | date: "E,dd-MM-yyyy"}}
+          </ion-col>
+          <ion-col><strong>Proyecto:</strong>
+            {{k.oProyecto.Nombre}}                
+          </ion-col>
+          <ion-row justify-content-end>
+          <ion-col><strong>Cantidad de Horas:</strong>
+            {{k.oHora.CantidadHoras}}                
+          </ion-col>
+        </ion-row>
+      </ion-row>
+      <ion-row justify-content-end>
+        <ion-col><strong>Tarea:</strong>
+            {{k.oTarea.Nombre}}
+        </ion-col>
+    </ion-row>
+    <ion-row justify-content-end>
+        <ion-col>               
+              <button ion-button icon-only clear (click)="IraHoradeTarea(''+k.Idhora,'/horas/')">
+                <ion-icon name="create"></ion-icon>                
+              </button>
+              <button ion-button icon-only color="danger" clear (click)="borrarHora(k.Idhora)">
+                  <ion-icon name="trash"></ion-icon>
+                </button>
+        </ion-col>
+      </ion-row>
+  </ion-item>
+  
+  </ion-list>
+
+</ion-content>

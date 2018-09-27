@@ -11,11 +11,12 @@ import { HttpClientModule} from "@angular/common/http";
 import { MyApp } from './app.component';
 
 
-import {HomePage,UsuarioPage,TareasPage,ProyectosPage,ProyectoPage,NavbarPage,LoginUsuarioPage,HorasPage,HoraPage,TareaPage} from '../pages/index.paginas';
+import {HomePage,UsuarioPage,TareasPage,ProyectosPage,ProyectoPage,NavbarPage,LoginUsuarioPage,HorasPage,HoraPage,TareaPage,HorasefectivasPage} from '../pages/index.paginas';
 import { UsuarioserviceProvider } from '../providers/usuarioservice/usuarioservice';
 import { ProyectosserviceProvider } from '../providers/proyectosservice/proyectosservice';
 import { TareasserviceProvider } from '../providers/tareasservice/tareasservice';
 import { HorasserviceProvider } from '../providers/horasservice/horasservice';
+
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { HorasserviceProvider } from '../providers/horasservice/horasservice';
     HorasPage,
     HoraPage,
     TareaPage,
+    HorasefectivasPage    
   ],
   imports: [
     BrowserModule,
@@ -51,6 +53,7 @@ import { HorasserviceProvider } from '../providers/horasservice/horasservice';
     HorasPage,
     HoraPage,
     TareaPage,
+    HorasefectivasPage
   ],
   providers: [
     StatusBar,

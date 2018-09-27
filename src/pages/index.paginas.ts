@@ -8,4 +8,6 @@ export { LoginUsuarioPage } from './login-usuario/login-usuario';
 export { HorasPage } from './horas/horas';
 export { HoraPage } from './hora/hora';
 export { TareaPage } from './tarea/tarea';
+export { HorasefectivasPage } from './horasefectivas/horasefectivas';
+
 

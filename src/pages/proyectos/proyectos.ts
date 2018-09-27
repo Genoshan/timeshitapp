@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import {TareasPage, HorasPage, HoraPage} from '../index.paginas'
+import {TareasPage, HorasPage, HoraPage , HorasefectivasPage} from '../index.paginas'
 import { Usuario } from '../../interfaces/usuario';
 import { ProyectosserviceProvider } from '../../providers/proyectosservice/proyectosservice';
 import { Proyecto } from '../../interfaces/proyecto';
@@ -45,7 +45,8 @@ export class ProyectosPage {
   status:string;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private pservice: ProyectosserviceProvider, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+     private pservice: ProyectosserviceProvider, private toastCtrl: ToastController) {
   }
 
 
@@ -68,6 +69,12 @@ export class ProyectosPage {
     //console.log(idHora);
     //console.log(ruta);    
     this.navCtrl.push(HoraPage , {IdHora:idHora,Ruta:ruta});    
+  }
+
+  IraHorasEfectivas(){
+    //console.log(idHora);
+    console.log("llego ok");    
+    this.navCtrl.push(HorasefectivasPage);    
   }
 
   /**** CARGA INICIAL DEL COMPONENTE *****/
