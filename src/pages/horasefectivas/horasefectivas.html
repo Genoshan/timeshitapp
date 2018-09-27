@@ -36,49 +36,33 @@
 
 
 
-<ion-list>
+<ion-list >
   <ion-list-header>
-    Horas
-  </ion-list-header>   
-  </ion-list>
+
+  </ion-list-header>     
+
   <ion-item *ngFor="let p of result">
-
-      <ion-col><strong>Total de Horas:</strong>
-        {{ p.total }}
-      </ion-col>
-
       <ion-col><strong>Fecha:</strong>
-        {{ p.name }}
+        {{ p.name | date: "EE, dd-MM-yyyy" }}
       </ion-col>
+      <ion-col><strong>Total:</strong>
+          {{ p.total }}
+        </ion-col>        
 
-
-
-      <ion-row *ngFor="let v of p[values]">
-
-  <ion-row justify-content-end>
-    <ion-col><strong>Proyecto:</strong>
-      {{ p[v].oProyecto.Nombre }}   
-            
-    </ion-col>
-
-  </ion-row>
-  <ion-row justify-content-end>
-    <ion-col><strong>Tarea:</strong>
-      {{ p[v].values[v].oTarea.Nombre }}
-    </ion-col>
-
-</ion-row>
-  <ion-row justify-content-end>
-    <ion-col><strong>Cantidad de Horas:</strong>
-      {{ result[p].values[v].oHora.CantidadHoras }}             
-    </ion-col>
-
-  </ion-row>
-
-</ion-row>
-
-</ion-item>
-
-
+      <ion-row *ngFor="let v of p.values">
+          <ion-col><strong>Proyecto:</strong>          
+            {{v.oProyecto.Nombre}}                            
+          </ion-col>
+          <ion-col><strong>Tarea:</strong>          
+            {{v.oTarea.Nombre}}                            
+          </ion-col>
+          <ion-col><strong>CantidadHoras:</strong>          
+            {{v.oHora.CantidadHoras}}                            
+          </ion-col>
+      
+        </ion-row>
+      </ion-item>
+  
+  </ion-list>
 
 </ion-content>
