@@ -23,6 +23,12 @@ export class HorasefectivasPage {
 
   proyectos: Proyecto[] = [];  
 
+  result: any[];
+  name = Date;
+  fecha : any;
+
+  total:number = 0;
+
   horasefectivas: HoraEfectiva[] = [];
 
   loading: boolean;
@@ -75,9 +81,19 @@ export class HorasefectivasPage {
       correcto => {
         if (correcto) {
           this.horasefectivas = correcto;
-          
-          
-          console.log(this.horasefectivas);
+
+          var Fechas = new Set(this.horasefectivas.map(item => item.oHora.Fecha))
+          this.result = [];
+          console.log(Fechas);
+        Fechas.forEach(f =>                    
+          this.result.push({
+            name: f,
+            values: this.horasefectivas.filter(i => i.oHora.Fecha === f),
+            total:  this.horasefectivas.filter(i => i.oHora.Fecha === f)            
+              .reduce(function (acc, obj) { return acc + obj.oHora.CantidadHoras; }, 0)              
+
+          }))
+          console.log(this.result);
 
         } else {
           this.status = "error";
