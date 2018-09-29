@@ -1,6 +1,9 @@
 
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import es from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(es);
+import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -38,7 +41,8 @@ import { HorasserviceProvider } from '../providers/horasservice/horasservice';
     BrowserModule,
     HttpModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp,
+      {dayNames: ['sábado', 'domingo', 'lunes', 'martes', 'miércoles','jueves','viernes']})
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -62,7 +66,8 @@ import { HorasserviceProvider } from '../providers/horasservice/horasservice';
     UsuarioserviceProvider,
     ProyectosserviceProvider,
     TareasserviceProvider,
-    HorasserviceProvider
+    HorasserviceProvider,
+    { provide: LOCALE_ID, useValue: "es" } 
   ]
 })
 export class AppModule {}

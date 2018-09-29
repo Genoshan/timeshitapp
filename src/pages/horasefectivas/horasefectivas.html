@@ -31,37 +31,42 @@
       {{k.oHora.CantidadHoras}}                
     </ion-col>
   </ion-row>
-</ion-item> -->
+</ion-item> 
+
+    <ion-item-group *ngFor="let group of groupedContacts">
+ 
+      <ion-item-divider light>{{group.letter}}</ion-item-divider>
+      <ion-item *ngFor="let contact of group.contacts">{{contact}}</ion-item>
+ 
+    </ion-item-group>
 
 
 
-
-<ion-list >
-  <ion-list-header>
-
-  </ion-list-header>     
-
-  <ion-item *ngFor="let p of result">
+-->
+<ion-list>
+  
+  <ion-item-group *ngFor="let p of result" >
+      <ion-item-divider>
       <ion-col><strong>Fecha:</strong>
-        {{ p.name | date: "EE, dd-MM-yyyy" }}
+        {{ p.name | date: "EEEE, dd-MM-yyyy" }}
       </ion-col>
       <ion-col><strong>Total:</strong>
           {{ p.total }}
         </ion-col>        
-
-      <ion-row *ngFor="let v of p.values">
-          <ion-col><strong>Proyecto:</strong>          
+      </ion-item-divider>
+      <ion-row *ngFor="let v of p.values" > 
+          <ion-col><strong>Proyecto:</strong>
             {{v.oProyecto.Nombre}}                            
           </ion-col>
-          <ion-col><strong>Tarea:</strong>          
+          <ion-col><strong>Tarea:</strong>
             {{v.oTarea.Nombre}}                            
           </ion-col>
-          <ion-col><strong>CantidadHoras:</strong>          
+          <ion-col><strong>Horas:</strong>
             {{v.oHora.CantidadHoras}}                            
           </ion-col>
       
         </ion-row>
-      </ion-item>
+  </ion-item-group>
   
   </ion-list>
 
