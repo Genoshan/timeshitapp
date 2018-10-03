@@ -561,7 +561,7 @@ export class HoraPage {
             //selecciono la primer tarea de la lista del proyecto cargado
             this.hora.IdTarea = this.tareas[0].IdTarea;
             this.tarea.IdProyecto = this.tareas[0].IdProyecto;
-            //console.log(this.tareas);                            
+            console.log(this.tareas);                            
           }
           else {
             this.status = 'error';

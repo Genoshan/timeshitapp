@@ -16,7 +16,7 @@
 
                 <ion-item>
                     <ion-label>Proyecto</ion-label>
-                    <ion-select [(ngModel)]="tarea.IdProyecto" (change)="onProyectoChange()">
+                    <ion-select [(ngModel)]="tarea.IdProyecto"  (ionChange)="onProyectoChange()">
                       <ion-option *ngFor="let proyecto of proyectos" [value]="proyecto.IdProyecto">{{proyecto.Nombre}}</ion-option>
                     </ion-select>
                   </ion-item>
