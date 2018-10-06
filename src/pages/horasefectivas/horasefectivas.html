@@ -17,18 +17,26 @@
           {{ p.total }}
         </ion-col>        
       </ion-item-divider>
-      <ion-grid>
-      <ion-row *ngFor="let v of p.values" > 
-          <ion-col><strong>Proyecto:</strong>
-            {{v.oProyecto.Nombre}}                            
+      <ion-grid>      
+      <ion-row *ngFor="let v of p.values; let i = index;" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">         
+        
+          <ion-col col-12>
+          <ion-row>      
+              <strong>Proyecto: </strong> <p>&nbsp;</p>
+           {{v.oProyecto.Nombre}}
+          </ion-row>
           </ion-col>
-          <ion-col><strong>Tarea:</strong>
-            {{v.oTarea.Nombre}}                            
+          <ion-col col-12>
+          <ion-row>
+            <strong>Tarea: </strong> <p>&nbsp;</p>
+                     {{v.oTarea.Nombre}}</ion-row>
           </ion-col>
-          <ion-col><strong>Horas:</strong>
-            {{v.oHora.CantidadHoras}}                            
+
+            <ion-col col-12>
+          <ion-row><strong>Horas: </strong><p>&nbsp;</p>
+           {{v.oHora.CantidadHoras}}</ion-row>
           </ion-col>
-      
+
         </ion-row>
       </ion-grid>
   </ion-item-group>

@@ -1,3 +1,4 @@
+import { AsignarusuariosaproyectosPage } from './../asignarusuariosaproyectos/asignarusuariosaproyectos';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import {TareasPage, HorasPage, HoraPage , HorasefectivasPage} from '../index.paginas'
@@ -31,7 +32,15 @@ export class ProyectosPage {
     //password: string;
     img: "",
     ci: ""
-  }  
+  }
+  
+  useraasignar: Usuario = {
+    nombre: "",
+    email: "",
+    //password: string;
+    img: "",
+    ci: ""
+  };
 
   proyecto:Proyecto = {
 
@@ -76,6 +85,12 @@ export class ProyectosPage {
     console.log("llego ok");    
     this.navCtrl.push(HorasefectivasPage);    
   }
+
+  IraAsignarUsuariosAProyectos(){
+    this.navCtrl.push(AsignarusuariosaproyectosPage);
+  }
+
+
 
   /**** CARGA INICIAL DEL COMPONENTE *****/
   ionViewDidLoad() {   
