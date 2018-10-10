@@ -9,5 +9,6 @@ export { HorasPage } from './horas/horas';
 export { HoraPage } from './hora/hora';
 export { TareaPage } from './tarea/tarea';
 export { HorasefectivasPage } from './horasefectivas/horasefectivas';
+export { AsignarusuariosaproyectosPage } from './asignarusuariosaproyectos/asignarusuariosaproyectos';
 
 

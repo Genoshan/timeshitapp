@@ -14,7 +14,7 @@ import { HttpClientModule} from "@angular/common/http";
 import { MyApp } from './app.component';
 
 
-import {HomePage,UsuarioPage,TareasPage,ProyectosPage,ProyectoPage,NavbarPage,LoginUsuarioPage,HorasPage,HoraPage,TareaPage,HorasefectivasPage} from '../pages/index.paginas';
+import {HomePage,UsuarioPage,TareasPage,ProyectosPage,ProyectoPage,NavbarPage,LoginUsuarioPage,HorasPage,HoraPage,TareaPage,HorasefectivasPage, AsignarusuariosaproyectosPage} from '../pages/index.paginas';
 import { UsuarioserviceProvider } from '../providers/usuarioservice/usuarioservice';
 import { ProyectosserviceProvider } from '../providers/proyectosservice/proyectosservice';
 import { TareasserviceProvider } from '../providers/tareasservice/tareasservice';
@@ -35,7 +35,8 @@ import { HorasserviceProvider } from '../providers/horasservice/horasservice';
     HorasPage,
     HoraPage,
     TareaPage,
-    HorasefectivasPage    
+    HorasefectivasPage,
+    AsignarusuariosaproyectosPage    
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,8 @@ import { HorasserviceProvider } from '../providers/horasservice/horasservice';
     HorasPage,
     HoraPage,
     TareaPage,
-    HorasefectivasPage
+    HorasefectivasPage,
+    AsignarusuariosaproyectosPage
   ],
   providers: [
     StatusBar,

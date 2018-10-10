@@ -5,7 +5,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-import {Http} from "@angular/http";
+import { Http, Headers, RequestOptions } from "@angular/http";
+import { Proyecto } from '../../interfaces/proyecto';
+import { Usuario } from '../../interfaces/usuario';
 
 
 
@@ -29,11 +31,65 @@ export class UsuarioserviceProvider {
     img: string;
     ci: number;
   };
-  private url: string;
+
+  listausuariosaasignar:Usuario[]= [];
+
+  private url: string;  
 
   constructor(public _http: HttpClient,public mihttp:Http) {
     
     this.url = "http://localhost:88/api/";
+  }
+
+  asignarUsuarios(proyecto: Proyecto, useraasignar: Usuario) {
+    var body = {
+
+      pIdProyecto: proyecto.IdProyecto,
+      pDocumento: useraasignar.ci
+    };
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });    
+
+    return this.mihttp
+      .post(this.url + 'Usuario', body, { headers: headers })
+      .map((resp: any) => {
+        return resp;
+      })
+      .catch(this.handleError);
+    
+  }
+
+  getUsuariosNoAsignadosDeProyecto(proyecto: Proyecto){
+
+      let params = JSON.stringify({ pIdProyecto: proyecto.IdProyecto });
+  
+      let headers = new Headers();
+      headers.append("Content-Type", "application/json");
+  
+      return this.mihttp
+        .get(
+          this.url + "ListarUsuariosNoAsignadosDeProyecto?pIdProyecto=" + proyecto.IdProyecto+"",
+          params
+        )
+        .map((res: any) => {        
+          
+           this.listausuariosaasignar = res.json();
+                    
+            if (this.listausuariosaasignar.length>0)
+            {            
+              return this.listausuariosaasignar;
+            }
+          else {
+            
+            return false;
+          }
+          
+        })
+        .catch(this.handleError); 
+
   }
 
   login(email: string, pass: string) {
