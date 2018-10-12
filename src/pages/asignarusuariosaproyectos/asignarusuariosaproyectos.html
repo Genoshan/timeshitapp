@@ -16,15 +16,15 @@
 
               <ion-item>
                   <ion-label>Proyecto</ion-label>
-                  <ion-select [(ngModel)]="proyecto.IdProyecto"  (ionChange)="onProyectoChange()">
-                    <ion-option *ngFor="let proyecto of proyectos" [value]="proyecto.IdProyecto">{{proyecto.Nombre}}</ion-option>
+                  <ion-select [(ngModel)]="proyecto.IdProyecto" multiple="false"  (ionChange)="onProyectoChange(proyecto.IdProyecto)">
+                    <ion-option *ngFor="let proyecto of proyectos"  [value]="proyecto.IdProyecto">{{proyecto.Nombre}}</ion-option>
                   </ion-select>
                 </ion-item>
 
                 <ion-item>
                     <ion-label>Usuario</ion-label>
-                    <ion-select [(ngModel)]="usuario.ci" >
-                      <ion-option *ngFor="let usuario of listausuariosaasignar" [value]="usuario.ci">{{usuario.nombre}}</ion-option>
+                    <ion-select [(ngModel)]="useraasignar.ci" >
+                      <ion-option *ngFor="let useraasignar of listausuariosaasignar" [value]="useraasignar.ci">{{useraasignar.nombre}}</ion-option>
                     </ion-select>
                   </ion-item>              
               

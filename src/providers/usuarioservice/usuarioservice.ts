@@ -42,19 +42,26 @@ export class UsuarioserviceProvider {
   }
 
   asignarUsuarios(proyecto: Proyecto, useraasignar: Usuario) {
-    var body = {
 
-      pIdProyecto: proyecto.IdProyecto,
-      pDocumento: useraasignar.ci
-    };
+    let params = JSON.stringify({ pDocumento: useraasignar.ci, pIdProyecto: proyecto.IdProyecto });
 
     let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    headers.append("Content-Type", "application/json");
+    
+    // var body = {
 
-    let options = new RequestOptions({ headers: headers });    
+    //   pDocumento: useraasignar.ci,
+    //   pIdProyecto: proyecto.IdProyecto
+      
+    // };
+
+    //let headers = new Headers();
+    //headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });   
 
     return this.mihttp
-      .post(this.url + 'Usuario', body, { headers: headers })
+      .post(this.url + 'Usuario?'+"pDocumento=" + useraasignar.ci+"&pIdProyecto=" + proyecto.IdProyecto, params)
       .map((resp: any) => {
         return resp;
       })

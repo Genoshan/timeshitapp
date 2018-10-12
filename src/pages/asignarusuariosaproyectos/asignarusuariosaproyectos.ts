@@ -1,3 +1,4 @@
+import { Usuario } from './../../interfaces/usuario';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Usuario } from '../../interfaces/usuario';
@@ -5,6 +6,7 @@ import { Proyecto } from '../../interfaces/proyecto';
 import {ProyectosPage} from '../index.paginas'
 import { ProyectosserviceProvider } from '../../providers/proyectosservice/proyectosservice';
 import { UsuarioserviceProvider } from '../../providers/usuarioservice/usuarioservice';
+import { constructDependencies } from '@angular/core/src/di/reflective_provider';
 
 /**
  * Generated class for the AsignarusuariosaproyectosPage page.
@@ -27,6 +29,7 @@ export class AsignarusuariosaproyectosPage {
     img: "",
     ci: ""
   };
+
   
   useraasignar: Usuario = {
     nombre: "",
@@ -46,7 +49,29 @@ export class AsignarusuariosaproyectosPage {
   }
 
   proyectos:Proyecto[] = [];
-  listausuariosaasignar:Usuario[]= [];
+  listausuariosaasignar:Usuario[]= [
+    {
+      nombre: "User1",
+      ci: "11111111",
+      email:"1@mail.com",
+      img: "",
+    },
+
+    {
+      nombre: "User2",
+      ci: "2222222",
+      email:"2@mail.com",
+      img: "",
+    },
+
+    {
+      nombre: "User3",
+      ci: "33333333",
+      email:"3@mail.com",
+      img: "",
+    },
+  ];
+
   status: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
@@ -59,40 +84,86 @@ export class AsignarusuariosaproyectosPage {
     this.navCtrl.push(ProyectosPage);    
   }
 
-  onProyectoChange() {
-    //console.log(this.tarea.IdProyecto);
+  onProyectoChange(proy) {
+    console.log(proy);
+    this.proyecto = {
 
-    this.uservice.getUsuariosNoAsignadosDeProyecto(this.proyecto)
-      .subscribe(
-        correcto => {
-          if (correcto) {
-            //vacio las tareas y las vuelvo a cargar.
-            this.listausuariosaasignar = null;
-            this.listausuariosaasignar = correcto;
-            //selecciono la primer tarea de la lista del proyecto cargado
-            this.useraasignar.ci = this.listausuariosaasignar[0].ci;            
-            //console.log(this.tareas);                            
-          }
-          else {
-            this.status = 'error';
-          }
-        }, (error) => {
-          this.status = 'error';
-          let toast = this.toastCtrl.create({
-            message: error,
-            duration: 3000,
-            position: 'top'
-          });            
-          toast.onDidDismiss(() => {
-            //console.log('Dismissed toast');
-          });            
-          toast.present(); 
-          //console.log(error);
-        })
+      Nombre:"",
+      FechaInicio:new Date(Date.now()),
+      Estado:true,
+      codigoProyecto:"",    
+      IdProyecto: 0,
+    }
+
+    this.proyecto = this.proyectos.find(x => x.IdProyecto===proy);
+    //usuarios de muestra
+    this.listausuariosaasignar= [
+      {
+        nombre: "User1",
+        ci: "11111111",
+        email:"1@mail.com",
+        img: "",
+      },
+  
+      {
+        nombre: "User2",
+        ci: "2222222",
+        email:"2@mail.com",
+        img: "",
+      },
+  
+      {
+        nombre: "User3",
+        ci: "33333333",
+        email:"3@mail.com",
+        img: "",
+      },
+    ];
+  
+    
+
+    this.useraasignar.ci = this.listausuariosaasignar[0].ci;
+    
+
+    console.log(this.proyecto.IdProyecto);
+
+
+    //cuando tenga el listado de usuarios.
+
+    // this.uservice.getUsuariosNoAsignadosDeProyecto(this.proyecto)
+    //   .subscribe(
+    //     correcto => {
+    //       if (correcto) {
+    //         //vacio las listas y las vuelvo a cargar.
+    //         this.listausuariosaasignar = null;
+    //         this.listausuariosaasignar = correcto;
+    //         //selecciono el primero de la lista del proyecto cargado
+    //         this.useraasignar.ci = this.listausuariosaasignar[0].ci;            
+    //         //console.log(this.tareas);                            
+    //       }
+    //       else {
+    //         this.status = 'error';
+    //       }
+    //     }, (error) => {
+    //       this.status = 'error';
+    //       let toast = this.toastCtrl.create({
+    //         message: error,
+    //         duration: 3000,
+    //         position: 'top'
+    //       });            
+    //       toast.onDidDismiss(() => {
+    //         //console.log('Dismissed toast');
+    //       });            
+    //       toast.present(); 
+    //       //console.log(error);
+    //     })
   }
 
   AsignarUsuarioAProyecto()
   {
+    console.log(this.proyecto.IdProyecto);
+    console.log(this.useraasignar.ci);
+
     this.uservice.asignarUsuarios(this.proyecto,this.useraasignar).subscribe(
       correcto => {
         if (correcto) {
@@ -149,6 +220,15 @@ export class AsignarusuariosaproyectosPage {
 
   ionViewDidLoad() {
     //cargar proyectos en combo
+
+    // this.proyecto = {
+
+    //   Nombre:"",
+    //   FechaInicio:new Date(Date.now()),
+    //   Estado:true,
+    //   codigoProyecto:"",    
+    //   IdProyecto: 0,
+    // }
             //LISTA PROYECTOS DEL USUARIO DESDE API
         this.user=JSON.parse(localStorage.getItem('usuario'));
 
@@ -159,7 +239,7 @@ export class AsignarusuariosaproyectosPage {
               if(correcto)
               {
                 this.proyectos = correcto;
-                this.proyecto=this.proyectos[0];                 
+                //this.proyecto=this.proyectos[0];                 
               }
               else{
                 this.status = 'error';          
@@ -192,41 +272,69 @@ export class AsignarusuariosaproyectosPage {
     
 
      //cargar usuarios en combo (que no esten asignado al proyecto)
-    //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
-    this.uservice.getUsuariosNoAsignadosDeProyecto(this.proyecto)
-    .subscribe(        
-    correcto => { 
-      if(correcto)
-      { 
-        this.listausuariosaasignar = correcto;                 
-      }
-      else{
-        this.status = 'error';          
-        let toast = this.toastCtrl.create({
-          message: 'Todos los usuarios estan asignados',
-          duration: 3000,
-          position: 'middle'
-        });
-        toast.onDidDismiss(() => {
-          //console.log('Dismissed toast');
-        });
-        toast.present();             
-      }
-  },(error) => {
-    this.status = 'error';
-    let toast = this.toastCtrl.create({
-      message: error,
-      duration: 3000,
-      position: 'middle'
-    });            
-    toast.onDidDismiss(() => {
-      //console.log('Dismissed toast');
-    });            
-    toast.present();
+     //usuarios de muestra
+     //usuarios de muestra
+    this.listausuariosaasignar= [
+      {
+        nombre: "User1",
+        ci: "11111111",
+        email:"1@mail.com",
+        img: "",
+      },
+  
+      {
+        nombre: "User2",
+        ci: "2222222",
+        email:"2@mail.com",
+        img: "",
+      },
+  
+      {
+        nombre: "User3",
+        ci: "33333333",
+        email:"3@mail.com",
+        img: "",
+      },
+    ];
 
-    //console.log(error);                    
-    } 
-  )  
+
+    this.useraasignar.ci = this.listausuariosaasignar[0].ci;       
+    console.log(this.proyecto.IdProyecto);
+    //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
+  //   this.uservice.getUsuariosNoAsignadosDeProyecto(this.proyecto)
+  //   .subscribe(        
+  //   correcto => { 
+  //     if(correcto)
+  //     { 
+  //       this.listausuariosaasignar = correcto;                 
+  //     }
+  //     else{
+  //       this.status = 'error';          
+  //       let toast = this.toastCtrl.create({
+  //         message: 'Todos los usuarios estan asignados',
+  //         duration: 3000,
+  //         position: 'middle'
+  //       });
+  //       toast.onDidDismiss(() => {
+  //         //console.log('Dismissed toast');
+  //       });
+  //       toast.present();             
+  //     }
+  // },(error) => {
+  //   this.status = 'error';
+  //   let toast = this.toastCtrl.create({
+  //     message: error,
+  //     duration: 3000,
+  //     position: 'middle'
+  //   });            
+  //   toast.onDidDismiss(() => {
+  //     //console.log('Dismissed toast');
+  //   });            
+  //   toast.present();
+
+  //   //console.log(error);                    
+  //   } 
+  // )  
 }
 }
 
