@@ -6,7 +6,46 @@
 
 <ion-content padding>
 
-<ion-list>
+    <ion-list class="accordion-list">
+        <!-- First Level -->
+        <ion-list-header *ngFor="let p of result; let i = index" no-lines no-padding>
+          <!-- Toggle Button -->
+          <button ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': p.open, 'section': !p.open}">
+            <ion-icon item-left name="arrow-forward" *ngIf="!p.open"></ion-icon>
+            <ion-icon item-left name="arrow-down" *ngIf="p.open"></ion-icon>            
+              <strong><button ion-button>Fecha:</button><button ion-button outline> {{ p.name | date: "EEEE, dd-MM-yyyy" }}</button></strong>             
+              <strong><button ion-button>Total:</button> <button ion-button outline> {{ p.total }}</button> </strong>               
+          </button>
+     
+          <ion-list *ngIf="p.values && p.open" >
+            <!-- Second Level -->
+            <ion-item *ngFor="let v of p.values; let j = index" no-padding [ngClass]="(j % 2 == 0) ? 'odd' : 'even'">              
+              <ion-col class="child" text-wrap>               
+                <!-- <h2>Proyecto:</h2><p>&nbsp;</p>
+               {{v.oProyecto.Nombre}}<p>&nbsp;</p> 
+                Tarea:<p>&nbsp;</p>
+                {{v.oTarea.Nombre}}<p>&nbsp;</p>
+                Horas:<p>&nbsp;</p>
+               {{v.oHora.CantidadHoras}}<p>&nbsp;</p> -->
+
+               <p><strong>Proyecto:</strong>
+               <small>{{v.oProyecto.Nombre}}</small></p>
+               <!-- <p text-lowercase>{{v.oProyecto.Nombre}}</p> -->
+               <p><strong>Tarea:</strong>
+               <small>{{v.oTarea.Nombre}}</small></p>
+               <!-- <p text-lowercase>{{v.oTarea.Nombre}}</p> -->
+               <p><strong>Horas:</strong>
+               <button ion-button outline>{{v.oHora.CantidadHoras}}</button></p>
+             
+              </ion-col>
+            </ion-item>
+          </ion-list>
+        </ion-list-header>
+      </ion-list>
+
+
+
+<!-- <ion-list>
   
   <ion-item-group *ngFor="let p of result" >
       <ion-item-divider color="primary">
@@ -41,5 +80,5 @@
       </ion-grid>
   </ion-item-group>
   
-  </ion-list>
+  </ion-list> -->
 </ion-content>

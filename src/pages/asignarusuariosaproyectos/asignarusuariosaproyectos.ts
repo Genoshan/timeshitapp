@@ -1,4 +1,3 @@
-import { Usuario } from './../../interfaces/usuario';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Usuario } from '../../interfaces/usuario';

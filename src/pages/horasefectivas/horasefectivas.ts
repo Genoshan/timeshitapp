@@ -7,6 +7,7 @@ import { Tarea } from '../../interfaces/tarea';
 import { Hora } from '../../interfaces/hora';
 import { HorasserviceProvider } from '../../providers/horasservice/horasservice';
 
+
 /**
  * Generated class for the HorasefectivasPage page.
  *
@@ -72,6 +73,11 @@ export class HorasefectivasPage {
     private hservice: HorasserviceProvider) {
   }
 
+  toggleSection(i) {
+    this.result[i].open = !this.result[i].open;
+  }
+  
+
   ListarHorasMensualesDeUsuario(){
 
     //LISTA HORAS EFECTIVAS DEL USUARIO DESDE API
@@ -106,8 +112,6 @@ export class HorasefectivasPage {
     );
 
   }
-
-  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HorasefectivasPage');    
