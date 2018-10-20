@@ -11,12 +11,15 @@
         <ion-list-header *ngFor="let p of result; let i = index" no-lines no-padding>
           <!-- Toggle Button -->
           <button ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': p.open, 'section': !p.open}">
-            <ion-icon item-left name="arrow-forward" *ngIf="!p.open"></ion-icon>
-            <ion-icon item-left name="arrow-down" *ngIf="p.open"></ion-icon>            
-              <strong><button ion-button>Fecha:</button><button ion-button outline> {{ p.name | date: "EEEE, dd-MM-yyyy" }}</button></strong>             
-              <strong><button ion-button>Total:</button> <button ion-button outline> {{ p.total }}</button> </strong>               
+            <ion-icon item-left name="arrow-down" *ngIf="!p.open"></ion-icon>
+            <ion-icon item-left name="arrow-up" *ngIf="p.open"></ion-icon>            
+              <strong>
+                  <ion-badge>{{ p.name | date: "EEEE, dd-MM-yyyy" }}</ion-badge>
+                <!-- <button ion-button>Fecha:</button><button ion-button outline> {{ p.name | date: "EEEE, dd-MM-yyyy" }}</button> -->
+                </strong>              
+              Total: <strong><ion-badge> {{ p.total }}</ion-badge> </strong>               
           </button>
-     
+          
           <ion-list *ngIf="p.values && p.open" >
             <!-- Second Level -->
             <ion-item *ngFor="let v of p.values; let j = index" no-padding [ngClass]="(j % 2 == 0) ? 'odd' : 'even'">              
@@ -35,7 +38,9 @@
                <small>{{v.oTarea.Nombre}}</small></p>
                <!-- <p text-lowercase>{{v.oTarea.Nombre}}</p> -->
                <p><strong>Horas:</strong>
-               <button ion-button outline>{{v.oHora.CantidadHoras}}</button></p>
+               <!-- <button ion-button outline>{{v.oHora.CantidadHoras}}</button> -->
+               <ion-badge item-end>{{v.oHora.CantidadHoras}}</ion-badge>
+              </p>
              
               </ion-col>
             </ion-item>
