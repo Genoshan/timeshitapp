@@ -85,16 +85,16 @@ export class AsignarusuariosaproyectosPage {
 
   onProyectoChange(proy) {
     console.log(proy);
-    this.proyecto = {
+    // this.proyecto = {
 
-      Nombre:"",
-      FechaInicio:new Date(Date.now()),
-      Estado:true,
-      codigoProyecto:"",    
-      IdProyecto: 0,
-    }
+    //   Nombre:"",
+    //   FechaInicio:new Date(Date.now()),
+    //   Estado:true,
+    //   codigoProyecto:"",    
+    //   IdProyecto: 0,
+    // }
 
-    this.proyecto = this.proyectos.find(x => x.IdProyecto===proy);
+    let p = this.proyectos.find(x => x.IdProyecto===proy);
     //usuarios de muestra
     this.listausuariosaasignar= [
       {
@@ -124,7 +124,7 @@ export class AsignarusuariosaproyectosPage {
     this.useraasignar.ci = this.listausuariosaasignar[0].ci;
     
 
-    console.log(this.proyecto.IdProyecto);
+    console.log(p.IdProyecto);
 
 
     //cuando tenga el listado de usuarios.
@@ -165,7 +165,7 @@ export class AsignarusuariosaproyectosPage {
 
     this.uservice.asignarUsuarios(this.proyecto,this.useraasignar).subscribe(
       correcto => {
-        if (correcto) {
+        if (correcto==="S") {
           //console.log(JSON.parse(localStorage.getItem("usuario")));
           //this.proyectos = JSON.parse(correcto.proyectos);              
               let toast = this.toastCtrl.create({
@@ -185,9 +185,9 @@ export class AsignarusuariosaproyectosPage {
               //console.log(this.tareas);
             }
             else {
-              this.status = 'error';
+              //this.status = 'error';
               let toast = this.toastCtrl.create({
-                message: 'El usuario no fue asignado al proyecto',                
+                message: correcto.Mensaje +'-'+correcto.Descripcion + 'El usuario no fue asignado al proyecto',                
                 duration: 3000,
                 position: 'top'
               });
@@ -235,37 +235,48 @@ export class AsignarusuariosaproyectosPage {
             this.pservice.getProyectosUsuario(this.user["CI"])
             .subscribe(        
             correcto => { 
-              if(correcto)
-              {
-                this.proyectos = correcto;
-                //this.proyecto=this.proyectos[0];                 
-              }
-              else{
-                this.status = 'error';          
-                let toast = this.toastCtrl.create({
-                  message: 'No tiene proyectos asignados',
-                  duration: 3000,
-                  position: 'middle'
-                });
-                toast.onDidDismiss(() => {
-                  //console.log('Dismissed toast');
-                });
-                toast.present();             
-              }
-          },(error) => {
-            this.status = 'error';
-            let toast = this.toastCtrl.create({
-              message: error,
-              duration: 3000,
-              position: 'middle'
-            });            
-            toast.onDidDismiss(() => {
-              //console.log('Dismissed toast');
-            });            
-            toast.present();
-  
-            //console.log(error);                    
-            } 
+              if(correcto.RetornoCorrecto==="S")
+            {              
+              correcto.Retorno.forEach(element => {
+
+                let p : Proyecto = {
+
+                  Nombre: element.Nombre,
+                  FechaInicio: element.FechaInicio,
+                  Estado: element.Estado,
+                  codigoProyecto: element.CodigoProyecto,    
+                  IdProyecto: element.IdProyecto,
+                }
+                this.proyectos.push(p);
+              });                 
+              
+            }
+            else{
+              //this.status = 'error';          
+              let toast = this.toastCtrl.create({
+                message: correcto.Mensaje +'-'+correcto.Descripcion+'-'+'No tiene proyectos asignados',
+                duration: 3000,
+                position: 'middle'
+              });
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });
+              toast.present();             
+            }
+        },(error) => {
+          this.status = 'error';
+          let toast = this.toastCtrl.create({
+            message: error,
+            duration: 3000,
+            position: 'middle'
+          });            
+          toast.onDidDismiss(() => {
+            //console.log('Dismissed toast');
+          });            
+          toast.present();
+
+          //console.log(error);                    
+          } 
           )
           //this.proyecto.codigoProyecto = this.navParams.get('codigoProyecto');        
     

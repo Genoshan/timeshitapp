@@ -27,14 +27,16 @@ export class LoginUsuarioPage {
   logueo(){
     this.us.login(this.email,this.pass)    
     .subscribe(        
-    correcto => { 
-      if(correcto)
-      {
-        this.navCtrl.push(ProyectosPage);
-      }
+    correcto => {
+      /*PARA RETORNOS NUEVOS LOGIN TS*/
+      /*PARA USAR CON LA NUEVA FORMA DE RETORNO*/
+         if (correcto ==="S") {
+          this.navCtrl.push(ProyectosPage);           
+         }
+         
       else{
         let toast = this.toastCtrl.create({
-          message: 'Credenciales incorrectas',
+          message: correcto.Mensaje +'-'+correcto.Descripcion,
           duration: 3000,
           position: 'middle'
         });

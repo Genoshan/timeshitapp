@@ -25,12 +25,38 @@ export class UsuarioserviceProvider {
   pass: string;
 
   private Usuario: {
-    nombre: string;
-    email: string;
+    Nombre: string;
+    Email: string;
     //password: string,
-    img: string;
-    ci: number;
+    Img: string;
+    CI: number;
   };
+
+//OBJETO RETORNOLOGIN
+private retornoLogin = {
+  "RetornoCorrecto": "S",
+  "Retorno": {
+      "Nombre": null,
+      "Email": null,
+      "Img": null,
+      "CI": null
+  },
+  "Errores": {
+    "ExceptionType": null,
+    "Mensaje": null,
+    "Descripcion": null
+}
+};
+
+private retornoAsignarUsuarioAProyecto = {
+  "RetornoCorrecto": "S",
+  "Retorno": false,
+  "Errores": {
+    "ExceptionType": null,
+    "Mensaje": null,
+    "Descripcion": null
+  }
+}
 
   listausuariosaasignar:Usuario[]= [];
 
@@ -47,23 +73,22 @@ export class UsuarioserviceProvider {
 
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
-    
-    // var body = {
-
-    //   pDocumento: useraasignar.ci,
-    //   pIdProyecto: proyecto.IdProyecto
-      
-    // };
-
-    //let headers = new Headers();
-    //headers.append('Content-Type', 'application/json');
-
     let options = new RequestOptions({ headers: headers });   
 
     return this.mihttp
       .post(this.url + 'Usuario?'+"pDocumento=" + useraasignar.ci+"&pIdProyecto=" + proyecto.IdProyecto, params)
       .map((resp: any) => {
-        return resp;
+        this.retornoAsignarUsuarioAProyecto = resp.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoAsignarUsuarioAProyecto.RetornoCorrecto==="S")
+        {
+          return this.retornoAsignarUsuarioAProyecto.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoAsignarUsuarioAProyecto.Errores;          
+        }//fin nueva forma
+        
       })
       .catch(this.handleError);
     
@@ -103,7 +128,7 @@ export class UsuarioserviceProvider {
     let params = JSON.stringify({ pUsuario: email, pClave: pass });
 
     let headers = new Headers();
-    headers.append("Content-Type", "application/json");
+    headers.append("Content-Type", "application/json");    
 
     return this.mihttp
       .get(
@@ -111,18 +136,23 @@ export class UsuarioserviceProvider {
         params
       )
       .map((res: any) => { 
-                
-         this.Usuario = res.json();
-                  
+        //obtengo el retorno con la  nueva forma
+        this.retornoLogin = res.json();
+
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoLogin.RetornoCorrecto==="S")
+        {
+          this.Usuario = this.retornoLogin.Retorno;
           if (this.Usuario["Nombre"]!=null)
-          {            
+          {
             localStorage.setItem('usuario',JSON.stringify(this.Usuario));
-            return true;
+            return this.retornoLogin.RetornoCorrecto;
           }
-        else {          
-          return false;
         }
-        
+        else 
+        {
+          return this.retornoLogin.Errores;          
+        }//fin nueva forma
       })
       .catch(this.handleError); 
   }

@@ -103,14 +103,29 @@ export class ProyectosPage {
         this.pservice.getProyectosUsuario(this.user["CI"])
           .subscribe(        
           correcto => { 
-            if(correcto)
-            {
-              this.proyectos = correcto;                 
+
+            console.log(this.proyectos);
+            console.log(correcto);
+            if(correcto.RetornoCorrecto==="S")
+            {              
+              correcto.Retorno.forEach(element => {
+
+                let p : Proyecto = {
+
+                  Nombre: element.Nombre,
+                  FechaInicio: element.FechaInicio,
+                  Estado: element.Estado,
+                  codigoProyecto: element.CodigoProyecto,    
+                  IdProyecto: element.IdProyecto,
+                }
+                this.proyectos.push(p);
+              });                 
+              
             }
             else{
-              this.status = 'error';          
+              //this.status = 'error';          
               let toast = this.toastCtrl.create({
-                message: 'No tiene proyectos asignados',
+                message: correcto.Mensaje +'-'+correcto.Descripcion+'-'+'No tiene proyectos asignados',
                 duration: 3000,
                 position: 'middle'
               });
