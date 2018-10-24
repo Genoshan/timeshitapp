@@ -32,7 +32,7 @@ export class TareasPage {
     Nombre: "",
     FechaInicio: new Date(Date.now()),
     Estado: true,
-    codigoProyecto: "",
+    CodigoProyecto: "",
     IdProyecto: 0,
   }
 
@@ -88,46 +88,45 @@ export class TareasPage {
     this.tservice.getTareasDeProyecto(this.id)
       .subscribe(
         correcto => {
-          if (correcto) {
-            //vacio las tareas y las vuelvo a cargar.
-            this.tareas = null;
-            this.tareas = correcto;
-            //console.log(this.tareas);
-          }
-          else {
-            this.status = 'error';            
-            let toast = this.toastCtrl.create({
-              message: 'No hay tareas cargadas para el proyecto',
-              duration: 3000,
-              position: 'middle'
-            });
-            toast.onDidDismiss(() => {
-              //console.log('Dismissed toast');
-            });
-            toast.present();
-
-            //alert('El usuario no esta');
-          }
-        }, (error) => {
-          this.status = 'error';
-          let toast = this.toastCtrl.create({
-            message: error,
-            duration: 3000,
-            position: 'middle'
-          });
-          toast.onDidDismiss(() => {
-            //console.log('Dismissed toast');
-          });
-          toast.present();
-        }
-      )
+          if(correcto.RetornoCorrecto==="S")
+            { 
+              if(correcto.Retorno.length>0){
+                //console.log(correcto);
+                //vacio las tareas y las vuelvo a cargar.
+                this.tareas = null;
+                this.tareas = correcto.Retorno;                      
+              }
+              else{
+                let toast = this.toastCtrl.create({
+                  message: 'No tiene tareas asignados',
+                  duration: 3000,
+                  position: 'middle'
+                });
+                toast.onDidDismiss(() => {                  
+                });
+                toast.present();  
+              }                           
+            }
+            else
+            {              
+              let toast = this.toastCtrl.create({
+                message: correcto.Mensaje +'-'+correcto.Descripcion,
+                duration: 3000,
+                position: 'middle'
+              });
+              toast.onDidDismiss(() => {                
+              });
+              toast.present();             
+            }     
+         }
+         )
   }
 
 
 
 
   borrarTarea(k: Number) {
-
+    
     let alert = this.alertCtrl.create({
       title: 'La tarea se eliminará, está seguro?',
       message: 'La tarea no se podrá recuperar.',
@@ -146,7 +145,7 @@ export class TareasPage {
             this.tservice.eliminarTarea(k)
               .subscribe(
                 correcto => {
-                  if (correcto) {
+                  if (correcto==="S") {
                     //vuelvo a cargar la lista
                     let toast = this.toastCtrl.create({
                       message: 'Tarea Eliminada',
@@ -166,7 +165,7 @@ export class TareasPage {
                     //alert("La tarea No Fue Eliminada");                                
                     this.status = 'error';
                     let toast = this.toastCtrl.create({
-                      message: 'La Tarea No Fue Eliminada',
+                      message: correcto.Mensaje +'-'+correcto.Descripcion,
                       duration: 3000,
                       position: 'middle'
                     });

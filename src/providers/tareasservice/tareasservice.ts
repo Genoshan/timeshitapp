@@ -26,6 +26,60 @@ export class TareasserviceProvider {
       IdProyecto: number;
     };
 
+  private retornoListarTareasDeProyecto=
+  {
+    "RetornoCorrecto": "S",
+    "Retorno": [
+      {
+        IdTarea: 0,
+      Nombre: "",
+      Descripcion: "",
+      FechaInicio: new Date(Date.now()),
+      FechaFIn: new Date(Date.now()),
+      IdProyecto: 0
+      }],
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  }
+
+  private retornoCrearTarea=
+  {
+    "RetornoCorrecto": "E",
+    "Retorno": false,
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  }
+
+  private retornoEditarTarea=
+  {
+    "RetornoCorrecto": "E",
+    "Retorno": false,
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  }
+
+  private retornoEliminarTarea=
+  {
+    "RetornoCorrecto": "E",
+    "Retorno": false,
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  }
+
+
+
   constructor(public http: HttpClient,public mihttp:Http) {
     this.url = "http://localhost:88/api/";
   }
@@ -47,14 +101,38 @@ export class TareasserviceProvider {
       return this.mihttp
         .get(this.url + "ListarTareasDeProyecto?pIdProyecto=" + Id + "", params)
         .map((res: any) => {
-          this.tareas = res.json();
-  
-          if (this.tareas.length > 0) {
-            return this.tareas;
-          } else {
-            console.log('No hay tareas');
+          
+          this.retornoListarTareasDeProyecto = res.json();
+          //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoListarTareasDeProyecto.RetornoCorrecto==="S")
+        {
+          //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+          if (this.retornoListarTareasDeProyecto.Retorno.length>0)
+          {
+            
+            this.tareas = this.retornoListarTareasDeProyecto.Retorno;
+            //console.log(this.retornoListarProyectosDeUsuario.Retorno);
+
+            return this.retornoListarTareasDeProyecto;            
+          }
+          else {
             return false;
           }
+        }
+        else
+        {
+          return this.retornoListarTareasDeProyecto.Errores;
+        }//fin nueva forma
+
+          //forma vieja
+          // this.tareas = res.json();
+          // if (this.tareas.length > 0) {
+          //   return this.tareas;
+          // } else {
+          //   console.log('No hay tareas');
+          //   return false;
+          // }
+
         })
         .catch(this.handleError);
     }
@@ -88,8 +166,16 @@ crearTareas(t: Tarea) {
   return this.mihttp
     .post(this.url + 'CrearTarea', body, { headers: headers })
     .map((resp: any) => {
-      //swal('Tarea Actualizada', t.Nombre, 'success');        
-      return resp;
+      this.retornoCrearTarea = resp.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoCrearTarea.RetornoCorrecto==="S")
+        {
+          return this.retornoCrearTarea.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoCrearTarea.Errores;          
+        }//fin nueva forma
     })
     .catch(this.handleError);
 }
@@ -115,8 +201,19 @@ crearTareas(t: Tarea) {
       .post(this.url + 'EditarTarea', body, { headers: headers })
       .map((resp: any) => {
         //swal('Tarea Actualizada', t.Nombre, 'success');
+        //retornoEditarTarea
+          this.retornoEditarTarea = resp.json();        
+          //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+          if (this.retornoEditarTarea.RetornoCorrecto==="S")
+          {
+            return this.retornoEditarTarea.RetornoCorrecto;
+          }
+          else 
+          {
+            return this.retornoEditarTarea.Errores;          
+          }//fin nueva forma
 
-        return resp;
+        //return resp;
       })
       .catch(this.handleError);
   }
@@ -138,7 +235,19 @@ crearTareas(t: Tarea) {
         .map((resp: any) => {
           //swal('Tarea Actualizada', t.Nombre, 'success');          
           //console.log(resp);
-          return resp;
+
+          this.retornoEliminarTarea = resp.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoEliminarTarea.RetornoCorrecto==="S")
+        {
+          return this.retornoEliminarTarea.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoEliminarTarea.Errores;          
+        }//fin nueva forma
+
+          //return resp;
           
         })
         .catch(this.handleError);

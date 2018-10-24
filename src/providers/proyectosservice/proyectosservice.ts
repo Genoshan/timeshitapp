@@ -19,19 +19,19 @@ export class ProyectosserviceProvider {
     IdProyecto: number,
     FechaInicio: Date,
     Estado: boolean,
-    codigoProyecto: string
+    CodigoProyecto: string,
+    Nombre: string
   };
   
-  private proyectos : [{
-    IdProyecto: number,
-    FechaInicio: Date,
-    Estado: boolean,
-    codigoProyecto: string,
-    Nombre: string
-  }];
-
-  
-  //private proyectos:  Proyecto[] = [];
+  private proyectos: Proyecto[] = [
+    {
+      IdProyecto: 0,
+      FechaInicio: new Date(Date.now()),
+      Estado: false,
+      Nombre: "",
+      CodigoProyecto: ""
+    }
+  ];
 
   private Usuario: {
     nombre: string;
@@ -48,9 +48,9 @@ export class ProyectosserviceProvider {
       {
         IdProyecto: 0,
         Nombre: "",
-        FechaInicio: Date.parse("01/01/1900"),
+        FechaInicio: new Date(Date.now()),
         Estado: true,
-        codigoProyecto: ""
+        CodigoProyecto: ""
       }],
     "Errores": {
       "ExceptionType": null,
@@ -58,25 +58,6 @@ export class ProyectosserviceProvider {
       "Descripcion": null
     }
   }
-
-
-  // private proyectos : [
-  //   {
-  //     "IdProyecto": null,
-  //     "Nombre": null,
-  //     "FechaInicio": null,
-  //     "Estado": null,
-  //     "CodigoProyecto": null
-  //   },
-  //   {
-  //     "IdProyecto": null,
-  //     "Nombre": null,
-  //     "FechaInicio": null,
-  //     "Estado": null,
-  //     "CodigoProyecto": null
-  //   }
-  // ]
-   //Proyecto[] = [];
 
   private url: string;
 
@@ -104,9 +85,8 @@ export class ProyectosserviceProvider {
       )
       .map((res: any) => {
 
-
         this.retornoListarProyectosDeUsuario = res.json();
-        console.log(this.retornoListarProyectosDeUsuario);
+        //console.log(this.retornoListarProyectosDeUsuario);
         
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoListarProyectosDeUsuario.RetornoCorrecto==="S")
@@ -115,9 +95,13 @@ export class ProyectosserviceProvider {
           if (this.retornoListarProyectosDeUsuario.Retorno.length>0)
           {
             
-            //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno[].;
-            console.log(this.retornoListarProyectosDeUsuario.Retorno);
-            return this.retornoListarProyectosDeUsuario;
+            this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+            //console.log(this.retornoListarProyectosDeUsuario.Retorno);
+
+            return this.retornoListarProyectosDeUsuario;            
+          }
+          else {
+            return false;
           }
         }
         else
@@ -125,14 +109,15 @@ export class ProyectosserviceProvider {
           return this.retornoListarProyectosDeUsuario.Errores;
         }//fin nueva forma
 
-        //  this.proyectos = res.json();
+        
+        //vieja forma sin retornos
 
+        //  this.proyectos = res.json();
         //   if (this.proyectos.length>0)
         //   {
         //     return this.proyectos;
         //   }
         // else {
-
         //   return false;
         // }
 
@@ -157,18 +142,13 @@ export class ProyectosserviceProvider {
 
     this.proyectos.push(p);
 
-
-    //return this.proyectos;
   }
 
   editarProyectos(p: Proyecto, id:string ){
-
-    //Proyecto proy= this.proyectos.find(p;
+    
     let projectoaux = this.proyectos.find(x => x.IdProyecto == Number(id));
     let index = this.proyectos.indexOf(projectoaux);
-    this.proyectos[index]=projectoaux;
-
-    //return this.proyectos;
+    this.proyectos[index]=projectoaux;    
   }
 
   //MANEJADOR DE ERRORES DE SERVICIO

@@ -46,7 +46,7 @@ export class HorasefectivasPage {
     Nombre: "",
     FechaInicio: new Date(Date.now()),
     Estado: true,
-    codigoProyecto: "",
+    CodigoProyecto: "",
     IdProyecto: 0
   };
 

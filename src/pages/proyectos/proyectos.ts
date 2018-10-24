@@ -43,11 +43,10 @@ export class ProyectosPage {
   };
 
   proyecto:Proyecto = {
-
     Nombre:"",
     FechaInicio:new Date(Date.now()),
     Estado:true,
-    codigoProyecto:"",    
+    CodigoProyecto:"",    
     IdProyecto: 0,
   }
 
@@ -82,7 +81,7 @@ export class ProyectosPage {
 
   IraHorasEfectivas(){
     //console.log(idHora);
-    console.log("llego ok");    
+    //console.log("llego ok");    
     this.navCtrl.push(HorasefectivasPage);    
   }
 
@@ -93,63 +92,55 @@ export class ProyectosPage {
 
 
   /**** CARGA INICIAL DEL COMPONENTE *****/
-  ionViewDidLoad() {   
+  ionViewDidLoad() {
 
         //LISTA PROYECTOS DEL USUARIO DESDE API
         this.user=JSON.parse(localStorage.getItem('usuario'));
 
-
         //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
         this.pservice.getProyectosUsuario(this.user["CI"])
           .subscribe(        
-          correcto => { 
-
-            console.log(this.proyectos);
-            console.log(correcto);
+          correcto => {             
             if(correcto.RetornoCorrecto==="S")
-            {              
-              correcto.Retorno.forEach(element => {
-
-                let p : Proyecto = {
-
-                  Nombre: element.Nombre,
-                  FechaInicio: element.FechaInicio,
-                  Estado: element.Estado,
-                  codigoProyecto: element.CodigoProyecto,    
-                  IdProyecto: element.IdProyecto,
-                }
-                this.proyectos.push(p);
-              });                 
-              
+            { 
+              if(correcto.Retorno.length>0){
+                //console.log(correcto);
+                this.proyectos = correcto.Retorno;                      
+              }
+              else{
+                let toast = this.toastCtrl.create({
+                  message: 'No tiene proyectos asignados',
+                  duration: 3000,
+                  position: 'middle'
+                });
+                toast.onDidDismiss(() => {                  
+                });
+                toast.present();  
+              }                           
             }
-            else{
-              //this.status = 'error';          
+            else{              
               let toast = this.toastCtrl.create({
-                message: correcto.Mensaje +'-'+correcto.Descripcion+'-'+'No tiene proyectos asignados',
+                message: correcto.Mensaje +'-'+correcto.Descripcion,
                 duration: 3000,
                 position: 'middle'
               });
-              toast.onDidDismiss(() => {
-                //console.log('Dismissed toast');
+              toast.onDidDismiss(() => {                
               });
               toast.present();             
             }
         },(error) => {
-          this.status = 'error';
+          //this.status = 'error';
           let toast = this.toastCtrl.create({
             message: error,
             duration: 3000,
             position: 'middle'
           });            
-          toast.onDidDismiss(() => {
-            //console.log('Dismissed toast');
+          toast.onDidDismiss(() => {            
           });            
           toast.present();
-
-          //console.log(error);                    
           } 
         )
-        this.proyecto.codigoProyecto = this.navParams.get('codigoProyecto');        
+        this.proyecto.CodigoProyecto = this.navParams.get('CodigoProyecto');        
   }    
 
 }

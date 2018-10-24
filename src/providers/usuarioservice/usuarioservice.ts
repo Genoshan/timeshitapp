@@ -76,7 +76,7 @@ private retornoAsignarUsuarioAProyecto = {
     let options = new RequestOptions({ headers: headers });   
 
     return this.mihttp
-      .post(this.url + 'Usuario?'+"pDocumento=" + useraasignar.ci+"&pIdProyecto=" + proyecto.IdProyecto, params)
+      .post(this.url + 'AsignarUsusarioAProyecto?'+"pDocumento=" + useraasignar.ci+"&pIdProyecto=" + proyecto.IdProyecto, params)
       .map((resp: any) => {
         this.retornoAsignarUsuarioAProyecto = resp.json();        
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables

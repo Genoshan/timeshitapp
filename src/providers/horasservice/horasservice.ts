@@ -38,6 +38,93 @@ export class HorasserviceProvider {
     IdTarea: number;
   };
 
+  private retornoListarHorasDeProyectoyTarea=
+  {
+    "RetornoCorrecto": "S",
+    "Retorno": [
+      {
+        IdTarea: 0,      
+      Descripcion: "",
+      CantidadHoras: 0,
+      Fecha: new Date(Date.now()),
+      Idhora: 0
+      }],
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  }
+
+  private retornoListadoHorasEfectivas={
+    "RetornoCorrecto": "S",
+    "Retorno": [
+      {
+        "oProyecto": {
+          "IdProyecto": 0,
+          "Nombre": "",
+          "FechaInicio": new Date(Date.now()),
+          "Estado": true,
+          "CodigoProyecto": ""
+        },
+        "oTarea": {
+          "IdTarea": 0,
+          "IdProyecto": 0,
+          "Nombre": "",
+          "Descripcion": "",
+          "FechaInicio": new Date(Date.now()),
+          "FechaFIn": new Date(Date.now())
+        },
+        "oHora": {
+          "Idhora": 0,
+          "IdTarea": 0,
+          "Descripcion": "",
+          "CantidadHoras": 1,
+          "Fecha": new Date(Date.now())
+        }
+      }
+    ],
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  }
+
+  private retornoCrearHora=
+  {
+    "RetornoCorrecto": "E",
+    "Retorno": false,
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  }
+
+  private retornoEditarHora=
+  {
+    "RetornoCorrecto": "E",
+    "Retorno": false,
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  }
+
+  private retornoEliminarHora=
+  {
+    "RetornoCorrecto": "E",
+    "Retorno": false,
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  }  
+
+
   constructor(public http: HttpClient,
     public mihttp: Http) {
     this.url = "http://localhost:88/api/";
@@ -60,13 +147,35 @@ export class HorasserviceProvider {
     return this.mihttp
       .get(this.url + "ListarHorasDeTareaDeUsuario?pIdProyecto=" + t.IdProyecto + "&" + "pIdTarea=" + t.IdTarea + "&" + "pDocumento=" + this.user["CI"] + "", params)
       .map((res: any) => {
-        this.horas = res.json();
+        this.retornoListarHorasDeProyectoyTarea = res.json();
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoListarHorasDeProyectoyTarea.RetornoCorrecto==="S")
+        {
+          //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+          if (this.retornoListarHorasDeProyectoyTarea.Retorno.length>0)
+          {
+            
+            this.horas = this.retornoListarHorasDeProyectoyTarea.Retorno;
+            //console.log(this.retornoListarProyectosDeUsuario.Retorno);
 
-        if (this.horas.length > 0) {
-          return this.horas;
-        } else {
-          return false;
+            return this.retornoListarHorasDeProyectoyTarea;            
+          }
+          else {
+            return false;
+          }
         }
+        else
+        {
+          return this.retornoListarHorasDeProyectoyTarea.Errores;
+        }//fin nueva forma
+
+        //vieja forma
+        // this.horas = res.json();
+        // if (this.horas.length > 0) {
+        //   return this.horas;
+        // } else {
+        //   return false;
+        // }
       })
       .catch(this.handleError);
   }
@@ -104,8 +213,17 @@ export class HorasserviceProvider {
       .post(this.url + 'CargarHorasATarea', body, { headers: headers })
       .map((resp: any) => {
         //swal('Tarea Actualizada', t.Nombre, 'success');
-
-        return resp;
+        this.retornoCrearHora = resp.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoCrearHora.RetornoCorrecto==="S")
+        {
+          return this.retornoCrearHora.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoCrearHora.Errores;          
+        }//fin nueva forma
+        //return resp;
       })
       .catch(this.handleError);
   }
@@ -133,9 +251,18 @@ export class HorasserviceProvider {
     return this.mihttp
       .post(this.url + 'EditarHoras', body, { headers: headers })
       .map((resp: any) => {
+        this.retornoEditarHora = resp.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoEditarHora.RetornoCorrecto==="S")
+        {
+          return this.retornoEditarHora.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoEditarHora.Errores;          
+        }//fin nueva forma
 
-
-        return resp;
+        //return resp;
       })
       .catch(this.handleError);
   }
@@ -154,7 +281,19 @@ export class HorasserviceProvider {
 
     return this.mihttp
       .post(this.url + 'EliminarHora', body, { headers: headers })
-      .map(res => res.json())
+      .map((res:any)  => {
+        this.retornoEliminarHora = res.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoEliminarHora.RetornoCorrecto==="S")
+        {
+          return this.retornoEliminarHora.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoEliminarHora.Errores;          
+        }//fin nueva forma      
+      
+      })
 
       .catch(this.handleError);
   }
@@ -175,15 +314,39 @@ export class HorasserviceProvider {
     return this.mihttp
       .get(this.url + "ListarHorasMensualesDeUsuario?pDocumento=" + ci + "", params)
       .map((res: any) => {
-        console.log(res);
-        this.horasefectivas = res.json();
-        console.log(this.horasefectivas);
 
-        if (this.horasefectivas.length > 0) {
-          return this.horasefectivas;
-        } else {
-          return false;
+        this.retornoListadoHorasEfectivas = res.json();
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoListadoHorasEfectivas.RetornoCorrecto==="S")
+        {
+          //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+          if (this.retornoListadoHorasEfectivas.Retorno.length>0)
+          {
+            
+            this.horasefectivas = this.retornoListadoHorasEfectivas.Retorno;
+            //console.log(this.retornoListarProyectosDeUsuario.Retorno);
+
+            return this.retornoListadoHorasEfectivas;            
+          }
+          else {
+            return false;
+          }
         }
+        else
+        {
+          return this.retornoListadoHorasEfectivas.Errores;
+        }//fin nueva forma
+
+
+        //console.log(res);
+        // this.horasefectivas = res.json();
+        // console.log(this.horasefectivas);
+
+        // if (this.horasefectivas.length > 0) {
+        //   return this.horasefectivas;
+        // } else {
+        //   return false;
+        // }
       })
       .catch(this.handleError);
 

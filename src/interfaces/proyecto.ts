@@ -7,7 +7,7 @@ export interface Proyecto {
     //nombre:string;
     FechaInicio:Date;
     Estado:boolean;
-    codigoProyecto:string;
+    CodigoProyecto:string;
     Nombre: string;
     IdProyecto: number;    
 }

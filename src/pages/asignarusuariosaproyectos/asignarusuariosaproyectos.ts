@@ -43,11 +43,12 @@ export class AsignarusuariosaproyectosPage {
     Nombre:"",
     FechaInicio:new Date(Date.now()),
     Estado:true,
-    codigoProyecto:"",    
+    CodigoProyecto:"",    
     IdProyecto: 0,
   }
 
   proyectos:Proyecto[] = [];
+
   listausuariosaasignar:Usuario[]= [
     {
       nombre: "User1",
@@ -84,13 +85,13 @@ export class AsignarusuariosaproyectosPage {
   }
 
   onProyectoChange(proy) {
-    console.log(proy);
+    //console.log(proy);
     // this.proyecto = {
 
     //   Nombre:"",
     //   FechaInicio:new Date(Date.now()),
     //   Estado:true,
-    //   codigoProyecto:"",    
+    //   CodigoProyecto:"",    
     //   IdProyecto: 0,
     // }
 
@@ -122,9 +123,9 @@ export class AsignarusuariosaproyectosPage {
     
 
     this.useraasignar.ci = this.listausuariosaasignar[0].ci;
-    
+    this.proyecto.IdProyecto = this.proyectos[0].IdProyecto;    
 
-    console.log(p.IdProyecto);
+    //console.log(p.IdProyecto);
 
 
     //cuando tenga el listado de usuarios.
@@ -225,7 +226,7 @@ export class AsignarusuariosaproyectosPage {
     //   Nombre:"",
     //   FechaInicio:new Date(Date.now()),
     //   Estado:true,
-    //   codigoProyecto:"",    
+    //   CodigoProyecto:"",    
     //   IdProyecto: 0,
     // }
             //LISTA PROYECTOS DEL USUARIO DESDE API
@@ -237,19 +238,24 @@ export class AsignarusuariosaproyectosPage {
             correcto => { 
               if(correcto.RetornoCorrecto==="S")
             {              
-              correcto.Retorno.forEach(element => {
-
-                let p : Proyecto = {
-
-                  Nombre: element.Nombre,
-                  FechaInicio: element.FechaInicio,
-                  Estado: element.Estado,
-                  codigoProyecto: element.CodigoProyecto,    
-                  IdProyecto: element.IdProyecto,
-                }
-                this.proyectos.push(p);
-              });                 
-              
+              if(correcto.Retorno.length>0)
+              {
+                this.proyectos = correcto.Retorno;
+                this.proyecto.IdProyecto = this.proyectos[0].IdProyecto; 
+                
+              }
+              else
+              {
+                let toast = this.toastCtrl.create({
+                  message: 'No tiene proyectos asignados',
+                  duration: 3000,
+                  position: 'middle'
+                });
+                toast.onDidDismiss(() => {
+                  //console.log('Dismissed toast');
+                });
+                toast.present();             
+              }
             }
             else{
               //this.status = 'error';          
@@ -278,8 +284,7 @@ export class AsignarusuariosaproyectosPage {
           //console.log(error);                    
           } 
           )
-          //this.proyecto.codigoProyecto = this.navParams.get('codigoProyecto');        
-    
+          //this.proyecto.CodigoProyecto = this.navParams.get('CodigoProyecto');
 
      //cargar usuarios en combo (que no esten asignado al proyecto)
      //usuarios de muestra
@@ -308,7 +313,9 @@ export class AsignarusuariosaproyectosPage {
     ];
 
 
-    this.useraasignar.ci = this.listausuariosaasignar[0].ci;       
+    this.useraasignar.ci = this.listausuariosaasignar[0].ci;
+    // this.proyecto = this.proyectos[0];
+    // this.proyecto.IdProyecto = this.proyectos[0].IdProyecto;       
     console.log(this.proyecto.IdProyecto);
     //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
   //   this.uservice.getUsuariosNoAsignadosDeProyecto(this.proyecto)

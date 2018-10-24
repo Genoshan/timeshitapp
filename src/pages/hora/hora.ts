@@ -54,7 +54,7 @@ export class HoraPage {
     FechaInicio: new Date(Date.now()),
     Estado: true,
     Nombre: "",
-    codigoProyecto: "",
+    CodigoProyecto: "",
     IdProyecto: 0,
   }
 

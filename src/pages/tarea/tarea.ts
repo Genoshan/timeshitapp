@@ -45,7 +45,7 @@ export class TareaPage {
     Nombre: "",
     FechaInicio: new Date(Date.now()),
     Estado: true,
-    codigoProyecto: "",
+    CodigoProyecto: "",
     IdProyecto: 0,
   }
 
@@ -83,7 +83,7 @@ export class TareaPage {
       this.ts.crearTareas(this.tarea)
         .subscribe(
           correcto => {
-            if (correcto) {
+            if (correcto==="S") {
               //this.proyectos = JSON.parse(correcto.proyectos);
               //this.tarea = correcto;
               let toast = this.toastCtrl.create({
@@ -105,7 +105,7 @@ export class TareaPage {
             else {
               this.status = 'error';
               let toast = this.toastCtrl.create({
-                message: 'La Tarea No fue Guardada',
+                message: correcto.Mensaje +'-'+correcto.Descripcion,
                 duration: 3000,
                 position: 'top'
               });
@@ -140,7 +140,7 @@ export class TareaPage {
       this.ts.editarTarea(this.tarea)
         .subscribe(
           correcto => {
-            if (correcto) {
+            if (correcto==="S") {
               //this.proyectos = JSON.parse(correcto.proyectos);
               //this.tarea = correcto;
               //alert("Tarea Editada con exito");
@@ -160,7 +160,7 @@ export class TareaPage {
               this.status = 'error';              
               //alert("Tarea No Fue Editada");
               let toast = this.toastCtrl.create({
-                message: 'Tarea No Fue Editada',
+                message: correcto.Mensaje +'-'+correcto.Descripcion,
                 duration: 3000,
                 position: 'top'
               });              
