@@ -150,17 +150,42 @@ export class HoraPage {
           this.ts.getTareasDeProyecto(Number(this.proyecto.IdProyecto))
             .subscribe(
               correcto => {
-                if (correcto) {
-                  //vacio las tareas y las vuelvo a cargar.
+                if (correcto.RetornoCorrecto==="S") {
+                  if(correcto.Retorno.length>0)
+                  {
+                    //vacio las tareas y las vuelvo a cargar.
                   this.tareas = null;
-                  this.tareas = correcto;
+                  this.tareas = correcto.Retorno;
                   //OBTENGO LA TAREA      
                   this.hora.IdTarea = this.tareas[0].IdTarea;
                   this.tarea.IdProyecto = this.tareas[0].IdProyecto;
                   //console.log(this.tareas);
+                  }
+                  else
+                  {
+                    this.status = 'error';
+              let toast = this.toastCtrl.create({
+                message: 'No hay tareas cargadas',
+                duration: 3000,
+                position: 'middle'
+              });              
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });              
+              toast.present();              
+                  }
                 }
                 else {
                   this.status = 'error';
+                  let toast = this.toastCtrl.create({
+                    message: correcto.Mensaje +'-'+correcto.Descripcion,
+                    duration: 3000,
+                    position: 'middle'
+                  });              
+                  toast.onDidDismiss(() => {
+                    //console.log('Dismissed toast');
+                  });              
+                  toast.present();
                 }
               }, (error) => {
                 this.status = 'error';
@@ -194,17 +219,44 @@ export class HoraPage {
             this.ts.getTareasDeProyecto(Number(this.proyecto.IdProyecto))
               .subscribe(
                 correcto => {
-                  if (correcto) {
-                    //vacio las tareas y las vuelvo a cargar.
+                  if (correcto.RetornoCorrecto==="S") {
+
+                    if(correcto.Retorno.length>0)
+                    {
+                      //vacio las tareas y las vuelvo a cargar.
                     this.tareas = null;
-                    this.tareas = correcto;
+                    this.tareas = correcto.Retorno;
                     //OBTENGO LA TAREA      
                     this.hora.IdTarea = this.tareas[0].IdTarea;
                     this.tarea.IdProyecto = this.tareas[0].IdProyecto;
-                    //console.log(this.tareas);
+                    //console.log(this.tareas);                      
+                    }
+                    else
+                    {
+                      this.status = 'error';
+              let toast = this.toastCtrl.create({
+                message: 'No hay tareas cargadas',
+                duration: 3000,
+                position: 'middle'
+              });              
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });              
+              toast.present(); 
+                    }
+                    
                   }
                   else {
                     this.status = 'error';
+                    let toast = this.toastCtrl.create({
+                      message: correcto.Mensaje +'-'+correcto.Descripcion,
+                      duration: 3000,
+                      position: 'middle'
+                    });              
+                    toast.onDidDismiss(() => {
+                      //console.log('Dismissed toast');
+                    });              
+                    toast.present();
                   }
                 }, (error) => {
                   this.status = 'error';
@@ -238,27 +290,58 @@ export class HoraPage {
               this.pr.getProyectosUsuario(this.user["CI"])
                 .subscribe(
                   correcto => {
-                    if (correcto) {
-                      //vacio los proyectos y los vuelvo a cargar.
+                    if (correcto.RetornoCorrecto==="S") 
+                    {
+
+                      if(correcto.Retorno.length>0)
+                      {
+                        //vacio los proyectos y los vuelvo a cargar.
                       this.proyectos = null;
-                      this.proyectos = correcto;
+                      this.proyectos = correcto.Retorno;
                       //para la primer carga queda el primer proyecto seleccionado
                       this.tarea.IdProyecto = this.proyectos[0].IdProyecto;
 
                       this.ts.getTareasDeProyecto(Number(this.tarea.IdProyecto))
                         .subscribe(
                           correcto => {
-                            if (correcto) {
-                              //vacio las tareas y las vuelvo a cargar.
+                            if (correcto.RetornoCorrecto==="S") {
+                              if(correcto.Retorno.length>0)
+                              {
+                                //vacio las tareas y las vuelvo a cargar.
                               this.tareas = null;
-                              this.tareas = correcto;
+                              this.tareas = correcto.Retorno;
                               //selecciono la primer tarea de la lista del proyecto cargado
                               this.hora.IdTarea = this.tareas[0].IdTarea;
                               this.tarea.IdProyecto = this.tareas[0].IdProyecto;
                               //console.log(this.tareas);                            
+                              }
+                              else
+                              {
+                                this.status = 'error';
+              let toast = this.toastCtrl.create({
+                message: 'No hay tareas cargadas',
+                duration: 3000,
+                position: 'middle'
+              });              
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });              
+              toast.present(); 
+
+                              }
+                              
                             }
                             else {
                               this.status = 'error';
+                              let toast = this.toastCtrl.create({
+                                message: correcto.Mensaje +'-'+correcto.Descripcion,
+                                duration: 3000,
+                                position: 'middle'
+                              });              
+                              toast.onDidDismiss(() => {
+                                //console.log('Dismissed toast');
+                              });              
+                              toast.present();
                             }
                           }, (error) => {
                             this.status = 'error';
@@ -275,9 +358,34 @@ export class HoraPage {
                           })
 
                       //console.log(this.tarea.IdProyecto);
+                        
+                      }
+                      else
+                      {
+                        this.status = 'error';
+              let toast = this.toastCtrl.create({
+                message: 'No hay proyectos cargados',
+                duration: 3000,
+                position: 'middle'
+              });              
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });              
+              toast.present();
+                      }
+                      
                     }
                     else {
                       this.status = 'error';
+                      let toast = this.toastCtrl.create({
+                        message: correcto.Mensaje +'-'+correcto.Descripcion,
+                        duration: 3000,
+                        position: 'middle'
+                      });              
+                      toast.onDidDismiss(() => {
+                        //console.log('Dismissed toast');
+                      });              
+                      toast.present();
                     }
                   }, (error) => {
                     this.status = 'error';
@@ -294,22 +402,6 @@ export class HoraPage {
                     //console.log(error);
                   }
                 )
-
-              //en base al proyecto seleccionado, listar las tareas de ese proyecto
-              //para esto utilizo el evento onProyectoChange
-              //console.log("antes de cargar las tareas");
-              //TODO
-              //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS
-              /* console.log(this.proyectos); */
-              //console.log(this.proyecto.IdProyecto);
-              //console.log(this.tarea.IdProyecto);
-
-
-
-              //OBTENGO LA TAREA      
-              //this.hora.IdTarea = this.tarea.IdTarea;           
-              //this.tarea.IdProyecto = this.proyecto.IdProyecto;                          
-
             }
             else {
 
@@ -342,7 +434,7 @@ export class HoraPage {
       this.hs.CargarHoras(this.hora, this.user["CI"])
         .subscribe(
           correcto => {
-            if (correcto) {              
+            if (correcto.RetornoCorrecto==="S") {              
                 let toast = this.toastCtrl.create({
                   message: 'Hora Guardada con exito',
                   duration: 3000,
@@ -358,7 +450,7 @@ export class HoraPage {
             }
             else {
               let toast = this.toastCtrl.create({
-                message: 'La Hora No fue Guardada',
+                message: correcto.Mensaje +'-'+correcto.Descripcion,
                 duration: 3000,
                 position: 'top'
               });
@@ -395,7 +487,7 @@ export class HoraPage {
         this.hs.CargarHoras(this.hora, this.user["CI"])
           .subscribe(
             correcto => {
-              if (correcto) {
+              if (correcto.RetornoCorrecto==="S") {
                 //alert("Hora Guardada con exito");
                 let toast = this.toastCtrl.create({
                   message: 'Hora Guardada con exito',
@@ -412,7 +504,7 @@ export class HoraPage {
               else {
                 //alert("La Hora No fue Guardada");
                 let toast = this.toastCtrl.create({
-                  message: 'La Hora No fue Guardada',
+                  message: correcto.Mensaje +'-'+correcto.Descripcion,
                   duration: 3000,
                   position: 'top'
                 });              
@@ -447,7 +539,7 @@ export class HoraPage {
           this.hs.CargarHoras(this.hora, this.user["CI"])
             .subscribe(
               correcto => {
-                if (correcto) {
+                if (correcto.RetornoCorrecto==="S") {
                   //this.hora = correcto; 
                   //alert("Hora Guardada con exito");
                   let toast = this.toastCtrl.create({
@@ -465,7 +557,7 @@ export class HoraPage {
                 else {
                   //alert("La Hora No fue Guardada");
                   let toast = this.toastCtrl.create({
-                    message: 'La Hora No fue Guardada',
+                    message: correcto.Mensaje +'-'+correcto.Descripcion,
                     duration: 3000,
                     position: 'top'
                   });              
@@ -497,7 +589,7 @@ export class HoraPage {
             this.hs.editarHoras(this.hora)
               .subscribe(
                 correcto => {
-                  if (correcto) {
+                  if (correcto.RetornoCorrecto==="S") {
                     //this.proyectos = JSON.parse(correcto.proyectos);
                     //this.hora = correcto;
                     //alert("Hora Modificada con exito");
@@ -516,7 +608,7 @@ export class HoraPage {
                   else {
                     //alert("La Hora No fue Guardada");
                     let toast = this.toastCtrl.create({
-                      message: 'La Hora No fue Modificada',
+                      message: correcto.Mensaje +'-'+correcto.Descripcion,
                       duration: 3000,
                       position: 'top'
                     });              
@@ -554,17 +646,42 @@ export class HoraPage {
     this.ts.getTareasDeProyecto(Number(this.tarea.IdProyecto))
       .subscribe(
         correcto => {
-          if (correcto) {
-            //vacio las tareas y las vuelvo a cargar.
+          if (correcto.RetornoCorrecto==="S") {
+            if(correcto.Retorno>0)
+            {
+              //vacio las tareas y las vuelvo a cargar.
             this.tareas = null;
-            this.tareas = correcto;
+            this.tareas = correcto.Retorno;
             //selecciono la primer tarea de la lista del proyecto cargado
             this.hora.IdTarea = this.tareas[0].IdTarea;
             this.tarea.IdProyecto = this.tareas[0].IdProyecto;
-            console.log(this.tareas);                            
+            //console.log(this.tareas);                         
+            }
+            else
+            {
+              this.status = 'error';
+              let toast = this.toastCtrl.create({
+              message: 'No hay tareas',
+              duration: 3000,
+              position: 'middle'
+            });              
+            toast.onDidDismiss(() => {
+              //console.log('Dismissed toast');
+            });              
+            toast.present();
+            }               
           }
           else {
             this.status = 'error';
+            let toast = this.toastCtrl.create({
+              message: correcto.Mensaje +'-'+correcto.Descripcion,
+              duration: 3000,
+              position: 'middle'
+            });              
+            toast.onDidDismiss(() => {
+              //console.log('Dismissed toast');
+            });              
+            toast.present();
           }
         }, (error) => {
           this.status = 'error';

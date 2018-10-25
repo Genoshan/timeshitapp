@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Proyecto } from '../../interfaces/proyecto';
 import { HoraEfectiva } from '../../interfaces/horaefectiva';
 import { Usuario } from '../../interfaces/usuario';
@@ -70,7 +70,7 @@ export class HorasefectivasPage {
   status: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private hservice: HorasserviceProvider) {
+    private hservice: HorasserviceProvider, private toastCtrl: ToastController) {
   }
 
   toggleSection(i) {
@@ -85,36 +85,62 @@ export class HorasefectivasPage {
 
     this.hservice.ListarHorasMensualesDeUsuario(this.user["CI"]).subscribe(
       correcto => {
-        if (correcto) {
-          this.horasefectivas = correcto;
+        if (correcto.RetornoCorrecto==="S") {
 
-          var Fechas = new Set(this.horasefectivas.map(item => item.oHora.Fecha))
+          if(correcto.Retorno.length>0)
+          {
+
+            this.horasefectivas = correcto.Retorno;
+            var Fechas = new Set(this.horasefectivas.map(item => item.oHora.Fecha))
           this.result = [];
           console.log(Fechas);
         Fechas.forEach(f =>                    
           this.result.push({
             name: f,
             values: this.horasefectivas.filter(i => i.oHora.Fecha === f),
-            total:  this.horasefectivas.filter(i => i.oHora.Fecha === f)            
+            total: this.horasefectivas.filter(i => i.oHora.Fecha === f)            
               .reduce(function (acc, obj) { return acc + obj.oHora.CantidadHoras; }, 0)              
 
           }))
-          console.log(this.result);
+        }
 
+          else
+          {
+            let toast = this.toastCtrl.create({
+              message: 'No tiene horas cargadas',
+              duration: 3000,
+              position: 'middle'  
+            });
+            toast.onDidDismiss(() => {                  
+            });
+            toast.present();  
+          }
         } else {
-          this.status = "error";
+          let toast = this.toastCtrl.create({
+            message: correcto.Mensaje +'-'+correcto.Descripcion,
+            duration: 3000,
+            position: 'middle'
+          });
+          toast.onDidDismiss(() => {                
+          });
+          toast.present();
         }
       },
-      error => {
-        this.status = "error";
-        console.log(error);
+      (error) => {
+        let toast = this.toastCtrl.create({
+          message: error,
+          duration: 3000,
+          position: 'middle'
+        });            
+        toast.onDidDismiss(() => {            
+        });            
+        toast.present();
       }
     );
-
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HorasefectivasPage');    
+    //console.log('ionViewDidLoad HorasefectivasPage');    
     this.ListarHorasMensualesDeUsuario();
     
   }

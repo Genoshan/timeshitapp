@@ -92,7 +92,7 @@ export class HorasPage {
             this.hservice.eliminarHora(k)
               .subscribe(
                 correcto => {
-                  if (correcto) {
+                  if (correcto.RetornoCorrecto==="S") {
                     //vuelvo a cargar la lista
                     let toast = this.toastCtrl.create({
                       message: 'Hora Eliminada',
@@ -112,7 +112,7 @@ export class HorasPage {
                     //alert("La Hora No Fue Eliminada");                                
                     this.status = 'error';
                     let toast = this.toastCtrl.create({
-                      message: 'La Hora No Fue Eliminada',
+                      message: correcto.Mensaje +'-'+correcto.Descripcion,
                       duration: 3000,
                       position: 'middle'
                     });              
@@ -156,15 +156,30 @@ export class HorasPage {
     this.hservice.getHorasDeTarea(this.tarea)
       .subscribe(
         correcto => {
-          if (correcto) {
+          if (correcto.RetornoCorrecto==="S") {
+
+            if(correcto.Retorno.length>0){
             //vacio la lista de horas y la vuelvo a cargar
             this.horas = null;
-            this.horas = correcto;
+            this.horas = correcto.Retorno;  
+            }
+            else{
+              this.status = 'error';
+              let toast = this.toastCtrl.create({
+                message: 'No hay horas cargadas para la tarea',
+                duration: 3000,
+                position: 'middle'
+              });              
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });              
+              toast.present();              
+            }            
           }
           else {
             this.status = 'error';
             let toast = this.toastCtrl.create({
-              message: 'No hay horas cargadas para la tarea',
+              message: correcto.Mensaje +'-'+correcto.Descripcion,
               duration: 3000,
               position: 'middle'
             });              

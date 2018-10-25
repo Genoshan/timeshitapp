@@ -98,7 +98,7 @@ export class TareasPage {
               }
               else{
                 let toast = this.toastCtrl.create({
-                  message: 'No tiene tareas asignados',
+                  message: 'No tiene tareas asignadas',
                   duration: 3000,
                   position: 'middle'
                 });
@@ -145,7 +145,7 @@ export class TareasPage {
             this.tservice.eliminarTarea(k)
               .subscribe(
                 correcto => {
-                  if (correcto==="S") {
+                  if (correcto.RetornoCorrecto==="S") {
                     //vuelvo a cargar la lista
                     let toast = this.toastCtrl.create({
                       message: 'Tarea Eliminada',

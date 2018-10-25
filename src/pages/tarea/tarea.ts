@@ -83,7 +83,7 @@ export class TareaPage {
       this.ts.crearTareas(this.tarea)
         .subscribe(
           correcto => {
-            if (correcto==="S") {
+            if (correcto.RetornoCorrecto==="S") {
               //this.proyectos = JSON.parse(correcto.proyectos);
               //this.tarea = correcto;
               let toast = this.toastCtrl.create({
@@ -136,11 +136,10 @@ export class TareaPage {
     }
     else {
       //actualizando
-
       this.ts.editarTarea(this.tarea)
         .subscribe(
           correcto => {
-            if (correcto==="S") {
+            if (correcto.RetornoCorrecto==="S") {
               //this.proyectos = JSON.parse(correcto.proyectos);
               //this.tarea = correcto;
               //alert("Tarea Editada con exito");

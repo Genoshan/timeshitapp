@@ -111,7 +111,7 @@ export class ProyectosPage {
                 let toast = this.toastCtrl.create({
                   message: 'No tiene proyectos asignados',
                   duration: 3000,
-                  position: 'middle'
+                  position: 'middle'  
                 });
                 toast.onDidDismiss(() => {                  
                 });
