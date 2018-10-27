@@ -43,7 +43,7 @@ export class TareasserviceProvider {
       "Mensaje": null,
       "Descripcion": null
     }
-  }
+  };
 
   private retornoCrearTarea=
   {
@@ -54,7 +54,7 @@ export class TareasserviceProvider {
       "Mensaje": null,
       "Descripcion": null
     }
-  }
+  };
 
   private retornoEditarTarea=
   {
@@ -65,7 +65,7 @@ export class TareasserviceProvider {
       "Mensaje": null,
       "Descripcion": null
     }
-  }
+  };
 
   private retornoEliminarTarea=
   {
@@ -76,7 +76,7 @@ export class TareasserviceProvider {
       "Mensaje": null,
       "Descripcion": null
     }
-  }
+  };
 
 
 

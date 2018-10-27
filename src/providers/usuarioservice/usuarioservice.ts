@@ -56,7 +56,7 @@ private retornoAsignarUsuarioAProyecto = {
     "Mensaje": null,
     "Descripcion": null
   }
-}
+};
 
   listausuariosaasignar:Usuario[]= [];
 

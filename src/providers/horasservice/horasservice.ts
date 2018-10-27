@@ -54,7 +54,7 @@ export class HorasserviceProvider {
       "Mensaje": null,
       "Descripcion": null
     }
-  }
+  };
 
   private retornoListadoHorasEfectivas={
     "RetornoCorrecto": "S",
@@ -89,7 +89,7 @@ export class HorasserviceProvider {
       "Mensaje": null,
       "Descripcion": null
     }
-  }
+  };
 
   private retornoCrearHora=
   {
@@ -100,7 +100,7 @@ export class HorasserviceProvider {
       "Mensaje": null,
       "Descripcion": null
     }
-  }
+  };
 
   private retornoEditarHora=
   {
@@ -111,7 +111,7 @@ export class HorasserviceProvider {
       "Mensaje": null,
       "Descripcion": null
     }
-  }
+  };
 
   private retornoEliminarHora=
   {
@@ -122,7 +122,7 @@ export class HorasserviceProvider {
       "Mensaje": null,
       "Descripcion": null
     }
-  }  
+  };  
 
 
   constructor(public http: HttpClient,

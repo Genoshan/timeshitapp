@@ -57,7 +57,7 @@ export class ProyectosserviceProvider {
       "Mensaje": null,
       "Descripcion": null
     }
-  }
+  };
 
   private url: string;
 
