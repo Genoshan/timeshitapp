@@ -213,7 +213,8 @@ export class HorasserviceProvider {
       .post(this.url + 'CargarHorasATarea', body, { headers: headers })
       .map((resp: any) => {
         //swal('Tarea Actualizada', t.Nombre, 'success');
-        this.retornoCrearHora = resp.json();        
+        this.retornoCrearHora = resp.json();
+        console.log(this.retornoCrearHora);        
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoCrearHora.RetornoCorrecto==="S")
         {

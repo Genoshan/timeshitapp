@@ -150,6 +150,7 @@ export class HoraPage {
           this.ts.getTareasDeProyecto(Number(this.proyecto.IdProyecto))
             .subscribe(
               correcto => {
+                console.log(correcto);
                 if (correcto.RetornoCorrecto==="S") {
                   if(correcto.Retorno.length>0)
                   {
@@ -219,6 +220,7 @@ export class HoraPage {
             this.ts.getTareasDeProyecto(Number(this.proyecto.IdProyecto))
               .subscribe(
                 correcto => {
+                  console.log(correcto);
                   if (correcto.RetornoCorrecto==="S") {
 
                     if(correcto.Retorno.length>0)
@@ -290,6 +292,8 @@ export class HoraPage {
               this.pr.getProyectosUsuario(this.user["CI"])
                 .subscribe(
                   correcto => {
+                    console.log("//LISTANDO PROYECTOS BOTON GRANDE+  ");
+                    console.log(correcto);
                     if (correcto.RetornoCorrecto==="S") 
                     {
 
@@ -304,6 +308,8 @@ export class HoraPage {
                       this.ts.getTareasDeProyecto(Number(this.tarea.IdProyecto))
                         .subscribe(
                           correcto => {
+                            console.log("//LISTANDO TAREAS DESDE PROYECTOS BOTON GRANDE+  ");
+                            console.log(correcto);
                             if (correcto.RetornoCorrecto==="S") {
                               if(correcto.Retorno.length>0)
                               {
@@ -434,7 +440,8 @@ export class HoraPage {
       this.hs.CargarHoras(this.hora, this.user["CI"])
         .subscribe(
           correcto => {
-            if (correcto.RetornoCorrecto==="S") {              
+            console.log(correcto);
+            if (correcto==="S") {              
                 let toast = this.toastCtrl.create({
                   message: 'Hora Guardada con exito',
                   duration: 3000,
@@ -487,7 +494,7 @@ export class HoraPage {
         this.hs.CargarHoras(this.hora, this.user["CI"])
           .subscribe(
             correcto => {
-              if (correcto.RetornoCorrecto==="S") {
+              if (correcto==="S") {
                 //alert("Hora Guardada con exito");
                 let toast = this.toastCtrl.create({
                   message: 'Hora Guardada con exito',
@@ -539,7 +546,7 @@ export class HoraPage {
           this.hs.CargarHoras(this.hora, this.user["CI"])
             .subscribe(
               correcto => {
-                if (correcto.RetornoCorrecto==="S") {
+                if (correcto==="S") {
                   //this.hora = correcto; 
                   //alert("Hora Guardada con exito");
                   let toast = this.toastCtrl.create({
@@ -589,7 +596,7 @@ export class HoraPage {
             this.hs.editarHoras(this.hora)
               .subscribe(
                 correcto => {
-                  if (correcto.RetornoCorrecto==="S") {
+                  if (correcto==="S") {
                     //this.proyectos = JSON.parse(correcto.proyectos);
                     //this.hora = correcto;
                     //alert("Hora Modificada con exito");
@@ -646,8 +653,10 @@ export class HoraPage {
     this.ts.getTareasDeProyecto(Number(this.tarea.IdProyecto))
       .subscribe(
         correcto => {
+          console.log("En OnProyectoChange");
+          console.log(correcto);
           if (correcto.RetornoCorrecto==="S") {
-            if(correcto.Retorno>0)
+            if(correcto.Retorno.length>0)
             {
               //vacio las tareas y las vuelvo a cargar.
             this.tareas = null;
@@ -659,6 +668,7 @@ export class HoraPage {
             }
             else
             {
+              console.log("En OnProyectoChange - no hay tareas");
               this.status = 'error';
               let toast = this.toastCtrl.create({
               message: 'No hay tareas',
