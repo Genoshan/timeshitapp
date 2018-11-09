@@ -1,13 +1,13 @@
 import { Usuario } from './../../interfaces/usuario';
+import { Proyecto } from '../../interfaces/proyecto';
 import { HttpClient } from '@angular/common/http';
-import { Injectable, NgModule } from '@angular/core';
-
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import {Http} from "@angular/http";
-import { Proyecto } from '../../interfaces/proyecto';
+
+import {Http,Headers, RequestOptions} from "@angular/http";
 
 
 
@@ -52,6 +52,39 @@ export class ProyectosserviceProvider {
         Estado: true,
         CodigoProyecto: ""
       }],
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
+
+  private retornoCrearProyecto=
+  {
+    "RetornoCorrecto": "E",
+    "Retorno": false,
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
+
+  private retornoEditarProyecto=
+  {
+    "RetornoCorrecto": "E",
+    "Retorno": false,
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
+
+  private retornoEliminarProyecto=
+  {
+    "RetornoCorrecto": "E",
+    "Retorno": false,
     "Errores": {
       "ExceptionType": null,
       "Mensaje": null,
@@ -136,20 +169,106 @@ export class ProyectosserviceProvider {
 
   }
 
-  crearProyectos(p: Proyecto){
+  //crear proyecto
+  crearProyectos(p: Proyecto) {
 
-    p.IdProyecto=this.proyectos.length+1;
+    //let body:any = JSON.stringify({ t });
 
-    this.proyectos.push(p);
+    var body = {      
+      IdProyecto: p.IdProyecto,
+      Nombre: p.Nombre,
+      CodigoProyecto: p.CodigoProyecto,
+      FechaInicio: p.FechaInicio,
+      Estado: p.Estado
+    };
 
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let options = new RequestOptions({ headers: headers });
+
+    return this.mihttp
+      .post(this.url + 'CrearProyecto', body, { headers: headers })
+      .map((resp: any) => {
+        this.retornoCrearProyecto = resp.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoCrearProyecto.RetornoCorrecto==="S")
+        {
+          return this.retornoCrearProyecto.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoCrearProyecto.Errores;          
+        }//fin nueva forma
+        
+      })
+      .catch(this.handleError);
   }
 
-  editarProyectos(p: Proyecto, id:string ){
-    
-    let projectoaux = this.proyectos.find(x => x.IdProyecto == Number(id));
-    let index = this.proyectos.indexOf(projectoaux);
-    this.proyectos[index]=projectoaux;    
+  editarProyecto(p: Proyecto) {
+    //let headers = new Headers();
+    var body = {      
+      IdProyecto: p.IdProyecto,
+      Nombre: p.Nombre,
+      CodigoProyecto: p.CodigoProyecto,
+      FechaInicio: p.FechaInicio,
+      Estado: p.Estado
+    };   
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this.mihttp
+      .post(this.url + 'EditarProyecto', body, { headers: headers })
+      .map((resp: any) => {
+        
+        this.retornoEditarProyecto = resp.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoEditarProyecto.RetornoCorrecto==="S")
+        {
+          return this.retornoEditarProyecto.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoEditarProyecto.Errores;          
+        }//fin nueva forma
+
+      })
+      .catch(this.handleError);
   }
+
+  eliminarProyecto(k: Number) {
+    //console.log(k);
+    //let headers = new Headers();
+    var body = k
+    ;   
+
+    //console.log(body);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this.mihttp
+      .post(this.url + 'EliminarProyecto', body, { headers: headers })
+      .map((resp: any) => {
+           
+        this.retornoEliminarProyecto = resp.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoEliminarProyecto.RetornoCorrecto==="S")
+        {
+          return this.retornoEliminarProyecto.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoEliminarProyecto.Errores;          
+        }//fin nueva forma
+      })
+      .catch(this.handleError);
+  }
+
+  
 
   //MANEJADOR DE ERRORES DE SERVICIO
   private handleError(error:any)

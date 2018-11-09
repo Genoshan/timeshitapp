@@ -14,7 +14,7 @@
 
 <div class="btn-wrapper">    
 
-    <button ion-button icon-only color="primary" outline>
+    <button ion-button icon-only color="primary" outline (click)="IraProyecto(IdProyecto)">
         <ion-icon name="add-circle"></ion-icon>
       </button>
 
@@ -53,7 +53,7 @@
       </ion-row>
       <ion-row justify-content-end>
           <ion-col>            
-                      <button ion-button icon-only clear>
+                      <button ion-button icon-only clear (click)="IraProyecto(k.IdProyecto)">
                   <ion-icon name="create"></ion-icon>
                 </button>    
                 <button ion-button icon-only clear (click)="IraTareas(k.IdProyecto)">
@@ -62,6 +62,10 @@
                 <button ion-button icon-only color="secondary" clear (click)="IraHoradeProyecto(''+k.IdProyecto,'/horas/proyecto/')" >
                   <ion-icon name="alarm"></ion-icon>
                 </button>
+
+                <button ion-button icon-only color="danger" clear (click)="borrarProyecto(k.IdProyecto)">
+                    <ion-icon name="trash"></ion-icon>
+                  </button>
           </ion-col>
         </ion-row>
     </ion-item>
