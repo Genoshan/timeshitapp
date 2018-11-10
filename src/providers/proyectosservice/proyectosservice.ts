@@ -193,7 +193,7 @@ export class ProyectosserviceProvider {
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoCrearProyecto.RetornoCorrecto==="S")
         {
-          return this.retornoCrearProyecto.RetornoCorrecto;
+          return this.retornoCrearProyecto;
         }
         else 
         {
@@ -227,7 +227,7 @@ export class ProyectosserviceProvider {
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoEditarProyecto.RetornoCorrecto==="S")
         {
-          return this.retornoEditarProyecto.RetornoCorrecto;
+          return this.retornoEditarProyecto;
         }
         else 
         {

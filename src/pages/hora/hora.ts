@@ -292,8 +292,8 @@ export class HoraPage {
               this.pr.getProyectosUsuario(this.user["CI"])
                 .subscribe(
                   correcto => {
-                    console.log("//LISTANDO PROYECTOS BOTON GRANDE+  ");
-                    console.log(correcto);
+                    // console.log("//LISTANDO PRYECTOS BOTON GRANDE+  ");
+                    // console.log(correcto);
                     if (correcto.RetornoCorrecto==="S") 
                     {
 
@@ -308,8 +308,8 @@ export class HoraPage {
                       this.ts.getTareasDeProyecto(Number(this.tarea.IdProyecto))
                         .subscribe(
                           correcto => {
-                            console.log("//LISTANDO TAREAS DESDE PROYECTOS BOTON GRANDE+  ");
-                            console.log(correcto);
+                            // console.log("//LISTANDO TAREAS DESDE PROYECTOS BOTON GRANDE+  ");
+                            // console.log(correcto);
                             if (correcto.RetornoCorrecto==="S") {
                               if(correcto.Retorno.length>0)
                               {
@@ -648,13 +648,13 @@ export class HoraPage {
   }
 
   onProyectoChange() {
-    console.log(this.tarea.IdProyecto);
+    //console.log(this.tarea.IdProyecto);
 
     this.ts.getTareasDeProyecto(Number(this.tarea.IdProyecto))
       .subscribe(
         correcto => {
-          console.log("En OnProyectoChange");
-          console.log(correcto);
+          // console.log("En OnProyectoChange");
+          // console.log(correcto);
           if (correcto.RetornoCorrecto==="S") {
             if(correcto.Retorno.length>0)
             {
