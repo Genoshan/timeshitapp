@@ -68,7 +68,7 @@ export class ProyectoPage {
   crearProyectos() {
     if (this.id == null) {
       // insertando    
-      this.pr.crearProyectos(this.proyecto)
+      this.pr.crearProyectos(this.proyecto, this.user)
         .subscribe(
           correcto => {
             if (correcto.RetornoCorrecto==="S") {
@@ -159,7 +159,11 @@ export class ProyectoPage {
   /**** CARGA INICIAL DEL COMPONENTE *****/
   ionViewDidLoad() {
 
-    this.user = JSON.parse(localStorage.getItem('usuario'));
+    //this.user = JSON.parse(localStorage.getItem('usuario'));
+    this.user.ci = JSON.parse(localStorage.getItem("usuario"))["CI"];
+    this.user.email = JSON.parse(localStorage.getItem("usuario"))["Email"];
+    this.user.img = JSON.parse(localStorage.getItem("usuario"))["Img"];
+    this.user.nombre = JSON.parse(localStorage.getItem("usuario"))["Nombre"];
     //this.proyecto = JSON.parse(localStorage.getItem('proyecto'));
     this.id = this.navParams.get('IdProyecto');    
     this.getProyecto();

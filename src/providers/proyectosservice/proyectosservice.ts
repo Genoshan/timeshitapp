@@ -170,16 +170,32 @@ export class ProyectosserviceProvider {
   }
 
   //crear proyecto
-  crearProyectos(p: Proyecto) {
+  crearProyectos(p: Proyecto, u: Usuario) {
 
     //let body:any = JSON.stringify({ t });
 
     var body = {      
-      IdProyecto: p.IdProyecto,
+
+      // IdProyecto: p.IdProyecto,
+      // Nombre: p.Nombre,
+      // CodigoProyecto: p.CodigoProyecto,
+      // FechaInicio: p.FechaInicio,
+      // Estado: p.Estado
+
+      oProyecto: {
+        IdProyecto: p.IdProyecto,
       Nombre: p.Nombre,
       CodigoProyecto: p.CodigoProyecto,
       FechaInicio: p.FechaInicio,
-      Estado: p.Estado
+      Estado: p.Estado        
+      },
+      oUsuario: {
+        Nombre: u.nombre,
+        Email: u.email,
+        Img: u.img,
+        CI: u.ci
+      }
+
     };
 
     let headers = new Headers();
