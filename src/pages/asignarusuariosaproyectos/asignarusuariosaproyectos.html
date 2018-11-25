@@ -21,12 +21,12 @@
                   </ion-select>
                 </ion-item>
 
-                <ion-item>
-                    <ion-label>Usuario</ion-label>
-                    <ion-select [(ngModel)]="useraasignar.ci" >
+                  <ion-item>
+                    <ion-label>Usuarios</ion-label>
+                    <ion-select [(ngModel)]="useraasignar.ci" multiple="true" okText="Listo" cancelText="Cancelar">
                       <ion-option *ngFor="let useraasignar of listausuariosaasignar" [value]="useraasignar.ci">{{useraasignar.nombre}}</ion-option>
                     </ion-select>
-                  </ion-item>              
+                  </ion-item>
               
               <button ion-button color="primary" block outline
                 (click)="AsignarUsuarioAProyecto()"

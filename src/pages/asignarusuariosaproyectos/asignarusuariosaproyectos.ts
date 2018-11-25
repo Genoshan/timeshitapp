@@ -49,27 +49,50 @@ export class AsignarusuariosaproyectosPage {
 
   proyectos:Proyecto[] = [];
 
+  
   listausuariosaasignar:Usuario[]= [
-    {
-      nombre: "User1",
-      ci: "11111111",
-      email:"1@mail.com",
-      img: "",
-    },
+    
+      {
+        nombre: "Diego Vargas",
+        ci: "11111111",
+        email:"1@mail.com",
+        img: "",
+      },
+  
+      {
+        nombre: "Martin Castro",
+        ci: "2222222",
+        email:"2@mail.com",
+        img: "",
+      },
+  
+      {
+        nombre: "Rodrigo Gallardo",
+        ci: "33333333",
+        email:"3@mail.com",
+        img: "",
+      },
 
-    {
-      nombre: "User2",
-      ci: "2222222",
-      email:"2@mail.com",
-      img: "",
-    },
+      {
+        nombre: "Julio Ruiz",
+        ci: "44444444",
+        email:"4@mail.com",
+        img: "",
+      },
 
-    {
-      nombre: "User3",
-      ci: "33333333",
-      email:"3@mail.com",
-      img: "",
-    },
+      {
+        nombre: "Juan Dura",
+        ci: "55555555",
+        email:"5@mail.com",
+        img: "",
+      },
+
+      {
+        nombre: "Alex Rostan",
+        ci: "66666666",
+        email:"6@mail.com",
+        img: "",
+      },
   ];
 
   status: string;
@@ -99,23 +122,44 @@ export class AsignarusuariosaproyectosPage {
     //usuarios de muestra
     this.listausuariosaasignar= [
       {
-        nombre: "User1",
+        nombre: "Diego Vargas",
         ci: "11111111",
         email:"1@mail.com",
         img: "",
       },
   
       {
-        nombre: "User2",
+        nombre: "Martin Castro",
         ci: "2222222",
         email:"2@mail.com",
         img: "",
       },
   
       {
-        nombre: "User3",
+        nombre: "Rodrigo Gallardo",
         ci: "33333333",
         email:"3@mail.com",
+        img: "",
+      },
+
+      {
+        nombre: "Julio Ruiz",
+        ci: "44444444",
+        email:"4@mail.com",
+        img: "",
+      },
+
+      {
+        nombre: "Juan Dura",
+        ci: "55555555",
+        email:"5@mail.com",
+        img: "",
+      },
+
+      {
+        nombre: "Alex Rostan",
+        ci: "66666666",
+        email:"6@mail.com",
         img: "",
       },
     ];
@@ -291,23 +335,44 @@ export class AsignarusuariosaproyectosPage {
      //usuarios de muestra
     this.listausuariosaasignar= [
       {
-        nombre: "User1",
+        nombre: "Diego Vargas",
         ci: "11111111",
         email:"1@mail.com",
         img: "",
       },
   
       {
-        nombre: "User2",
+        nombre: "Martin Castro",
         ci: "2222222",
         email:"2@mail.com",
         img: "",
       },
   
       {
-        nombre: "User3",
+        nombre: "Rodrigo Gallardo",
         ci: "33333333",
         email:"3@mail.com",
+        img: "",
+      },
+
+      {
+        nombre: "Julio Ruiz",
+        ci: "44444444",
+        email:"4@mail.com",
+        img: "",
+      },
+
+      {
+        nombre: "Juan Dura",
+        ci: "55555555",
+        email:"5@mail.com",
+        img: "",
+      },
+
+      {
+        nombre: "Alex Rostan",
+        ci: "66666666",
+        email:"6@mail.com",
         img: "",
       },
     ];
