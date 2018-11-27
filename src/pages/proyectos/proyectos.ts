@@ -85,6 +85,7 @@ export class ProyectosPage {
             this.pservice.eliminarProyecto(k)
               .subscribe(
                 correcto => {
+                  //console.log(correcto);
                   if (correcto.RetornoCorrecto==="S") {
                     //vuelvo a cargar la lista
                     let toast = this.toastCtrl.create({
