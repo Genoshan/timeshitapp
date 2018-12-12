@@ -27,11 +27,11 @@ export class ProyectoPage {
     id: string;
   
     user: Usuario = {
-      nombre: "",
-      email: "",
+      Nombre: "",
+      Email: "",
       //password: string;
-      img: "",
-      ci: ""
+      Img: "",
+      CI: ""
     }
   
     proyecto: Proyecto = {
@@ -160,10 +160,10 @@ export class ProyectoPage {
   ionViewDidLoad() {
 
     //this.user = JSON.parse(localStorage.getItem('usuario'));
-    this.user.ci = JSON.parse(localStorage.getItem("usuario"))["CI"];
-    this.user.email = JSON.parse(localStorage.getItem("usuario"))["Email"];
-    this.user.img = JSON.parse(localStorage.getItem("usuario"))["Img"];
-    this.user.nombre = JSON.parse(localStorage.getItem("usuario"))["Nombre"];
+    this.user.CI = JSON.parse(localStorage.getItem("usuario"))["CI"];
+    this.user.Email = JSON.parse(localStorage.getItem("usuario"))["Email"];
+    this.user.Img = JSON.parse(localStorage.getItem("usuario"))["Img"];
+    this.user.Nombre = JSON.parse(localStorage.getItem("usuario"))["Nombre"];
     //this.proyecto = JSON.parse(localStorage.getItem('proyecto'));
     this.id = this.navParams.get('IdProyecto');    
     this.getProyecto();

@@ -27,8 +27,8 @@
                         [(ngModel)]="termino"    
                         (ionInput)="buscar(termino)">
                       </ion-searchbar>
-                    <ion-select [(ngModel)]="useraasignar.ci" multiple="true" okText="Listo" cancelText="Cancelar">                        
-                      <ion-option *ngFor="let useraasignar of listausuariosaasignar" [value]="useraasignar.ci">{{useraasignar.nombre}}</ion-option>
+                    <ion-select [(ngModel)]="useraasignar.CI" multiple="true" okText="Listo" cancelText="Cancelar">                        
+                      <ion-option *ngFor="let useraasignar of listausuariosaasignar" [value]="useraasignar.CI">{{useraasignar.Nombre}}</ion-option>
                     </ion-select>
                   </ion-item>
               

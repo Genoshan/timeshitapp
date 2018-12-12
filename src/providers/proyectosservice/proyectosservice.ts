@@ -190,10 +190,10 @@ export class ProyectosserviceProvider {
       Estado: p.Estado        
       },
       oUsuario: {
-        Nombre: u.nombre,
-        Email: u.email,
-        Img: u.img,
-        CI: u.ci
+        Nombre: u.Nombre,
+        Email: u.Email,
+        Img: u.Img,
+        CI: u.CI
       }
 
     };
@@ -284,8 +284,6 @@ export class ProyectosserviceProvider {
       .catch(this.handleError);
   }
 
-  
-
   //MANEJADOR DE ERRORES DE SERVICIO
   private handleError(error:any)
   {
@@ -297,9 +295,5 @@ export class ProyectosserviceProvider {
         : "Server error";
     return Observable.throw(errMsg);
   }
-
-
-
-
 
 }

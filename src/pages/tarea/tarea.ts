@@ -34,11 +34,11 @@ export class TareaPage {
   }
 
   user: Usuario = {
-    nombre: "",
-    email: "",
+    Nombre: "",
+    Email: "",
     //password: string;
-    img: "",
-    ci: ""
+    Img: "",
+    CI: ""
   }
 
   proyecto: Proyecto = {

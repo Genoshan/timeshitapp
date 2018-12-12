@@ -22,20 +22,20 @@ import { constructDependencies } from '@angular/core/src/di/reflective_provider'
 export class AsignarusuariosaproyectosPage {
 
   user: Usuario = {
-    nombre: "",
-    email: "",
+    Nombre: "",
+    Email: "",
     //password: string;
-    img: "",
-    ci: ""
+    Img: "",
+    CI: ""
   };
 
   
   useraasignar: Usuario = {
-    nombre: "",
-    email: "",
+    Nombre: "",
+    Email: "",
     //password: string;
-    img: "",
-    ci: ""
+    Img: "",
+    CI: ""
   };
 
   proyecto:Proyecto = {
@@ -49,49 +49,54 @@ export class AsignarusuariosaproyectosPage {
 
   proyectos:Proyecto[] = [];
 
-  
+  usuarios:Usuario[] = [];
+
+  usuariosDeProyecto:Usuario[] = [];
+
+  usuariosAAsignar:Usuario[] = [];
+
   listausuariosaasignar:Usuario[]= [
     
       {
-        nombre: "Diego Vargas",
-        ci: "11111111",
-        email:"1@mail.com",
-        img: "",
+        Nombre: "Diego Vargas",
+        CI: "11111111",
+        Email:"1@mail.com",
+        Img: "",
       },
   
       {
-        nombre: "Martin Castro",
-        ci: "2222222",
-        email:"2@mail.com",
-        img: "",
+        Nombre: "Martin Castro",
+        CI: "2222222",
+        Email:"2@mail.com",
+        Img: "",
       },
   
       {
-        nombre: "Rodrigo Gallardo",
-        ci: "33333333",
-        email:"3@mail.com",
-        img: "",
+        Nombre: "Rodrigo Gallardo",
+        CI: "33333333",
+        Email:"3@mail.com",
+        Img: "",
       },
 
       {
-        nombre: "Julio Ruiz",
-        ci: "44444444",
-        email:"4@mail.com",
-        img: "",
+        Nombre: "Julio Ruiz",
+        CI: "44444444",
+        Email:"4@mail.com",
+        Img: "",
       },
 
       {
-        nombre: "Juan Dura",
-        ci: "55555555",
-        email:"5@mail.com",
-        img: "",
+        Nombre: "Juan Dura",
+        CI: "55555555",
+        Email:"5@mail.com",
+        Img: "",
       },
 
       {
-        nombre: "Alex Rostan",
-        ci: "66666666",
-        email:"6@mail.com",
-        img: "",
+        Nombre: "Alex Rostan",
+        CI: "66666666",
+        Email:"6@mail.com",
+        Img: "",
       },
   ];
 
@@ -107,77 +112,179 @@ export class AsignarusuariosaproyectosPage {
     this.navCtrl.push(ProyectosPage);    
   }
 
-  onProyectoChange(proy) {
-    //console.log(proy);
-    // this.proyecto = {
+  onProyectoChange(proy) {    
 
-    //   Nombre:"",
-    //   FechaInicio:new Date(Date.now()),
-    //   Estado:true,
-    //   CodigoProyecto:"",    
-    //   IdProyecto: 0,
-    // }
-
+    //BUSCO EN EL COMBO DE PROYECTO EL PROYECTO SEGUN SU ID
     let p = this.proyectos.find(x => x.IdProyecto===proy);
     //usuarios de muestra
     this.listausuariosaasignar= [
       {
-        nombre: "Diego Vargas",
-        ci: "11111111",
-        email:"1@mail.com",
-        img: "",
+        Nombre: "Diego Vargas",
+        CI: "11111111",
+        Email:"1@mail.com",
+        Img: "",
       },
   
       {
-        nombre: "Martin Castro",
-        ci: "2222222",
-        email:"2@mail.com",
-        img: "",
+        Nombre: "Martin Castro",
+        CI: "2222222",
+        Email:"2@mail.com",
+        Img: "",
       },
   
       {
-        nombre: "Rodrigo Gallardo",
-        ci: "33333333",
-        email:"3@mail.com",
-        img: "",
+        Nombre: "Rodrigo Gallardo",
+        CI: "33333333",
+        Email:"3@mail.com",
+        Img: "",
       },
 
       {
-        nombre: "Julio Ruiz",
-        ci: "44444444",
-        email:"4@mail.com",
-        img: "",
+        Nombre: "Julio Ruiz",
+        CI: "44444444",
+        Email:"4@mail.com",
+        Img: "",
       },
 
       {
-        nombre: "Juan Dura",
-        ci: "55555555",
-        email:"5@mail.com",
-        img: "",
+        Nombre: "Juan Dura",
+        CI: "55555555",
+        Email:"5@mail.com",
+        Img: "",
       },
 
       {
-        nombre: "Alex Rostan",
-        ci: "66666666",
-        email:"6@mail.com",
-        img: "",
+        Nombre: "Alex Rostan",
+        CI: "66666666",
+        Email:"6@mail.com",
+        Img: "",
       },
     ];
   
-    
-
-    this.useraasignar.ci = this.listausuariosaasignar[0].ci;
+    //DADO EL PROYECTO CAMBIADO MARCO LOS USUARIOS QUE ESTAN ASIGNADOS ACTUALMENTE
     this.proyecto.IdProyecto = this.proyectos[0].IdProyecto;    
 
-    //console.log(p.IdProyecto);
+    //obtengo los usuarios
+     this.uservice.getUsuarios()
+            .subscribe(        
+            correcto => { 
+              if(correcto.RetornoCorrecto==="S")
+            {              
+              if(correcto.Retorno.length>0)
+              {
+                //con esto cargo combo usuarios
+                this.usuarios = correcto.Retorno;                
+                //this.proyecto.IdProyecto = this.proyectos[0].IdProyecto;                 
+              }
+              else
+              {
+                let toast = this.toastCtrl.create({
+                  message: 'No hay usuarios para listar',
+                  duration: 3000,
+                  position: 'middle'
+                });
+                toast.onDidDismiss(() => {
+                  //console.log('Dismissed toast');
+                });
+                toast.present();             
+              }
+            }
+            else{
+              //this.status = 'error';          
+              let toast = this.toastCtrl.create({
+                message: correcto.Mensaje +'-'+correcto.Descripcion+'-'+'No hay usuarios a listar',
+                duration: 3000,
+                position: 'middle'
+              });
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });
+              toast.present();             
+            }
+        },(error) => {
+          this.status = 'error';
+          let toast = this.toastCtrl.create({
+            message: error,
+            duration: 3000,
+            position: 'middle'
+          });            
+          toast.onDidDismiss(() => {
+            //console.log('Dismissed toast');
+          });            
+          toast.present();
 
+          //console.log(error);                    
+          } 
+          )     
+          
+     //y obtener los asignados a ese proyecto.
+     this.uservice.getUsuariosDeProyecto(this.proyecto)
+            .subscribe(        
+            correcto => { 
+              if(correcto.RetornoCorrecto==="S")
+            {              
+              if(correcto.Retorno.length>0)
+              {
+                //con esto cargo combo usuarios
+                this.usuariosDeProyecto = correcto.Retorno;                
+                //this.proyecto.IdProyecto = this.proyectos[0].IdProyecto;                 
+              }
+              else
+              {
+                let toast = this.toastCtrl.create({
+                  message: 'No hay usuarios para listar',
+                  duration: 3000,
+                  position: 'middle'
+                });
+                toast.onDidDismiss(() => {
+                  //console.log('Dismissed toast');
+                });
+                toast.present();             
+              }
+            }
+            else{
+              //this.status = 'error';          
+              let toast = this.toastCtrl.create({
+                message: correcto.Mensaje +'-'+correcto.Descripcion+'-'+'No hay usuarios a listar',
+                duration: 3000,
+                position: 'middle'
+              });
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });
+              toast.present();             
+            }
+        },(error) => {
+          this.status = 'error';
+          let toast = this.toastCtrl.create({
+            message: error,
+            duration: 3000,
+            position: 'middle'
+          });            
+          toast.onDidDismiss(() => {
+            //console.log('Dismissed toast');
+          });            
+          toast.present();
+
+          //console.log(error);                    
+          } 
+          )
+
+          
+     this.usuarios.forEach(u => { 
+       console.log(u.CI);
+       this.useraasignar.CI = this.usuariosDeProyecto.find(x => x.CI == u.CI).CI;       
+     });
+
+        //FORMA ANTERIOR
+    //this.useraasignar.CI = this.listausuariosaasignar[0].CI;
 
     //cuando tenga el listado de usuarios.
 
     // this.uservice.getUsuariosNoAsignadosDeProyecto(this.proyecto)
     //   .subscribe(
     //     correcto => {
-    //       if (correcto) {
+    //       if (correcto) { //cargar todos los usuarios en combo 
     //         //vacio las listas y las vuelvo a cargar.
     //         this.listausuariosaasignar = null;
     //         this.listausuariosaasignar = correcto;
@@ -205,16 +312,17 @@ export class AsignarusuariosaproyectosPage {
 
   AsignarUsuarioAProyecto()
   {
-    console.log(this.proyecto.IdProyecto);
-    console.log(this.useraasignar.ci);
+    //console.log(this.proyecto.IdProyecto);
+    //console.log(this.useraasignar.CI);
+    
 
-    this.uservice.asignarUsuarios(this.proyecto,this.useraasignar).subscribe(
+    this.uservice.asignarUsuarios(this.proyecto,this.usuariosAAsignar).subscribe(
       correcto => {
         if (correcto==="S") {
           //console.log(JSON.parse(localStorage.getItem("usuario")));
           //this.proyectos = JSON.parse(correcto.proyectos);              
               let toast = this.toastCtrl.create({
-                message: 'Usuario asignado!',
+                message: 'Usuarios asignados!',
                 duration: 3000,
                 position: 'top'
               });
@@ -232,7 +340,7 @@ export class AsignarusuariosaproyectosPage {
             else {
               //this.status = 'error';
               let toast = this.toastCtrl.create({
-                message: correcto.Mensaje +'-'+correcto.Descripcion + 'El usuario no fue asignado al proyecto',                
+                message: correcto.Mensaje +'-'+correcto.Descripcion + 'Los usuarios no fueron asignados al proyecto',                
                 duration: 3000,
                 position: 'top'
               });
@@ -264,16 +372,7 @@ export class AsignarusuariosaproyectosPage {
 
   ionViewDidLoad() {
     //cargar proyectos en combo
-
-    // this.proyecto = {
-
-    //   Nombre:"",
-    //   FechaInicio:new Date(Date.now()),
-    //   Estado:true,
-    //   CodigoProyecto:"",    
-    //   IdProyecto: 0,
-    // }
-            //LISTA PROYECTOS DEL USUARIO DESDE API
+      //LISTA PROYECTOS DEL USUARIO DESDE API
         this.user=JSON.parse(localStorage.getItem('usuario'));
 
             //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
@@ -330,58 +429,122 @@ export class AsignarusuariosaproyectosPage {
           )
           //this.proyecto.CodigoProyecto = this.navParams.get('CodigoProyecto');
 
-     //cargar usuarios en combo (que no esten asignado al proyecto)
-     //usuarios de muestra
-     //usuarios de muestra
-    this.listausuariosaasignar= [
-      {
-        nombre: "Diego Vargas",
-        ci: "11111111",
-        email:"1@mail.com",
-        img: "",
-      },
-  
-      {
-        nombre: "Martin Castro",
-        ci: "2222222",
-        email:"2@mail.com",
-        img: "",
-      },
-  
-      {
-        nombre: "Rodrigo Gallardo",
-        ci: "33333333",
-        email:"3@mail.com",
-        img: "",
-      },
+     //cargar todos los usuarios en combo
+     this.uservice.getUsuarios()
+            .subscribe(        
+            correcto => { 
+              if(correcto.RetornoCorrecto==="S")
+            {              
+              if(correcto.Retorno.length>0)
+              {
+                //con esto cargo combo usuarios
+                this.usuarios = correcto.Retorno;                
+                //this.proyecto.IdProyecto = this.proyectos[0].IdProyecto;                 
+              }
+              else
+              {
+                let toast = this.toastCtrl.create({
+                  message: 'No hay usuarios para listar',
+                  duration: 3000,
+                  position: 'middle'
+                });
+                toast.onDidDismiss(() => {
+                  //console.log('Dismissed toast');
+                });
+                toast.present();             
+              }
+            }
+            else{
+              //this.status = 'error';          
+              let toast = this.toastCtrl.create({
+                message: correcto.Mensaje +'-'+correcto.Descripcion+'-'+'No hay usuarios a listar',
+                duration: 3000,
+                position: 'middle'
+              });
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });
+              toast.present();             
+            }
+        },(error) => {
+          this.status = 'error';
+          let toast = this.toastCtrl.create({
+            message: error,
+            duration: 3000,
+            position: 'middle'
+          });            
+          toast.onDidDismiss(() => {
+            //console.log('Dismissed toast');
+          });            
+          toast.present();
 
-      {
-        nombre: "Julio Ruiz",
-        ci: "44444444",
-        email:"4@mail.com",
-        img: "",
-      },
+          //console.log(error);                    
+          } 
+          )     
+          
+     //y obtener los asignados a ese proyecto.
+     this.uservice.getUsuariosDeProyecto(this.proyecto)
+            .subscribe(        
+            correcto => { 
+              if(correcto.RetornoCorrecto==="S")
+            {              
+              if(correcto.Retorno.length>0)
+              {
+                //con esto cargo combo usuarios
+                this.usuariosDeProyecto = correcto.Retorno;                
+                //this.proyecto.IdProyecto = this.proyectos[0].IdProyecto;                 
+              }
+              else
+              {
+                let toast = this.toastCtrl.create({
+                  message: 'No hay usuarios para listar',
+                  duration: 3000,
+                  position: 'middle'
+                });
+                toast.onDidDismiss(() => {
+                  //console.log('Dismissed toast');
+                });
+                toast.present();             
+              }
+            }
+            else{
+              //this.status = 'error';          
+              let toast = this.toastCtrl.create({
+                message: correcto.Mensaje +'-'+correcto.Descripcion+'-'+'No hay usuarios a listar',
+                duration: 3000,
+                position: 'middle'
+              });
+              toast.onDidDismiss(() => {
+                //console.log('Dismissed toast');
+              });
+              toast.present();             
+            }
+        },(error) => {
+          this.status = 'error';
+          let toast = this.toastCtrl.create({
+            message: error,
+            duration: 3000,
+            position: 'middle'
+          });            
+          toast.onDidDismiss(() => {
+            //console.log('Dismissed toast');
+          });            
+          toast.present();
 
-      {
-        nombre: "Juan Dura",
-        ci: "55555555",
-        email:"5@mail.com",
-        img: "",
-      },
+          //console.log(error);                    
+          } 
+          )
 
-      {
-        nombre: "Alex Rostan",
-        ci: "66666666",
-        email:"6@mail.com",
-        img: "",
-      },
-    ];
+          
+     this.usuarios.forEach(u => { 
+       console.log(u.CI);
+       this.useraasignar.CI = this.usuariosDeProyecto.find(x => x.CI == u.CI).CI;       
+     });
 
-
-    this.useraasignar.ci = this.listausuariosaasignar[0].ci;
+    //this.useraasignar.ci = this.listausuariosaasignar[0].ci;
     // this.proyecto = this.proyectos[0];
     // this.proyecto.IdProyecto = this.proyectos[0].IdProyecto;       
-    console.log(this.proyecto.IdProyecto);
+    //console.log(this.proyecto.IdProyecto);
     //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
   //   this.uservice.getUsuariosNoAsignadosDeProyecto(this.proyecto)
   //   .subscribe(        

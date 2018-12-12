@@ -35,11 +35,11 @@ export class HorasefectivasPage {
   loading: boolean;
   p: number = 1;
   user: Usuario = {
-    nombre: "",
-    email: "",
+    Nombre: "",
+    Email: "",
     //password: string;
-    img: "",
-    ci: ""
+    Img: "",
+    CI: ""
   };
 
   proyecto: Proyecto = {

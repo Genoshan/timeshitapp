@@ -35,10 +35,10 @@ export class HoraPage {
   tareas: Tarea[] = [];
 
   user: Usuario = {
-    nombre: "",
-    email: "",
-    img: "",
-    ci: ""
+    Nombre: "",
+    Email: "",
+    Img: "",
+    CI: ""
   }
 
   hora: Hora = {

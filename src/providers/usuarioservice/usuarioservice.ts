@@ -58,7 +58,46 @@ private retornoAsignarUsuarioAProyecto = {
   }
 };
 
+private retornoUsuariosAsignadosAProyecto=
+  {
+    "RetornoCorrecto": "S",
+    "Retorno": [
+      {
+        Nombre: "",
+    Email: "",
+    //password: string,
+    Img: "",
+    CI: ""      
+      }],
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
+
+
+  private retornoUsuarios=
+  {
+    "RetornoCorrecto": "S",
+    "Retorno": [
+      {
+        Nombre: "",
+    Email: "",
+    //password: string,
+    Img: "",
+    CI: ""      
+      }],
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
+
   listausuariosaasignar:Usuario[]= [];
+  listausuariosasignadosaproyecto:Usuario[]= [];
+  listausuarios:Usuario[]= [];
 
   private url: string;  
 
@@ -67,16 +106,17 @@ private retornoAsignarUsuarioAProyecto = {
     this.url = "http://localhost:88/api/";
   }
 
-  asignarUsuarios(proyecto: Proyecto, useraasignar: Usuario) {
+  asignarUsuarios(proyecto: Proyecto, listausuariosaasignar:Usuario[]) {
 
-    let params = JSON.stringify({ pDocumento: useraasignar.ci, pIdProyecto: proyecto.IdProyecto });
+
+    let params = JSON.stringify({ pUsuarios: listausuariosaasignar, pIdProyecto: proyecto.IdProyecto });
 
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     let options = new RequestOptions({ headers: headers });   
 
     return this.mihttp
-      .post(this.url + 'AsignarUsusarioAProyecto?'+"pDocumento=" + useraasignar.ci+"&pIdProyecto=" + proyecto.IdProyecto, params)
+      .post(this.url + 'AsignarUsusarioAProyecto?'+"pUsuarios=" + listausuariosaasignar+"&pIdProyecto=" + proyecto.IdProyecto, params)
       .map((resp: any) => {
         this.retornoAsignarUsuarioAProyecto = resp.json();        
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
@@ -94,7 +134,7 @@ private retornoAsignarUsuarioAProyecto = {
     
   }
 
-  getUsuariosNoAsignadosDeProyecto(proyecto: Proyecto){
+  getUsuariosDeProyecto(proyecto: Proyecto){
 
       let params = JSON.stringify({ pIdProyecto: proyecto.IdProyecto });
   
@@ -103,26 +143,77 @@ private retornoAsignarUsuarioAProyecto = {
   
       return this.mihttp
         .get(
-          this.url + "ListarUsuariosNoAsignadosDeProyecto?pIdProyecto=" + proyecto.IdProyecto+"",
+          this.url + "ListaUsuariosAsignadoAProyecto?pIdProyecto=" + proyecto.IdProyecto+"",
           params
         )
-        .map((res: any) => {        
-          
-           this.listausuariosaasignar = res.json();
-                    
-            if (this.listausuariosaasignar.length>0)
-            {            
-              return this.listausuariosaasignar;
-            }
-          else {
+        .map((res: any) => { 
+
+           this.retornoUsuariosAsignadosAProyecto = res.json();
+
+           //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+           if (this.retornoUsuariosAsignadosAProyecto.RetornoCorrecto==="S")
+        {
+          //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+          if (this.retornoUsuariosAsignadosAProyecto.Retorno.length>0)
+          {
             
+            this.listausuariosasignadosaproyecto = this.retornoUsuariosAsignadosAProyecto.Retorno;
+            //console.log(this.retornoListarProyectosDeUsuario.Retorno);
+
+            return this.retornoUsuariosAsignadosAProyecto;            
+          }
+          else {
             return false;
           }
-          
-        })
+        }
+        else
+        {
+          return this.retornoUsuariosAsignadosAProyecto.Errores;
+        }//fin nueva forma
+      })
         .catch(this.handleError); 
 
   }
+
+  getUsuarios(){
+
+    //let params = JSON.stringify({ pIdProyecto: proyecto.IdProyecto );
+
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    return this.mihttp
+      .get(
+        this.url + "ListarUsuarios"        
+      )
+      .map((res: any) => { 
+
+         this.retornoUsuarios = res.json();
+
+         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+         if (this.retornoUsuarios.RetornoCorrecto==="S")
+      {
+        //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+        if (this.retornoUsuarios.Retorno.length>0)
+        {
+          
+          this.listausuarios = this.retornoUsuarios.Retorno;
+          //console.log(this.retornoListarProyectosDeUsuario.Retorno);
+
+          return this.retornoUsuarios;            
+        }
+        else {
+          return false;
+        }
+      }
+      else
+      {
+        return this.retornoUsuarios.Errores;
+      }//fin nueva forma
+    })
+      .catch(this.handleError); 
+
+}
 
   login(email: string, pass: string) {
     let params = JSON.stringify({ pUsuario: email, pClave: pass });

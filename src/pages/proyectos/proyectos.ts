@@ -28,19 +28,19 @@ export class ProyectosPage {
   loading:boolean;
 
   user:Usuario={
-    nombre: "",
-    email: "",
+    Nombre: "",
+    Email: "",
     //password: string;
-    img: "",
-    ci: ""
+    Img: "",
+    CI: ""
   }
   
   useraasignar: Usuario = {
-    nombre: "",
-    email: "",
+    Nombre: "",
+    Email: "",
     //password: string;
-    img: "",
-    ci: ""
+    Img: "",
+    CI: ""
   };
 
   proyecto:Proyecto = {

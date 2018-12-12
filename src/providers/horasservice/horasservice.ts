@@ -23,11 +23,11 @@ export class HorasserviceProvider {
   private url: string;
 
   private user: Usuario = {
-    nombre: "",
-    email: "",
+    Nombre: "",
+    Email: "",
     //password: string;
-    img: "",
-    ci: ""
+    Img: "",
+    CI: ""
   }
 
   private Hora: {
@@ -43,7 +43,7 @@ export class HorasserviceProvider {
     "RetornoCorrecto": "S",
     "Retorno": [
       {
-        IdTarea: 0,      
+      IdTarea: 0,      
       Descripcion: "",
       CantidadHoras: 0,
       Fecha: new Date(Date.now()),
