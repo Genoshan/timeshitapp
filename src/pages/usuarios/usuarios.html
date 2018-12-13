@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>USUARIOS</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+
+  <ion-searchbar
+  [(ngModel)]="termino"    
+  (ionInput)="buscar(termino)">
+</ion-searchbar>
+
+
+<div class="btn-wrapper">    
+  <button ion-button icon-only color="primary" outline (click)="IraUsuario(CI)">
+      <ion-icon name="add-circle"></ion-icon>
+    </button>      
+</div>
+
+<!-- Nombre: string;
+  Email: string;
+  //password: string;
+  Img: string;
+  CI: string; -->
+
+<ion-list>
+  <ion-list-header>
+    Usuarios
+  </ion-list-header>    
+      <ion-item *ngFor="let k of usuarios">
+    <ion-col><strong>Nombre:</strong>
+      {{k.Nombre}}                
+    </ion-col>
+    <ion-row justify-content-end>
+        <ion-col><strong>Email:</strong>
+            {{k.Email}}
+        </ion-col>
+    </ion-row>
+    <ion-row justify-content-end>
+        <ion-col><strong>CI:</strong>
+            {{k.CI}}
+        </ion-col>
+    </ion-row>
+    <ion-row justify-content-end>
+        <ion-col>            
+                    <button ion-button icon-only clear (click)="IraUsuario(k.CI)">
+                <ion-icon name="create"></ion-icon>
+              </button>    
+              <!-- <button ion-button icon-only clear (click)="IraTareas(k.IdProyecto)">
+                <ion-icon name="clipboard"></ion-icon>
+              </button>      
+              <button ion-button icon-only color="secondary" clear (click)="IraHoradeProyecto(''+k.IdProyecto,'/horas/proyecto/')" >
+                <ion-icon name="alarm"></ion-icon>
+              </button> -->
+
+              <button ion-button icon-only color="danger" clear (click)="borrarUsuario(k.CI)">
+                  <ion-icon name="trash"></ion-icon>
+                </button>
+        </ion-col>
+      </ion-row>
+  </ion-item>
+  </ion-list>
+
+</ion-content>
+
+
+
+

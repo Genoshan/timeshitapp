@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { UsuarioPage } from '../usuario/usuario';
 
 /**
- * Generated class for the UsuarioPage page.
+ * Generated class for the UsuariosPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,20 +11,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-usuario',
-  templateUrl: 'usuario.html',
+  selector: 'page-usuarios',
+  templateUrl: 'usuarios.html',
 })
-export class UsuarioPage {
-
-  CI: string;
+export class UsuariosPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log(this.CI);
-    console.log('ionViewDidLoad UsuarioPage');
+    console.log('ionViewDidLoad UsuariosPage');
+  }
 
+  IraUsuario(CI){    
+    console.log(CI);
+    this.navCtrl.push(UsuarioPage , {CI:""});    
   }
 
 }

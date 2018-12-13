@@ -1,3 +1,4 @@
+import { UsuariosPage } from './../usuarios/usuarios';
 import { ProyectoPage } from './../proyecto/proyecto';
 import { AsignarusuariosaproyectosPage } from './../asignarusuariosaproyectos/asignarusuariosaproyectos';
 import { Component } from '@angular/core';
@@ -208,6 +209,10 @@ export class ProyectosPage {
 
   IraAsignarUsuariosAProyectos(){
     this.navCtrl.push(AsignarusuariosaproyectosPage);
+  }
+
+  IraUsuarios(){
+    this.navCtrl.push(UsuariosPage);
   }
 
 

@@ -1,3 +1,4 @@
+import { UsuariosPage } from './../pages/usuarios/usuarios';
 
 import { BrowserModule } from '@angular/platform-browser';
 import es from '@angular/common/locales/es';
@@ -27,6 +28,7 @@ import { HorasserviceProvider } from '../providers/horasservice/horasservice';
     MyApp,
     HomePage,
     UsuarioPage,
+    UsuariosPage,
     TareasPage,
     ProyectosPage,
     ProyectoPage,
@@ -50,6 +52,7 @@ import { HorasserviceProvider } from '../providers/horasservice/horasservice';
     MyApp,
     HomePage,
     UsuarioPage,
+    UsuariosPage,
     TareasPage,
     ProyectosPage,
     ProyectoPage,

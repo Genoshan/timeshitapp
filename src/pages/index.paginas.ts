@@ -1,5 +1,6 @@
 export { HomePage } from './home/home';
 export { UsuarioPage } from './usuario/usuario';
+export { UsuariosPage } from './usuarios/usuarios';
 export { TareasPage } from './tareas/tareas';
 export { ProyectosPage } from './proyectos/proyectos';
 export { ProyectoPage } from './proyecto/proyecto';
