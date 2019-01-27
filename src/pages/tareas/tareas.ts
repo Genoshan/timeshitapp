@@ -88,6 +88,7 @@ export class TareasPage {
     this.tservice.getTareasDeProyecto(this.id)
       .subscribe(
         correcto => {
+          console.log(correcto);
           if(correcto.RetornoCorrecto==="S")
             { 
               if(correcto.Retorno.length>0){
@@ -145,7 +146,8 @@ export class TareasPage {
             this.tservice.eliminarTarea(k)
               .subscribe(
                 correcto => {
-                  if (correcto.RetornoCorrecto==="S") {
+                  console.log(correcto);
+                  if (correcto==="S") {
                     //vuelvo a cargar la lista
                     let toast = this.toastCtrl.create({
                       message: 'Tarea Eliminada',

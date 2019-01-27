@@ -148,27 +148,19 @@ export class HorasserviceProvider {
       .get(this.url + "ListarHorasDeTareaDeUsuario?pIdProyecto=" + t.IdProyecto + "&" + "pIdTarea=" + t.IdTarea + "&" + "pDocumento=" + this.user["CI"] + "", params)
       .map((res: any) => {
         this.retornoListarHorasDeProyectoyTarea = res.json();
+        console.log(this.retornoListarHorasDeProyectoyTarea);
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoListarHorasDeProyectoyTarea.RetornoCorrecto==="S")
         {
-          //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
-          if (this.retornoListarHorasDeProyectoyTarea.Retorno.length>0)
-          {
-            
-            this.horas = this.retornoListarHorasDeProyectoyTarea.Retorno;
-            //console.log(this.retornoListarProyectosDeUsuario.Retorno);
-
-            return this.retornoListarHorasDeProyectoyTarea;            
-          }
-          else {
-            return false;
-          }
+         
+          this.horas = this.retornoListarHorasDeProyectoyTarea.Retorno;
+          return this.retornoListarHorasDeProyectoyTarea;          
         }
         else
         {
           return this.retornoListarHorasDeProyectoyTarea.Errores;
         }//fin nueva forma
-
+        
         //vieja forma
         // this.horas = res.json();
         // if (this.horas.length > 0) {

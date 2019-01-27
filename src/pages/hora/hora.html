@@ -42,7 +42,7 @@
                     <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="hora.Fecha"></ion-datetime>
                   </ion-item>
 
-                <button ion-button color="primary" block outline
+                <button *ngIf="tareas.length>0 && proyectos.length>0" ion-button color="primary" block outline
                   (click)="CargarHoras()"
                 >GUARDAR</button>
   

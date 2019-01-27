@@ -379,6 +379,7 @@ export class AsignarusuariosaproyectosPage {
             this.pservice.getProyectosUsuario(this.user["CI"])
             .subscribe(        
             correcto => { 
+              console.log(correcto);
               if(correcto.RetornoCorrecto==="S")
             {              
               if(correcto.Retorno.length>0)
@@ -433,12 +434,14 @@ export class AsignarusuariosaproyectosPage {
      this.uservice.getUsuarios()
             .subscribe(        
             correcto => { 
+              console.log(correcto);
               if(correcto.RetornoCorrecto==="S")
             {              
               if(correcto.Retorno.length>0)
               {
                 //con esto cargo combo usuarios
-                this.usuarios = correcto.Retorno;                
+                this.usuarios = correcto.Retorno;
+                console.log(this.usuarios);                
                 //this.proyecto.IdProyecto = this.proyectos[0].IdProyecto;                 
               }
               else
@@ -486,6 +489,7 @@ export class AsignarusuariosaproyectosPage {
      this.uservice.getUsuariosDeProyecto(this.proyecto)
             .subscribe(        
             correcto => { 
+              console.log(correcto);
               if(correcto.RetornoCorrecto==="S")
             {              
               if(correcto.Retorno.length>0)

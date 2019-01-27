@@ -92,7 +92,8 @@ export class HorasPage {
             this.hservice.eliminarHora(k)
               .subscribe(
                 correcto => {
-                  if (correcto.RetornoCorrecto==="S") {
+                  console.log(correcto);
+                  if (correcto==="S") {
                     //vuelvo a cargar la lista
                     let toast = this.toastCtrl.create({
                       message: 'Hora Eliminada',
@@ -119,8 +120,7 @@ export class HorasPage {
                     toast.onDidDismiss(() => {
                       //console.log('Dismissed toast');
                     });              
-                    toast.present();
-    
+                    toast.present();    
                   }
                 }, (error) => {
                   //alert("La Hora No Fue Eliminada");            
@@ -156,6 +156,7 @@ export class HorasPage {
     this.hservice.getHorasDeTarea(this.tarea)
       .subscribe(
         correcto => {
+          console.log(correcto);
           if (correcto.RetornoCorrecto==="S") {
 
             if(correcto.Retorno.length>0){

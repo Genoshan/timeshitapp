@@ -150,6 +150,8 @@ private retornoUsuariosAsignadosAProyecto=
 
            this.retornoUsuariosAsignadosAProyecto = res.json();
 
+           console.log(this.retornoUsuariosAsignadosAProyecto);
+
            //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
            if (this.retornoUsuariosAsignadosAProyecto.RetornoCorrecto==="S")
         {
@@ -158,6 +160,7 @@ private retornoUsuariosAsignadosAProyecto=
           {
             
             this.listausuariosasignadosaproyecto = this.retornoUsuariosAsignadosAProyecto.Retorno;
+            console.log(this.listausuariosasignadosaproyecto);
             //console.log(this.retornoListarProyectosDeUsuario.Retorno);
 
             return this.retornoUsuariosAsignadosAProyecto;            

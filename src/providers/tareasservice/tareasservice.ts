@@ -103,21 +103,21 @@ export class TareasserviceProvider {
         .map((res: any) => {
           
           this.retornoListarTareasDeProyecto = res.json();
+          console.log(this.retornoListarTareasDeProyecto);
           //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoListarTareasDeProyecto.RetornoCorrecto==="S")
         {
-          //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
-          if (this.retornoListarTareasDeProyecto.Retorno.length>0)
-          {
-            
-            this.tareas = this.retornoListarTareasDeProyecto.Retorno;
-            //console.log(this.retornoListarProyectosDeUsuario.Retorno);
+          this.tareas = this.retornoListarTareasDeProyecto.Retorno;
+          return this.retornoListarTareasDeProyecto;            
 
-            return this.retornoListarTareasDeProyecto;            
-          }
-          else {
-            return false;
-          }
+          // //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+          // if (this.retornoListarTareasDeProyecto.Retorno.length>0)
+          // {
+            
+          //             }
+          // else {
+          //   return false;
+          // }
         }
         else
         {
