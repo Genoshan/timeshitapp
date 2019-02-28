@@ -23,10 +23,11 @@
 
                   <ion-item>
                     <ion-label>Usuarios</ion-label>
-                    <ion-searchbar
+                    <!-- <ion-searchbar
                         [(ngModel)]="termino"    
                         (ionInput)="buscar(termino)">
-                      </ion-searchbar>
+                      </ion-searchbar> -->
+                      
                     <ion-select [(ngModel)]="useraasignar.CI" multiple="true" okText="Listo" cancelText="Cancelar">                        
                       <ion-option *ngFor="let useraasignar of listausuariosaasignar" [value]="useraasignar.CI">{{useraasignar.Nombre}}</ion-option>
                     </ion-select>

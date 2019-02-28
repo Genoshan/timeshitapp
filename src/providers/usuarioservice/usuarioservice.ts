@@ -136,10 +136,13 @@ private retornoUsuariosAsignadosAProyecto=
 
   getUsuariosDeProyecto(proyecto: Proyecto){
 
+    console.log(proyecto.IdProyecto);
+
       let params = JSON.stringify({ pIdProyecto: proyecto.IdProyecto });
   
       let headers = new Headers();
       headers.append("Content-Type", "application/json");
+      
   
       return this.mihttp
         .get(
