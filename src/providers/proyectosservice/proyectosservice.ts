@@ -112,7 +112,7 @@ export class ProyectosserviceProvider {
     headers.append("Content-Type", "application/json");
 
     return this.mihttp
-      .get(
+      .get( 
         this.url + "ListarProyectosDeUsuario?pDocumento=" + ci+"",
         params
       )

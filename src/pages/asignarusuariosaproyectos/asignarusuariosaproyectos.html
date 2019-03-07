@@ -28,16 +28,28 @@
                         (ionInput)="buscar(termino)">
                       </ion-searchbar> -->
                       
-                    <ion-select [(ngModel)]="useraasignar.CI" multiple="true" okText="Listo" cancelText="Cancelar">                        
-                      <ion-option *ngFor="let useraasignar of listausuariosaasignar" [value]="useraasignar.CI">{{useraasignar.Nombre}}</ion-option>
+                    <ion-select [(ngModel)]="useraasignar" multiple="true" okText="Listo" cancelText="Cancelar" [compareWith]="compareFn">                        
+                      <ion-option *ngFor="let useraasignar of listausuariosaasignar" [value]="useraasignar">{{useraasignar.Nombre}}</ion-option>
                     </ion-select>
                   </ion-item>
               
               <button ion-button color="primary" block outline
                 (click)="AsignarUsuarioAProyecto()"
               >ASIGNAR</button>
-
+              <ion-item>
+                </ion-item>
           </ion-list>
+
+          <ion-list>
+            <ion-list-header>
+              Usuarios:
+            </ion-list-header>    
+                <ion-item *ngFor="let u of usuariosDeProyecto">
+              <ion-col>
+                {{u.Nombre}}                
+              </ion-col>              
+            </ion-item>
+            </ion-list>
       </ion-card-content>
   </ion-card>
 

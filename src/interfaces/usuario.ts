@@ -5,6 +5,8 @@ export interface Usuario {
   //password: string;
   Img: string;
   CI: string;
+  //IdCompany: number;
+
 }
 
 
