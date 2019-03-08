@@ -36,6 +36,8 @@ export class TareaPage {
   user: Usuario = {
     Nombre: "",
     Email: "",
+    Clave: "",
+    oCompany: -1,
     //password: string;
     Img: "",
     CI: ""

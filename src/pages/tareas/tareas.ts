@@ -37,7 +37,6 @@ export class TareasPage {
   }
 
   tarea: Tarea = {
-
     IdTarea: 0,
     Nombre: "",
     Descripcion: "",
@@ -45,6 +44,7 @@ export class TareasPage {
     FechaFIn: new Date(Date.now()),
     IdProyecto: 0
   }
+  
   status: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,

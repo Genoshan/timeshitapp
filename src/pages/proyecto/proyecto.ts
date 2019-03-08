@@ -29,6 +29,8 @@ export class ProyectoPage {
     user: Usuario = {
       Nombre: "",
       Email: "",
+      Clave: "",
+      oCompany: -1,
       //password: string;
       Img: "",
       CI: ""
@@ -164,6 +166,9 @@ export class ProyectoPage {
     this.user.Email = JSON.parse(localStorage.getItem("usuario"))["Email"];
     this.user.Img = JSON.parse(localStorage.getItem("usuario"))["Img"];
     this.user.Nombre = JSON.parse(localStorage.getItem("usuario"))["Nombre"];
+    this.user.Clave = JSON.parse(localStorage.getItem("usuario"))["Clave"];
+    this.user.oCompany = JSON.parse(localStorage.getItem("usuario"))["oCompany"];
+
     //this.proyecto = JSON.parse(localStorage.getItem('proyecto'));
     this.id = this.navParams.get('IdProyecto');    
     this.getProyecto();

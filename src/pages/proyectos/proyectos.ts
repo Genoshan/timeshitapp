@@ -31,6 +31,8 @@ export class ProyectosPage {
   user:Usuario={
     Nombre: "",
     Email: "",
+    Clave: "",
+    oCompany: -1,
     //password: string;
     Img: "",
     CI: ""
@@ -39,6 +41,8 @@ export class ProyectosPage {
   useraasignar: Usuario = {
     Nombre: "",
     Email: "",
+    Clave: "",
+    oCompany: -1,
     //password: string;
     Img: "",
     CI: ""

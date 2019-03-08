@@ -24,7 +24,8 @@ export class AsignarusuariosaproyectosPage {
   user: Usuario = {
     Nombre: "",
     Email: "",
-    //password: string;
+    Clave: "",
+    oCompany: -1,
     Img: "",
     CI: ""
   };
@@ -32,7 +33,8 @@ export class AsignarusuariosaproyectosPage {
   useraasignar: Usuario = {
     Nombre: "",
     Email: "",
-    //password: string;
+    Clave: "",
+    oCompany: -1,
     Img: "",
     CI: ""
   };
@@ -71,38 +73,29 @@ export class AsignarusuariosaproyectosPage {
 
   onProyectoChange(IdProyecto) {
     this.proyecto = null;
-    console.log(this.proyecto);
+    //console.log(this.proyecto);
     this.proyecto = this.pservice.getProyecto(IdProyecto);
-    console.log(this.proyecto);
+    //console.log(this.proyecto);
     //OBTENGO TODOS LOS USUARIOS
     this.ListarUsuarios();
 
     //OBTENGO LOS USUARIOS DE PROYECTO
-    this.ListarUsuariosdeProyecto(this.proyecto);
+    this.ListarUsuariosdeProyecto(this.proyecto);    
 
-    //RECORRO TODOS LOS USUARIOS Y COMPARO LAS CI DE AQUELLOS QUE PERTENECEN AL PROYECTO DEJANDOLOS MARCADOS Y CARGO EN LA LISTA A GUARDAR
+    //RECORRO TODOS LOS USUARIOS Y COMPARO LAS CI DE AQUELLOS QUE PERTENECEN AL PROYECTO DEJANDOLOS MARCADOS Y CARGO EN LA LISTA A GUARDAR    
     this.usuarios = null;    
     this.usuariosDeProyecto = null;    
-
     this.usuarios = JSON.parse(localStorage.getItem('usuarios'));
-
     this.usuariosDeProyecto = JSON.parse(localStorage.getItem('usuariosDeProyecto'));
-
     this.listausuariosaasignar=this.usuarios;
-
-    console.log(this.proyecto);
-
-
-  }
-
-  compareFn(u1, u2) {
-    this.usuariosDeProyecto = this.usuariosDeProyecto = JSON.parse(localStorage.getItem('usuariosDeProyecto'));
-    this.useraasignar=this.usuariosDeProyecto.find(u1 =>u1.Email === u2.Email);
-    if (this.useraasignar!=null){
-      return true;      
-    } 
-    else return false;
-  }
+    console.log(this.listausuariosaasignar);
+    if(this.listausuariosaasignar!=null){
+    
+      this.listausuariosaasignar.forEach(element => {
+      this.compareFn(element,element)      
+    });
+  }    
+  } 
 
 
   AsignarUsuarioAProyecto()
@@ -173,6 +166,8 @@ ListarUsuariosdeProyecto(p:Proyecto)
           let user1 : Usuario = {
             Nombre : element.Nombre,
             Email: element.Email,
+            Clave: element.Clave,
+            oCompany:element.oCompany,
             //password: string;
             Img: "",
             CI: element.CI  
@@ -245,6 +240,8 @@ ListarUsuarios(){
                   let user1 : Usuario = {
                     Nombre : element.Nombre,
                     Email: element.Email,
+                    Clave: element.Clave,
+                    oCompany: element.oCompany,
                     //password: string;
                     Img: "",
                     CI: element.CI  
@@ -300,15 +297,35 @@ ListarUsuarios(){
           )    
 }
 
+compareFn(u1, u2) {  
+  this.usuariosDeProyecto = JSON.parse(localStorage.getItem('usuariosDeProyecto'));    
+  if(this.usuariosDeProyecto!=null){
+    this.useraasignar=this.usuariosDeProyecto.find(u1 =>u1.Email === u2.Email);
+  if (this.useraasignar!=null){
+    console.log("retorna true")
+    return true;      
+  }
+
+  else return false; 
+  }
+  else return false; 
+  
+  // this.useraasignar=this.usuariosDeProyecto.find(u1 =>u1.Email === u2.Email);
+  // if (this.useraasignar!=null){
+  //   return true;      
+  // } 
+  // else return false;
+}
+
   ionViewDidLoad() {
     //cargar proyectos en combo
       //LISTA PROYECTOS DEL USUARIO DESDE API
       let idproy=-1;
 
-        this.user=JSON.parse(localStorage.getItem('usuario'));
+        //this.user=JSON.parse(localStorage.getItem('usuario'));
 
             //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
-            this.pservice.getProyectosUsuario(this.user["CI"]).subscribe(        
+            this.pservice.getProyectos().subscribe(        
             correcto => {              
 
               if(correcto.RetornoCorrecto==="S")
@@ -322,16 +339,13 @@ ListarUsuarios(){
                 this.ListarUsuarios();
 
                 //OBTENGO LOS USUARIOS DE PROYECTO
-                this.ListarUsuariosdeProyecto(this.proyecto);                
+                this.ListarUsuariosdeProyecto(this.proyectos[0]);                
                  
                 //RECORRO TODOS LOS USUARIOS Y COMPARO LAS CI DE AQUELLOS QUE PERTENECEN AL PROYECTO DEJANDOLOS MARCADOS Y CARGO EN LA LISTA A GUARDAR
                 this.usuarios = null;    
-                this.usuariosDeProyecto = null;    
-                
+                this.usuariosDeProyecto = null;                    
 
-                this.usuarios = JSON.parse(localStorage.getItem('usuarios'));
-
-                
+                this.usuarios = JSON.parse(localStorage.getItem('usuarios'));                
 
                 this.usuariosDeProyecto = JSON.parse(localStorage.getItem('usuariosDeProyecto'));
                 this.listausuariosaasignar=this.usuarios;    

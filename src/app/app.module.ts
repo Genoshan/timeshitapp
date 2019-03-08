@@ -1,4 +1,4 @@
-import { UsuariosPage } from './../pages/usuarios/usuarios';
+// import { UsuariosPage } from './../pages/usuarios/usuarios';
 
 import { BrowserModule } from '@angular/platform-browser';
 import es from '@angular/common/locales/es';
@@ -15,11 +15,12 @@ import { HttpClientModule} from "@angular/common/http";
 import { MyApp } from './app.component';
 
 
-import {HomePage,UsuarioPage,TareasPage,ProyectosPage,ProyectoPage,NavbarPage,LoginUsuarioPage,HorasPage,HoraPage,TareaPage,HorasefectivasPage, AsignarusuariosaproyectosPage} from '../pages/index.paginas';
+import {HomePage,UsuariosPage,UsuarioPage,TareasPage,ProyectosPage,ProyectoPage,NavbarPage,LoginUsuarioPage,HorasPage,HoraPage,TareaPage,HorasefectivasPage, AsignarusuariosaproyectosPage} from '../pages/index.paginas';
 import { UsuarioserviceProvider } from '../providers/usuarioservice/usuarioservice';
 import { ProyectosserviceProvider } from '../providers/proyectosservice/proyectosservice';
 import { TareasserviceProvider } from '../providers/tareasservice/tareasservice';
 import { HorasserviceProvider } from '../providers/horasservice/horasservice';
+import { CompaniaserviceProvider } from '../providers/companiaservice/companiaservice';
 
 
 
@@ -67,12 +68,13 @@ import { HorasserviceProvider } from '../providers/horasservice/horasservice';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: ErrorHandler, useClass: IonicErrorHandler},    
     UsuarioserviceProvider,
     ProyectosserviceProvider,
     TareasserviceProvider,
     HorasserviceProvider,
-    { provide: LOCALE_ID, useValue: "es" } 
+    { provide: LOCALE_ID, useValue: "es" },
+    CompaniaserviceProvider    
   ]
 })
 export class AppModule {}

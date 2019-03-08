@@ -1,12 +1,10 @@
-export interface Usuario {
-    
+export interface Usuario {    
   Nombre: string;
-  Email: string;
-  //password: string;
+  Email: string;  
   Img: string;
   CI: string;
-  //IdCompany: number;
-
+  Clave : string;
+  oCompany: number;
 }
 
 

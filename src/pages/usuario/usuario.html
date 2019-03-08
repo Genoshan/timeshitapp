@@ -1,45 +1,59 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>USUARIO</ion-title>
-  </ion-navbar>
-</ion-header>
+        <ion-navbar color="primary">
+          <ion-title>USUARIO</ion-title>
+        </ion-navbar>
+      </ion-header>
+      
+      
+      <ion-content padding>
+      
+      
+        <ion-card>
+            <ion-card-header *ngIf="Email!=null">
+                EDITAR USUARIO
+            </ion-card-header>
+            <ion-card-header *ngIf="Email==null">
+                  AGREGAR NUEVO USUARIO
+              </ion-card-header>
+            <ion-card-content>
+                <ion-list no-lines>
+                        <ion-item>
+                        <ion-avatar slot="item-start">
+                                <img 
+                                [src]="getImgContent(user.Img)" alt="Imagen">
+                                <!-- <img src="'data:image/jpg;base64,'+{{u.Img}}"> -->
+                            </ion-avatar>
+                        </ion-item>
 
-<ion-content padding>
-
-  <ion-card>
-      <ion-card-header *ngIf="CI!=null" >
-          EDITAR USUARIO
-      </ion-card-header>
-      <ion-card-header *ngIf="CI==null" >
-          AGREGAR NUEVO USUARIO
-      </ion-card-header>
-      <ion-card-content>
-          <ion-list no-lines>
-              <ion-item>
-                  <ion-label >Nombre del Usuario</ion-label>
-                  <!-- <ion-input [(ngModel)]="usuario.Nombre" type="text" ></ion-input> -->
-              </ion-item>
-              <ion-item>
-                  <ion-label>CI</ion-label>
-                  <!-- <ion-input [(ngModel)]="usuario.CI" type="text" ></ion-input>                     -->
-              </ion-item>
-
-              <ion-item>
-                  <ion-label>Email</ion-label>
-                  <!-- <ion-input [(ngModel)]="usuario.Email" type="text" ></ion-input>                     -->
-                </ion-item>
-
-                <ion-item>
-                    <ion-label>Contraseña</ion-label>                    
-                    <!-- <ion-input [(ngModel)]="usuario.Email" type="password" ></ion-input>                     -->
-                  </ion-item>
-
-
-              <button ion-button color="primary" block outline
-                (click)="crearUsuarios()"
-              >GUARDAR</button>
-
-          </ion-list>
-      </ion-card-content>
-  </ion-card>
-</ion-content>
+                        <ion-item>
+                                <ion-label floating>CI</ion-label>
+                                <ion-input [(ngModel)]="user.CI" type="text" ></ion-input>                    
+                            </ion-item>
+                    <ion-item>
+                        <ion-label floating>Nombre del Usuario</ion-label>
+                        <ion-input [(ngModel)]="user.Nombre" type="text" ></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>Email</ion-label>
+                        <ion-input [(ngModel)]="user.Email" type="text" ></ion-input>                    
+                    </ion-item>
+                    
+                    <ion-item>
+                        <ion-label floating>Clave</ion-label>
+                        <ion-input [(ngModel)]="user.Clave" type="text" ></ion-input>                    
+                    </ion-item>
+                    
+                    <ion-item>
+                        <ion-label floating>Compania</ion-label>
+                        <ion-input [(ngModel)]="user.oCompany" type="text" ></ion-input>                    
+                    </ion-item>
+      
+                    <button ion-button color="primary" block outline
+                      (click)="crearUsuarios()"
+                    >GUARDAR</button>
+      
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+      </ion-content>
+      

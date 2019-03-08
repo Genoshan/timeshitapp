@@ -36,12 +36,32 @@ export class ProyectosserviceProvider {
   private Usuario: {
     nombre: string;
     email: string;
+    clave: string;
+    ocompany: number;
     //password: string,
     img: string;
     ci: number;
   };  
 
   private retornoListarProyectosDeUsuario=
+  {
+    "RetornoCorrecto": "S",
+    "Retorno": [
+      {
+        IdProyecto: 0,
+        Nombre: "",
+        FechaInicio: new Date(Date.now()),
+        Estado: true,
+        CodigoProyecto: ""
+      }],
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
+
+  private retornoListarProyectos=
   {
     "RetornoCorrecto": "S",
     "Retorno": [
@@ -100,7 +120,59 @@ export class ProyectosserviceProvider {
   }
 
   getProyectos(){
-    return this.proyectos;
+    
+
+    let params = JSON.stringify({ pEstado: true });
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    
+
+    return this.mihttp
+      .get( 
+        this.url + "ListarProyectosSegunEstado?pEstado="+true,
+        params
+      )
+      .map((res: any) => {
+
+        this.retornoListarProyectos = res.json();
+        //console.log(this.retornoListarProyectosDeUsuario);
+        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoListarProyectos.RetornoCorrecto==="S")
+        {
+          //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+          if (this.retornoListarProyectos.Retorno.length>0)
+          {
+            
+            this.proyectos = this.retornoListarProyectos.Retorno;
+            //console.log(this.retornoListarProyectosDeUsuario.Retorno);
+
+            return this.retornoListarProyectos;            
+          }
+          else {
+            return false;
+          }
+        }
+        else
+        {
+          return this.retornoListarProyectos.Errores;
+        }//fin nueva forma
+
+        
+        //vieja forma sin retornos
+
+        //  this.proyectos = res.json();
+        //   if (this.proyectos.length>0)
+        //   {
+        //     return this.proyectos;
+        //   }
+        // else {
+        //   return false;
+        // }
+
+      })
+      .catch(this.handleError);
 
     //Llamada al servicio de la API y traer por la CI
   }
@@ -192,6 +264,8 @@ export class ProyectosserviceProvider {
       oUsuario: {
         Nombre: u.Nombre,
         Email: u.Email,
+        Clave: u.Clave,
+        oCompany: u.oCompany,
         Img: u.Img,
         CI: u.CI
       }

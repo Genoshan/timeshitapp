@@ -13,52 +13,34 @@
 
 
 <div class="btn-wrapper">    
-  <button ion-button icon-only color="primary" outline (click)="IraUsuario(CI)">
+  <button ion-button icon-only color="primary" outline (click)="IraUsuario(Email)">
       <ion-icon name="add-circle"></ion-icon>
     </button>      
 </div>
-
-<!-- Nombre: string;
-  Email: string;
-  //password: string;
-  Img: string;
-  CI: string; -->
 
 <ion-list>
   <ion-list-header>
     Usuarios
   </ion-list-header>    
-      <ion-item *ngFor="let k of usuarios">
-    <ion-col><strong>Nombre:</strong>
-      {{k.Nombre}}                
+      <ion-item *ngFor="let u of usuarios">          
+          <ion-row> 
+            <ion-col>
+          <ion-avatar slot="item-start">
+              <img 
+              [src]="getImgContent(u.Img)" alt="Imagen">
+              <!-- <img src="'data:image/jpg;base64,'+{{u.Img}}"> -->
+          </ion-avatar>
+          <h3><strong>{{u.Nombre}}</strong></h3>
+              <p><strong>Email:</strong>{{u.Email}}</p>
+              <p><strong>CI:</strong>{{u.CI}}</p>
+              <p><strong>Compania:</strong>{{u.oCompany}}</p>
+            </ion-col>
+            <ion-col>            
+                <button ion-button icon-only clear (click)="IraUsuario(u.Email)">
+            <ion-icon name="create"></ion-icon>
+          </button>    
     </ion-col>
-    <ion-row justify-content-end>
-        <ion-col><strong>Email:</strong>
-            {{k.Email}}
-        </ion-col>
-    </ion-row>
-    <ion-row justify-content-end>
-        <ion-col><strong>CI:</strong>
-            {{k.CI}}
-        </ion-col>
-    </ion-row>
-    <ion-row justify-content-end>
-        <ion-col>            
-                    <button ion-button icon-only clear (click)="IraUsuario(k.CI)">
-                <ion-icon name="create"></ion-icon>
-              </button>    
-              <!-- <button ion-button icon-only clear (click)="IraTareas(k.IdProyecto)">
-                <ion-icon name="clipboard"></ion-icon>
-              </button>      
-              <button ion-button icon-only color="secondary" clear (click)="IraHoradeProyecto(''+k.IdProyecto,'/horas/proyecto/')" >
-                <ion-icon name="alarm"></ion-icon>
-              </button> -->
-
-              <button ion-button icon-only color="danger" clear (click)="borrarUsuario(k.CI)">
-                  <ion-icon name="trash"></ion-icon>
-                </button>
-        </ion-col>
-      </ion-row>
+          </ion-row>
   </ion-item>
   </ion-list>
 

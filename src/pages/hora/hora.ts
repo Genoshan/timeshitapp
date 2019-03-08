@@ -37,6 +37,8 @@ export class HoraPage {
   user: Usuario = {
     Nombre: "",
     Email: "",
+    Clave: "",
+    oCompany: -1,
     Img: "",
     CI: ""
   }
