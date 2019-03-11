@@ -97,7 +97,7 @@ export class UsuariosPage {
                 //console.log(correcto);
                 //vacio las tareas y las vuelvo a cargar.
                 this.usuarios = null;
-                this.usuarios = correcto.Retorno;                      
+                this.usuarios = correcto.Retorno;                
               }
               else{
                 let toast = this.toastCtrl.create({
@@ -107,7 +107,7 @@ export class UsuariosPage {
                 });
                 toast.onDidDismiss(() => {                  
                 });
-                toast.present();  
+                toast.present();
               }                           
             }
             else
@@ -125,17 +125,9 @@ export class UsuariosPage {
          )
   }
 
-
-    /**** CARGA INICIAL DEL COMPONENTE *****/
+  /**** CARGA INICIAL DEL COMPONENTE *****/
     ionViewDidLoad() {
       //console.log('ionViewDidLoad TareasPage');
       this.listarUsuarios();
       
     }
-  
-
-
-
-  
-
-}

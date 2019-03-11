@@ -92,7 +92,7 @@ export class AsignarusuariosaproyectosPage {
     if(this.listausuariosaasignar!=null){
     
       this.listausuariosaasignar.forEach(element => {
-      this.compareFn(element,element)      
+      this.compareUsuarios(element,element)      
     });
   }    
   } 
@@ -251,7 +251,8 @@ ListarUsuarios(){
                 
                  });
                 
-                this.usuarios = users;                
+                this.usuarios = users;
+                //console.log(this.usuarios);                
                 
                 localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
                 
@@ -297,7 +298,7 @@ ListarUsuarios(){
           )    
 }
 
-compareFn(u1, u2) {  
+compareUsuarios(u1, u2) {  
   this.usuariosDeProyecto = JSON.parse(localStorage.getItem('usuariosDeProyecto'));    
   if(this.usuariosDeProyecto!=null){
     this.useraasignar=this.usuariosDeProyecto.find(u1 =>u1.Email === u2.Email);
@@ -317,11 +318,15 @@ compareFn(u1, u2) {
   // else return false;
 }
 
+compareProyectos(p1: Proyecto, p2: Proyecto): boolean {
+  return p1 && p2 ? p1.IdProyecto === p2.IdProyecto : p1 === p2;
+}
+
   ionViewDidLoad() {
     //cargar proyectos en combo
       //LISTA PROYECTOS DEL USUARIO DESDE API
       let idproy=-1;
-
+        
         //this.user=JSON.parse(localStorage.getItem('usuario'));
 
             //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
@@ -335,20 +340,25 @@ compareFn(u1, u2) {
                 this.proyectos = correcto.Retorno;
                 this.proyecto = this.proyectos[0];
 
-                //OBTENGO TODOS LOS USUARIOS
-                this.ListarUsuarios();
+                this.onProyectoChange(this.proyecto.IdProyecto);
 
-                //OBTENGO LOS USUARIOS DE PROYECTO
-                this.ListarUsuariosdeProyecto(this.proyectos[0]);                
+                // //OBTENGO TODOS LOS USUARIOS
+                // this.ListarUsuarios();
+
+                // //OBTENGO LOS USUARIOS DE PROYECTO
+                // this.ListarUsuariosdeProyecto(this.proyectos[0]);                
                  
-                //RECORRO TODOS LOS USUARIOS Y COMPARO LAS CI DE AQUELLOS QUE PERTENECEN AL PROYECTO DEJANDOLOS MARCADOS Y CARGO EN LA LISTA A GUARDAR
-                this.usuarios = null;    
-                this.usuariosDeProyecto = null;                    
+                // //RECORRO TODOS LOS USUARIOS Y COMPARO LAS CI DE AQUELLOS QUE PERTENECEN AL PROYECTO DEJANDOLOS MARCADOS Y CARGO EN LA LISTA A GUARDAR
+                // this.usuarios = null;    
+                // this.usuariosDeProyecto = null;                    
 
-                this.usuarios = JSON.parse(localStorage.getItem('usuarios'));                
+                // this.usuarios = JSON.parse(localStorage.getItem('usuarios'));
+                // console.log(JSON.parse(localStorage.getItem('usuarios')));                
 
-                this.usuariosDeProyecto = JSON.parse(localStorage.getItem('usuariosDeProyecto'));
-                this.listausuariosaasignar=this.usuarios;    
+                // this.usuariosDeProyecto = JSON.parse(localStorage.getItem('usuariosDeProyecto'));
+                // console.log(this.usuariosDeProyecto);
+
+                // this.listausuariosaasignar=this.usuarios;    
                                                   
               }
               else

@@ -22,7 +22,7 @@ export class CompaniaserviceProvider {
     Nombre: string
   };
   
-  private copmanias: Compania[] = [
+  private Companias: Compania[] = [
     {
       Id: 0,      
       Nombre: ""      
@@ -52,13 +52,9 @@ export class CompaniaserviceProvider {
   }
 
   getCompanias(){
-    
-
     let params = JSON.stringify({ pEstado: true });
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
-
-    
 
     return this.mihttp
       .get( 
@@ -77,7 +73,7 @@ export class CompaniaserviceProvider {
           if (this.retornoListarCompanias.Retorno.length>0)
           {
             
-            this.copmanias = this.retornoListarCompanias.Retorno;
+            this.Companias = this.retornoListarCompanias.Retorno;
             //console.log(this.retornoListarProyectosDeUsuario.Retorno);
 
             return this.retornoListarCompanias;            
@@ -99,7 +95,7 @@ export class CompaniaserviceProvider {
 
   getCompania(id:number){
 
-    return this.Compania=this.copmanias.find(x => x.Id == id);
+    return this.Compania=this.Companias.find(x => x.Id == id);
   }   
 
   //MANEJADOR DE ERRORES DE SERVICIO

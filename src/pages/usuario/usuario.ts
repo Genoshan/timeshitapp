@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams, ToastController, AlertController }
 import { UsuarioserviceProvider } from '../../providers/usuarioservice/usuarioservice';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { UsuariosPage } from '../index.paginas';
+import { Compania } from '../../interfaces/compania';
+import { CompaniaserviceProvider } from '../../providers/companiaservice/companiaservice';
 
 
 /**
@@ -34,13 +36,21 @@ export class UsuarioPage {
         Img: "",        
         CI: ""
       }    
+
+      compania: Compania = {
+    Id: -1,
+    Nombre: ""    
+  }
+
+  companias: Compania [];
       
     
       status: string;
   
   Email: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private us: UsuarioserviceProvider, 
+  constructor(public navCtrl: NavController, public navParams: NavParams, private us: UsuarioserviceProvider,
+    private co: CompaniaserviceProvider, 
     private toastCtrl: ToastController, private sanitizer: DomSanitizer) {
   }
 
@@ -62,13 +72,15 @@ export class UsuarioPage {
     }
     else {
       console.log(this.Email);
-      this.user = this.us.getUsuario(this.Email);      
+      this.user = this.us.getUsuario(this.Email);
+      this.companias = this.co.getCompanias();      
+      this.compania = this.co.getCompania(this.user.oCompany);      
     }
   }
 
 
   crearUsuarios() {
-    if (this.id == null) {
+    if (this.Email == null) {
       // insertando    
       this.us.crearUsuarios(this.user)
         .subscribe(

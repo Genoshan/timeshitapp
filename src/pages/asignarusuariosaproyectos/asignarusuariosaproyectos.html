@@ -16,8 +16,8 @@
 
               <ion-item>
                   <ion-label>Proyecto</ion-label>
-                  <ion-select [(ngModel)]="proyecto.IdProyecto" multiple="false"  (ionChange)="onProyectoChange(proyecto.IdProyecto)">
-                    <ion-option *ngFor="let proyecto of proyectos"  [value]="proyecto.IdProyecto">{{proyecto.Nombre}}</ion-option>
+                  <ion-select [(ngModel)]="proyecto" multiple="false" [compareWith]="compareProyectos"  (ionChange)="onProyectoChange(proyecto.IdProyecto)">
+                    <ion-option *ngFor="let proyecto of proyectos"  [value]="proyecto">{{proyecto.Nombre}}</ion-option>
                   </ion-select>
                 </ion-item>
 
@@ -28,7 +28,7 @@
                         (ionInput)="buscar(termino)">
                       </ion-searchbar> -->
                       
-                    <ion-select [(ngModel)]="useraasignar" multiple="true" okText="Listo" cancelText="Cancelar" [compareWith]="compareFn">                        
+                    <ion-select [(ngModel)]="useraasignar" multiple="true" okText="Listo" cancelText="Cancelar" [compareWith]="compareUsuarios">                        
                       <ion-option *ngFor="let useraasignar of listausuariosaasignar" [value]="useraasignar">{{useraasignar.Nombre}}</ion-option>
                     </ion-select>
                   </ion-item>

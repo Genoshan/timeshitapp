@@ -305,20 +305,22 @@ crearUsuarios(u: Usuario) {
   
   var body = {      
 
-    oUsuario: {
+    
       Nombre: u.Nombre,
       Email: u.Email,
       Clave: u.Clave,
       oCompany: u.oCompany,
       Img: u.Img,
       CI: u.CI
-    }
+    
 
   };
 
   let headers = new Headers();
   headers.append('Content-Type', 'application/json');
   let options = new RequestOptions({ headers: headers });
+  console.log(body);
+
 
   return this.mihttp
     .post(this.url + 'AltaUsuario', body, { headers: headers })
@@ -344,7 +346,9 @@ editarUsuario(u: Usuario) {
     Nombre: u.Nombre,
     Email: u.Email,
     Img: u.Img,
-    CI: u.CI
+    CI: u.CI,
+    Clave: u.Clave,
+    oCompany:u.oCompany
   };   
 
   let headers = new Headers();
