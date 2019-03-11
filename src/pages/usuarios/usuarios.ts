@@ -131,3 +131,4 @@ export class UsuariosPage {
       this.listarUsuarios();
       
     }
+  }

@@ -73,7 +73,7 @@ export class UsuarioPage {
     else {
       console.log(this.Email);
       this.user = this.us.getUsuario(this.Email);
-      this.companias = this.co.getCompanias();      
+      //this.companias = this.co.getCompanias();      
       this.compania = this.co.getCompania(this.user.oCompany);      
     }
   }

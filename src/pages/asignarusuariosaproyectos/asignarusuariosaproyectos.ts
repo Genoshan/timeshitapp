@@ -42,7 +42,7 @@ export class AsignarusuariosaproyectosPage {
   //idproy:string = "-1"; 
   proyecto:Proyecto = {
 
-    Nombre:"",
+    Nombre:"" ,
     FechaInicio:new Date(Date.now()),
     Estado:true,
     CodigoProyecto:"",    
