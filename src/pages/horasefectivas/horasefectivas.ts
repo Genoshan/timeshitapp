@@ -39,7 +39,7 @@ export class HorasefectivasPage {
     Email: "",
     Clave:"",
     oCompany: -1,
-    //password: string;
+    Administrador: false,
     Img: "",
     CI: ""
   };

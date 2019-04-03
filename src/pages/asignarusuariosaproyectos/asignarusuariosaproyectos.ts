@@ -172,6 +172,7 @@ ListarUsuariosdeProyecto(p:Proyecto)
             Clave: element.Clave,
             oCompany:element.oCompany,
             //password: string;
+            Administrador: element.Administrador,
             Img: "",
             CI: element.CI  
           };
@@ -245,7 +246,7 @@ ListarUsuarios(){
                     Email: element.Email,
                     Clave: element.Clave,
                     oCompany: element.oCompany,
-                    //password: string;
+                    Administrador: element.Administrador,
                     Img: "",
                     CI: element.CI  
                   };        

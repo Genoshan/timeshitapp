@@ -39,6 +39,7 @@ export class HoraPage {
     Email: "",
     Clave: "",
     oCompany: -1,
+    Administrador: false,
     Img: "",
     CI: ""
   }

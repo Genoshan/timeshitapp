@@ -40,12 +40,13 @@ export class UsuariosPage {
     CI: "",
     Img:"",
     Clave:"",
+    Administrador: false,
     oCompany:-1    
   }
 
   compania: Compania = {
     Id: -1,
-    Nombre: ""    
+    Name: ""    
   }
 
   status: string;

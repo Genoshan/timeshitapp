@@ -32,14 +32,14 @@ export class UsuarioPage {
         Email: "",
         Clave:"",
         oCompany:-1,
-        //password: string;
+        Administrador: false,
         Img: "",        
         CI: ""
       }    
 
       compania: Compania = {
     Id: -1,
-    Nombre: ""    
+    Name: ""    
   }
 
   companias: Compania [];
