@@ -26,8 +26,10 @@ export class AsignarusuariosaproyectosPage {
     Email: "",
     Clave: "",
     oCompany: -1,
+    Administrador: false,
     Img: "",
     CI: ""
+    
   };
   
   useraasignar: Usuario = {
@@ -35,6 +37,7 @@ export class AsignarusuariosaproyectosPage {
     Email: "",
     Clave: "",
     oCompany: -1,
+    Administrador: false,
     Img: "",
     CI: ""
   };
