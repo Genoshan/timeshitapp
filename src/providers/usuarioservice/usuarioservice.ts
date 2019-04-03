@@ -27,6 +27,7 @@ export class UsuarioserviceProvider {
     Email: string;
     Clave: string;
     oCompany: number;
+    Administrador: boolean;
     //password: string,
     Img: string;
     CI: string;
@@ -42,6 +43,7 @@ private retornoLogin = {
       "Email": null,
       "Clave": null,
       "oCompany": null,
+      "Administrador": false,
       "Img": null,
       "CI": null
   },
@@ -71,6 +73,7 @@ private retornoUsuariosAsignadosAProyecto=
     Email: "",
     Clave: "",
     oCompany: -1,
+    Administrador: false,
     //password: string,
     Img: "",
     CI: ""      
@@ -92,6 +95,7 @@ private retornoUsuariosAsignadosAProyecto=
     Email: "",
     Clave: "",
     oCompany: -1,
+    Administrador: false,
     //password: string,
     Img: "",
     CI: ""      
@@ -135,7 +139,8 @@ private retornoUsuariosAsignadosAProyecto=
 
   constructor(public _http: HttpClient,public mihttp:Http) {
     
-    this.url = "http://localhost:88/api/";
+    //this.url = "http://localhost:88/api/";
+    this.url = "http://DESKTOP-SNT742M:88/api/";
   }
 
 
@@ -285,6 +290,7 @@ private retornoUsuariosAsignadosAProyecto=
         if (this.retornoLogin.RetornoCorrecto==="S")
         {
           this.Usuario = this.retornoLogin.Retorno;
+          
           if (this.Usuario["Nombre"]!=null)
           {
             localStorage.setItem('usuario',JSON.stringify(this.Usuario));
@@ -310,6 +316,7 @@ crearUsuarios(u: Usuario) {
       Email: u.Email,
       Clave: u.Clave,
       oCompany: u.oCompany,
+      Administrador: u.Administrador,
       Img: u.Img,
       CI: u.CI
     
@@ -348,6 +355,7 @@ editarUsuario(u: Usuario) {
     Img: u.Img,
     CI: u.CI,
     Clave: u.Clave,
+    Administrador: u.Administrador,
     oCompany:u.oCompany
   };   
 

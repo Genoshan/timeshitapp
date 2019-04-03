@@ -38,6 +38,7 @@ export class ProyectosserviceProvider {
     email: string;
     clave: string;
     ocompany: number;
+    administrador: boolean; 
     //password: string,
     img: string;
     ci: number;
@@ -62,6 +63,24 @@ export class ProyectosserviceProvider {
   };
 
   private retornoListarProyectos=
+  {
+    "RetornoCorrecto": "S",
+    "Retorno": [
+      {
+        IdProyecto: 0,
+        Nombre: "",
+        FechaInicio: new Date(Date.now()),
+        Estado: true,
+        CodigoProyecto: ""
+      }],
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
+
+  private retornoListarProyectosTotales=
   {
     "RetornoCorrecto": "S",
     "Retorno": [
@@ -116,7 +135,8 @@ export class ProyectosserviceProvider {
 
   constructor(public http: HttpClient,public mihttp:Http) {
 
-    this.url = "http://localhost:88/api/";
+    //this.url = "http://localhost:88/api/";
+    this.url = "http://DESKTOP-SNT742M:88/api/";
   }
 
   getProyectos(){
@@ -175,6 +195,39 @@ export class ProyectosserviceProvider {
       .catch(this.handleError);
 
     //Llamada al servicio de la API y traer por la CI
+  }
+
+  getProyectosTotales() {    
+
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    return this.mihttp
+      .get(this.url + "ListarProyectos")
+      .map((res: any) => {
+
+        this.retornoListarProyectosTotales = res.json();        
+        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoListarProyectosTotales.RetornoCorrecto==="S")
+        {          
+          if (this.retornoListarProyectosTotales.Retorno.length>0)
+          {
+            
+            this.proyectos = this.retornoListarProyectosTotales.Retorno;            
+
+            return this.retornoListarProyectosTotales;            
+          }
+          else {
+            return false;
+          }
+        }
+        else
+        {
+          return this.retornoListarProyectosTotales.Errores;
+        }//fin nueva forma
+      })
+      .catch(this.handleError);
   }
 
   getProyectosUsuario(ci: string) {
@@ -248,12 +301,6 @@ export class ProyectosserviceProvider {
 
     var body = {      
 
-      // IdProyecto: p.IdProyecto,
-      // Nombre: p.Nombre,
-      // CodigoProyecto: p.CodigoProyecto,
-      // FechaInicio: p.FechaInicio,
-      // Estado: p.Estado
-
       oProyecto: {
         IdProyecto: p.IdProyecto,
       Nombre: p.Nombre,
@@ -266,6 +313,7 @@ export class ProyectosserviceProvider {
         Email: u.Email,
         Clave: u.Clave,
         oCompany: u.oCompany,
+        Administrador: u.Administrador,
         Img: u.Img,
         CI: u.CI
       }

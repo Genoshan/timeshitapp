@@ -5,6 +5,7 @@ export interface Usuario {
   CI: string;
   Clave : string;
   oCompany: number;
+  Administrador: boolean;
 }
 
 

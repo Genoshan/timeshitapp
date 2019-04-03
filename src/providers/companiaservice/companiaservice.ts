@@ -19,13 +19,13 @@ export class CompaniaserviceProvider {
 
   private Compania: {
     Id: number,    
-    Nombre: string
+    Name: string
   };
   
   private Companias: Compania[] = [
     {
       Id: 0,      
-      Nombre: ""      
+      Name: ""      
     }
   ];
   
@@ -35,7 +35,7 @@ export class CompaniaserviceProvider {
     "Retorno": [
       {
         Id: 0,
-        Nombre: ""        
+        Name: ""        
       }],
     "Errores": {
       "ExceptionType": null,
@@ -48,7 +48,8 @@ export class CompaniaserviceProvider {
 
   constructor(public http: HttpClient,public mihttp:Http) {
 
-    this.url = "http://localhost:88/api/";
+    //this.url = "http://localhost:88/api/";
+    this.url = "http://DESKTOP-SNT742M:88/api/";
   }
 
   getCompanias(){
