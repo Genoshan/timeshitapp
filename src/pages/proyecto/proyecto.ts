@@ -116,7 +116,7 @@ export class ProyectoPage {
     }
     else {
       //actualizando
-      this.pr.editarProyecto(this.proyecto)
+      this.pr.editarProyecto(this.proyecto,this.user)
         .subscribe(
           correcto => {
             if (correcto.RetornoCorrecto==="S") {
@@ -161,13 +161,15 @@ export class ProyectoPage {
   /**** CARGA INICIAL DEL COMPONENTE *****/
   ionViewDidLoad() {
 
-    //this.user = JSON.parse(localStorage.getItem('usuario'));
-    this.user.CI = JSON.parse(localStorage.getItem("usuario"))["CI"];
-    this.user.Email = JSON.parse(localStorage.getItem("usuario"))["Email"];
-    this.user.Img = JSON.parse(localStorage.getItem("usuario"))["Img"];
-    this.user.Nombre = JSON.parse(localStorage.getItem("usuario"))["Nombre"];
-    this.user.Clave = JSON.parse(localStorage.getItem("usuario"))["Clave"];
-    this.user.oCompany = JSON.parse(localStorage.getItem("usuario"))["oCompany"];
+    this.user = JSON.parse(localStorage.getItem('usuario'));
+
+    // this.user.CI = JSON.parse(localStorage.getItem("usuario"))["CI"];
+    // this.user.Email = JSON.parse(localStorage.getItem("usuario"))["Email"];
+    // this.user.Img = JSON.parse(localStorage.getItem("usuario"))["Img"];
+    // this.user.Nombre = JSON.parse(localStorage.getItem("usuario"))["Nombre"];
+    // this.user.Clave = JSON.parse(localStorage.getItem("usuario"))["Clave"];
+    // this.user.oCompany = JSON.parse(localStorage.getItem("usuario"))["oCompany"];
+    // this.user.Administrador = JSON.parse(localStorage.getItem("usuario"))["Administrador"];
 
     //this.proyecto = JSON.parse(localStorage.getItem('proyecto'));
     this.id = this.navParams.get('IdProyecto');    

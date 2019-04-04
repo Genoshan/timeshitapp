@@ -38,17 +38,27 @@ export class ProyectosPage {
     Img: "",
     CI: "",
   }
-  
+
+  usuariologueado: Usuario = {
+    Nombre: "",
+    Email: "",
+    Clave: "",
+    Img: "",
+    CI: "",
+    oCompany: 0,
+    Administrador: false
+  };
+
   useraasignar: Usuario = {
     Nombre: "",
     Email: "",
     Clave: "",
-    oCompany: -1,
-    Administrador: false,
-    //password: string;
     Img: "",
     CI: "",
+    oCompany: 0,
+    Administrador: false
   };
+  
 
   proyecto:Proyecto = {
     Nombre:"",
@@ -89,7 +99,7 @@ export class ProyectosPage {
           text: 'Si, confirmo!',
           handler: () => {
             //console.log('Buy clicked');
-            this.pservice.eliminarProyecto(k)
+            this.pservice.eliminarProyecto(k,this.user)
               .subscribe(
                 correcto => {
                   //console.log(correcto);
@@ -107,7 +117,7 @@ export class ProyectosPage {
 
                     this.proyectos = null;
                     //this.listarProyectosDeUsuario();
-                    this.pservice.getProyectosUsuario(this.user["CI"])
+                    this.pservice.getProyectos()
           .subscribe(        
           correcto => {             
             if(correcto.RetornoCorrecto==="S")
@@ -118,7 +128,7 @@ export class ProyectosPage {
               }
               else{
                 let toast = this.toastCtrl.create({
-                  message: 'No tiene proyectos asignados',
+                  message: 'No tiene proyectos',
                   duration: 3000,
                   position: 'middle'  
                 });
@@ -272,7 +282,7 @@ export class ProyectosPage {
   listarProyectosDelUsuario(){
 
     //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
-    this.pservice.getProyectosUsuario(this.user["CI"])
+    this.pservice.getProyectosUsuario(this.user["Email"])
     .subscribe(        
     correcto => {             
       if(correcto.RetornoCorrecto==="S")
