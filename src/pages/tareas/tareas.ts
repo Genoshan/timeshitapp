@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { Tarea } from '../../interfaces/tarea';
 import { Proyecto } from '../../interfaces/proyecto';
+import { Usuario } from '../../interfaces/usuario';
 import { ProyectosserviceProvider } from '../../providers/proyectosservice/proyectosservice';
 import { TareasserviceProvider } from '../../providers/tareasservice/tareasservice';
 import { TareaPage } from '../tarea/tarea';
@@ -44,6 +45,16 @@ export class TareasPage {
     FechaFIn: new Date(Date.now()),
     IdProyecto: 0
   }
+
+  usuariologueado: Usuario = {
+    Nombre: "",
+    Email: "",
+    Clave: "",
+    Img: "",
+    CI: "",
+    oCompany: 0,
+    Administrador: false
+  };
   
   status: string;
 
@@ -124,9 +135,9 @@ export class TareasPage {
   }
 
 
-
-
   borrarTarea(k: Number) {
+
+    this.usuariologueado=JSON.parse(localStorage.getItem('usuario'));
     
     let alert = this.alertCtrl.create({
       title: 'La tarea se eliminará, está seguro?',
@@ -143,7 +154,7 @@ export class TareasPage {
           text: 'Si, confirmo!',
           handler: () => {
             //console.log('Buy clicked');
-            this.tservice.eliminarTarea(k)
+            this.tservice.eliminarTarea(k,this.usuariologueado)
               .subscribe(
                 correcto => {
                   console.log(correcto);

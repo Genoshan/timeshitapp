@@ -66,8 +66,8 @@ export class HorasPage {
   }
 
   IraHoradeTarea(idHora, ruta) {
-    console.log(idHora);
-    console.log(ruta);
+    //console.log(idHora);
+    //console.log(ruta);
     this.navCtrl.push(HoraPage, { IdHora: idHora, Ruta: ruta });
   }
 
@@ -207,7 +207,7 @@ export class HorasPage {
 
   /**** CARGA INICIAL DEL COMPONENTE *****/
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HorasPage');
+    //console.log('ionViewDidLoad HorasPage');
     this.listarHorasdeTarea();
   }
 

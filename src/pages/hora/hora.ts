@@ -440,7 +440,7 @@ export class HoraPage {
     //creando
     if (this.id == 'nueva') {
 
-      this.hs.CargarHoras(this.hora, this.user["CI"])
+      this.hs.CargarHoras(this.hora, this.user["Email"])
         .subscribe(
           correcto => {
             console.log(correcto);
@@ -494,7 +494,7 @@ export class HoraPage {
         //cargando una hora nueva desde boton + de tareas
         //console.log("cargohorasdesdeunaTareaDeGrillaDeTareasODesdeBotonGrande");
 
-        this.hs.CargarHoras(this.hora, this.user["CI"])
+        this.hs.CargarHoras(this.hora, this.user["Email"])
           .subscribe(
             correcto => {
               if (correcto==="S") {
@@ -546,7 +546,7 @@ export class HoraPage {
       else {
         if (this.ruta == '/horas/proyecto/') {
           //console.log("cargohorasdesdeunProyectoDeGrillaDeProyectosODesdeBotonGrande");
-          this.hs.CargarHoras(this.hora, this.user["CI"])
+          this.hs.CargarHoras(this.hora, this.user["Email"])
             .subscribe(
               correcto => {
                 if (correcto==="S") {

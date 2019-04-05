@@ -10,6 +10,7 @@ import {Http,Headers, RequestOptions} from "@angular/http";
 
 
 import { Tarea } from '../../interfaces/tarea';
+import { Usuario } from "../../interfaces/usuario";
 
 @Injectable()
 export class TareasserviceProvider {
@@ -81,8 +82,8 @@ export class TareasserviceProvider {
 
 
   constructor(public http: HttpClient,public mihttp:Http) {
-    //this.url = "http://localhost:88/api/";
-    this.url = "http://DESKTOP-SNT742M:88/api/";
+    this.url = "http://localhost:88/api/";
+    //this.url = "http://DESKTOP-SNT742M:88/api/";
   }
 
   getTareas(key$: number) {}
@@ -94,46 +95,22 @@ export class TareasserviceProvider {
 
     //OBTENER TAREAS DE UN PROYECTO DESDE LA API
     getTareasDeProyecto(Id: number) {
-      let params = JSON.stringify({ pId: Id });
-  
+      let params = JSON.stringify({ pId: Id });  
       let headers = new Headers();
-      headers.append("Content-Type", "application/json");      
-  
+      headers.append("Content-Type", "application/json");        
       return this.mihttp
         .get(this.url + "ListarTareasDeProyecto?pIdProyecto=" + Id + "", params)
-        .map((res: any) => {
-          
-          this.retornoListarTareasDeProyecto = res.json();
-          console.log(this.retornoListarTareasDeProyecto);
-          //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        .map((res: any) => {          
+          this.retornoListarTareasDeProyecto = res.json();          
         if (this.retornoListarTareasDeProyecto.RetornoCorrecto==="S")
         {
           this.tareas = this.retornoListarTareasDeProyecto.Retorno;
           return this.retornoListarTareasDeProyecto;            
-
-          // //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
-          // if (this.retornoListarTareasDeProyecto.Retorno.length>0)
-          // {
-            
-          //             }
-          // else {
-          //   return false;
-          // }
         }
         else
         {
           return this.retornoListarTareasDeProyecto.Errores;
-        }//fin nueva forma
-
-          //forma vieja
-          // this.tareas = res.json();
-          // if (this.tareas.length > 0) {
-          //   return this.tareas;
-          // } else {
-          //   console.log('No hay tareas');
-          //   return false;
-          // }
-
+        }
         })
         .catch(this.handleError);
     }
@@ -148,8 +125,6 @@ export class TareasserviceProvider {
 //crear tarea
 crearTareas(t: Tarea) {
 
-  //let body:any = JSON.stringify({ t });
-
   var body = {
     IdTarea: t.IdTarea,
     IdProyecto: t.IdProyecto,
@@ -161,9 +136,7 @@ crearTareas(t: Tarea) {
 
   let headers = new Headers();
   headers.append('Content-Type', 'application/json');
-
   let options = new RequestOptions({ headers: headers });
-
   return this.mihttp
     .post(this.url + 'CrearTarea', body, { headers: headers })
     .map((resp: any) => {
@@ -204,10 +177,11 @@ crearTareas(t: Tarea) {
         //swal('Tarea Actualizada', t.Nombre, 'success');
         //retornoEditarTarea
           this.retornoEditarTarea = resp.json();        
+          //console.log(this.retornoEditarTarea);
           //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
           if (this.retornoEditarTarea.RetornoCorrecto==="S")
           {
-            return this.retornoEditarTarea.RetornoCorrecto;
+            return this.retornoEditarTarea;
           }
           else 
           {
@@ -220,23 +194,30 @@ crearTareas(t: Tarea) {
   }
 
     //eliminarTarea
-    eliminarTarea(k: Number) {
+    eliminarTarea(k: Number, u:Usuario) {
       //console.log(k);
       //let headers = new Headers();
-      var body = k
-      ;   
-  
-      console.log(body);
+      var body =
+    {
+      pIdTarea: k,
+      pUsuario: {
+        Nombre: u.Nombre,
+        Email: u.Email,
+        Clave: u.Clave,
+        Img: u.Img,
+        CI: u.CI,
+        oCompany: u.oCompany,
+        Administrador: u.Administrador
+      }
+    }; 
+        
       let headers = new Headers();
-      headers.append('Content-Type', 'application/json');     
-      
+      headers.append('Content-Type', 'application/json');           
   
       return this.mihttp
         .post(this.url + 'EliminarTarea', body, { headers: headers })
         .map((resp: any) => {
-          //swal('Tarea Actualizada', t.Nombre, 'success');          
-          //console.log(resp);
-
+          
           this.retornoEliminarTarea = resp.json();        
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoEliminarTarea.RetornoCorrecto==="S")
@@ -246,9 +227,7 @@ crearTareas(t: Tarea) {
         else 
         {
           return this.retornoEliminarTarea.Errores;          
-        }//fin nueva forma
-
-          //return resp;
+        }//fin nueva forma          
           
         })
         .catch(this.handleError);

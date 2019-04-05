@@ -66,7 +66,7 @@ export class TareaPage {
 
 
   getTarea() {
-
+    
     if (this.id == null) {
       //console.log(this.proyecto);
       this.tarea.IdProyecto = this.proyecto.IdProyecto;

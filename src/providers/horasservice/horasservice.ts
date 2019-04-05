@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -129,8 +128,8 @@ export class HorasserviceProvider {
 
   constructor(public http: HttpClient,
     public mihttp: Http) {
-    //this.url = "http://localhost:88/api/";
-    this.url = "http://DESKTOP-SNT742M:88/api/";
+    this.url = "http://localhost:88/api/";
+    //this.url = "http://DESKTOP-SNT742M:88/api/";
 
   }
 
@@ -142,14 +141,14 @@ export class HorasserviceProvider {
 
   getHorasDeTarea(t: Tarea) {
     this.user = JSON.parse(localStorage.getItem('usuario'));
-    let params = JSON.stringify({ pIdProyecto: t.IdProyecto, pIdTarea: t.IdTarea, pDocumento: this.user["CI"] });
+    let params = JSON.stringify({ pIdProyecto: t.IdProyecto, pIdTarea: t.IdTarea, pEmail: this.user["Email"] });
     console.log(params);
 
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
 
     return this.mihttp
-      .get(this.url + "ListarHorasDeTareaDeUsuario?pIdProyecto=" + t.IdProyecto + "&" + "pIdTarea=" + t.IdTarea + "&" + "pDocumento=" + this.user["CI"] + "", params)
+      .get(this.url + "ListarHorasDeTareaDeUsuario?pIdProyecto=" + t.IdProyecto + "&" + "pIdTarea=" + t.IdTarea + "&" + "pEmail=" + this.user["Email"] + "", params)
       .map((res: any) => {
         this.retornoListarHorasDeProyectoyTarea = res.json();
         console.log(this.retornoListarHorasDeProyectoyTarea);
@@ -185,9 +184,7 @@ export class HorasserviceProvider {
 
   //crear tarea
 
-  CargarHoras(h: Hora, ci: string) {
-
-    //    let body:any = JSON.stringify({ t });    
+  CargarHoras(h: Hora, email: string) {
 
     var body = {
       "<pHoras>k__BackingField": {
@@ -197,7 +194,7 @@ export class HorasserviceProvider {
         CantidadHoras: h.CantidadHoras,
         Fecha: h.Fecha
       },
-      "<pDocumento>k__BackingField": ci
+      "<pEmail>k__BackingField" : email
     };
 
     let headers = new Headers();
@@ -210,7 +207,7 @@ export class HorasserviceProvider {
       .map((resp: any) => {
         //swal('Tarea Actualizada', t.Nombre, 'success');
         this.retornoCrearHora = resp.json();
-        console.log(this.retornoCrearHora);        
+        //console.log(this.retornoCrearHora);        
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoCrearHora.RetornoCorrecto==="S")
         {
@@ -295,21 +292,18 @@ export class HorasserviceProvider {
       .catch(this.handleError);
   }
 
-  ListarHorasMensualesDeUsuario(ci:string){   
+  ListarHorasMensualesDeUsuario(email:string){   
     
-    var body = ci;  
+    var body = email;  
     
     console.log(body);
 
-    let params = JSON.stringify({ pCI: ci });
+    let params = JSON.stringify({ pemail: email });
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    
-
     let options = new RequestOptions({ headers: headers });
-
     return this.mihttp
-      .get(this.url + "ListarHorasMensualesDeUsuario?pDocumento=" + ci + "", params)
+      .get(this.url + "ListarHorasMensualesDeUsuario?pDocumento=" + email + "", params)
       .map((res: any) => {
 
         this.retornoListadoHorasEfectivas = res.json();
