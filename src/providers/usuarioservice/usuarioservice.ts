@@ -306,19 +306,29 @@ private retornoUsuariosAsignadosAProyecto=
   }
 
 //crear usuario
-crearUsuarios(u: Usuario) {
+crearUsuarios(ulogueado: Usuario,uACrear:Usuario) {
 
   
   var body = {      
-
     
-      Nombre: u.Nombre,
-      Email: u.Email,
-      Clave: u.Clave,
-      oCompany: u.oCompany,
-      Administrador: u.Administrador,
-      Img: u.Img,
-      CI: u.CI
+    pUsuario:{
+      Nombre: ulogueado.Nombre,
+      Email: ulogueado.Email,
+      Clave: ulogueado.Clave,
+      Img: ulogueado.Img,
+      CI: ulogueado.CI,
+      oCompany: ulogueado.oCompany,
+      Administrador: ulogueado.Administrador
+    },
+    pUsuNew: {
+      Nombre: uACrear.Nombre,
+      Email: uACrear.Email,
+      Clave: uACrear.Clave,
+      Img: uACrear.Img,
+      CI: uACrear.CI,
+      oCompany: uACrear.oCompany,
+      Administrador: uACrear.Administrador
+    }
     
 
   };
@@ -347,22 +357,34 @@ crearUsuarios(u: Usuario) {
     .catch(this.handleError);
 }
 
-editarUsuario(u: Usuario) {
+editarUsuario(ulogueado: Usuario, uAEditar:Usuario) {
   //let headers = new Headers();
   var body = {      
-    Nombre: u.Nombre,
-    Email: u.Email,
-    Img: u.Img,
-    CI: u.CI,
-    Clave: u.Clave,
-    Administrador: u.Administrador,
-    oCompany:u.oCompany
+    pUsuario:{
+      Nombre: ulogueado.Nombre,
+      Email: ulogueado.Email,
+      Clave: ulogueado.Clave,
+      Img: ulogueado.Img,
+      CI: ulogueado.CI,
+      oCompany: ulogueado.oCompany,
+      Administrador: ulogueado.Administrador
+    },
+    pUsuMod: {
+      Nombre: uAEditar.Nombre,
+      Email: uAEditar.Email,
+      Clave: uAEditar.Clave,
+      Img: uAEditar.Img,
+      CI: uAEditar.CI,
+      oCompany: uAEditar.oCompany,
+      Administrador: uAEditar.Administrador
+    }
   };   
 
   let headers = new Headers();
   headers.append('Content-Type', 'application/json');
 
   let options = new RequestOptions({ headers: headers });
+  console.log(body);  
 
   return this.mihttp
     .post(this.url + 'ModificarUsuario', body, { headers: headers })

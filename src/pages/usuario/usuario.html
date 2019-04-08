@@ -17,13 +17,14 @@
               </ion-card-header>
             <ion-card-content>
                 <ion-list no-lines>
-                        <ion-item>
+                            <!-- <img src="'data:image/jpg;base64,'+{{u.Img}}"> -->
+                        <!-- <ion-item>
                         <ion-avatar slot="item-start">
                                 <img 
                                 [src]="getImgContent(user.Img)" alt="Imagen">
-                                <!-- <img src="'data:image/jpg;base64,'+{{u.Img}}"> -->
+                        
                             </ion-avatar>
-                        </ion-item>
+                        </ion-item> -->
 
                         <ion-item>
                                 <ion-label floating>CI</ion-label>
@@ -46,15 +47,21 @@
                     <ion-item>
                         <ion-label floating>Compania</ion-label>
                         <ion-select [(ngModel)]="user.oCompany" >
-                            <ion-option *ngFor="let compania of companias" [value]="compania.Id">{{compania.Nombre}}</ion-option>
+                            <ion-option *ngFor="let compania of companias" [value]="compania.Id">{{compania.Name}}</ion-option>
                           </ion-select>
                         <!-- <ion-input [(ngModel)]="user.oCompany" type="text" ></ion-input>                     -->
                     </ion-item>
+
+                    <ion-item>
+                            <ion-label>Administrador</ion-label>                            
+                            <ion-checkbox [(ngModel)]="user.Administrador"></ion-checkbox>
+                        </ion-item>                    
+    
       
                     <button ion-button color="primary" block outline
                       (click)="crearUsuarios()"
                     >GUARDAR</button>
-      
+
                 </ion-list>
             </ion-card-content>
         </ion-card>

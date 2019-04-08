@@ -292,7 +292,7 @@ export class HoraPage {
               //LISTA PROYECTOS DEL USUARIO DESDE API
               this.user = JSON.parse(localStorage.getItem('usuario'));
               //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
-              this.pr.getProyectosUsuario(this.user["CI"])
+              this.pr.getProyectosUsuario(this.user["Email"])
                 .subscribe(
                   correcto => {
                     // console.log("//LISTANDO PRYECTOS BOTON GRANDE+  ");

@@ -25,15 +25,14 @@
       <ion-item *ngFor="let u of usuarios">          
           <ion-row> 
             <ion-col>
-          <ion-avatar slot="item-start">
+          <!-- <ion-avatar slot="item-start">
               <img 
               [src]="getImgContent(u.Img)" alt="Imagen">
-              <!-- <img src="'data:image/jpg;base64,'+{{u.Img}}"> -->
-          </ion-avatar>
+              <img src="'data:image/jpg;base64,'+{{u.Img}}">
+          </ion-avatar> -->
           <h3><strong>{{u.Nombre}}</strong></h3>
               <p><strong>Email:</strong>{{u.Email}}</p>
-              <p><strong>CI:</strong>{{u.CI}}</p>
-              <p><strong>Compania:</strong>{{u.oCompany}}</p>
+              <p><strong>CI:</strong>{{u.CI}}</p>              
             </ion-col>
             <ion-col>            
                 <button ion-button icon-only clear (click)="IraUsuario(u.Email)">

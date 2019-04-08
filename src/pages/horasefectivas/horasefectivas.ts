@@ -85,7 +85,7 @@ export class HorasefectivasPage {
     //LISTA HORAS EFECTIVAS DEL USUARIO DESDE API
     this.user = JSON.parse(localStorage.getItem("usuario"));
 
-    this.hservice.ListarHorasMensualesDeUsuario(this.user["CI"]).subscribe(
+    this.hservice.ListarHorasMensualesDeUsuario(this.user["Email"]).subscribe(
       correcto => {
         if (correcto.RetornoCorrecto==="S") {
 

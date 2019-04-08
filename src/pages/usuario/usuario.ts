@@ -37,6 +37,16 @@ export class UsuarioPage {
         CI: ""
       }    
 
+      usuariologueado: Usuario = {
+        Nombre: "",
+        Email: "",
+        Clave:"",
+        oCompany:-1,
+        Administrador: false,
+        Img: "",        
+        CI: ""
+      }
+
       compania: Compania = {
     Id: -1,
     Name: ""    
@@ -71,18 +81,17 @@ export class UsuarioPage {
       //this.proyecto.IdProyecto = this.proyecto.IdProyecto;
     }
     else {
-      console.log(this.Email);
+      //console.log(this.Email);
       this.user = this.us.getUsuario(this.Email);
       //this.companias = this.co.getCompanias();      
       this.compania = this.co.getCompania(this.user.oCompany);      
     }
   }
 
-
   crearUsuarios() {
     if (this.Email == null) {
       // insertando    
-      this.us.crearUsuarios(this.user)
+      this.us.crearUsuarios(this.usuariologueado, this.user)
         .subscribe(
           correcto => {
             if (correcto.RetornoCorrecto==="S") {
@@ -127,8 +136,8 @@ export class UsuarioPage {
         )
     }
     else {
-      //actualizando
-      this.us.editarUsuario(this.user)
+      //actualizando                  
+      this.us.editarUsuario(this.usuariologueado, this.user)
         .subscribe(
           correcto => {
             if (correcto.RetornoCorrecto==="S") {
@@ -170,6 +179,43 @@ export class UsuarioPage {
     }
   }
 
+  listarCompania(){
+  
+    //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS    
+     this.co.getCompanias()
+     .subscribe(        
+     correcto => {         
+      if(correcto['RetornoCorrecto']==="S")
+      { 
+        if(correcto['Retorno'].length>=0){      
+          this.companias = null;
+          this.companias = correcto['Retorno'];
+        }
+        else{
+          let toast = this.toastCtrl.create({
+            message: 'No hay companias',
+            duration: 3000,
+            position: 'middle'
+          });
+          toast.onDidDismiss(() => {                  
+          });
+          toast.present();
+        }
+    }         
+    else{              
+              let toast = this.toastCtrl.create({
+                message: correcto.Mensaje +'-'+correcto.Descripcion,
+                duration: 3000,
+                position: 'middle'
+              });
+              toast.onDidDismiss(() => {                
+              });
+              toast.present();             
+         }
+     }     
+    );
+    }
+
   /**** CARGA INICIAL DEL COMPONENTE *****/
   ionViewDidLoad() {
 
@@ -177,8 +223,10 @@ export class UsuarioPage {
     
     //this.proyecto = JSON.parse(localStorage.getItem('proyecto'));
     this.Email= this.navParams.get('Email');    
-    console.log(this.Email);
+    //console.log(this.Email);
     this.getUsuario();
+    this.listarCompania();
+    this.usuariologueado = JSON.parse(localStorage.getItem("usuario"));
     //this.proyectos.push(this.proyecto);
   }
 

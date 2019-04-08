@@ -303,7 +303,7 @@ export class HorasserviceProvider {
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });
     return this.mihttp
-      .get(this.url + "ListarHorasMensualesDeUsuario?pDocumento=" + email + "", params)
+      .get(this.url + "ListarHorasMensualesDeUsuario?pEmail=" + email + "", params)
       .map((res: any) => {
 
         this.retornoListadoHorasEfectivas = res.json();
