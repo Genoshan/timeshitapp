@@ -29,7 +29,7 @@
                       </ion-searchbar> -->
                       
                     <ion-select [(ngModel)]="useraasignar" multiple="true" okText="Listo" cancelText="Cancelar" [compareWith]="compareUsuarios">                        
-                      <ion-option *ngFor="let useraasignar of listausuariosaasignar" [value]="useraasignar">{{useraasignar.Nombre}}</ion-option>
+                      <ion-option *ngFor="let useraasignar of usuarios" [value]="useraasignar">{{useraasignar.Nombre}}</ion-option>
                     </ion-select>
                   </ion-item>
               

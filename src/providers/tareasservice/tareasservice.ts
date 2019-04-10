@@ -82,8 +82,8 @@ export class TareasserviceProvider {
 
 
   constructor(public http: HttpClient,public mihttp:Http) {
-    this.url = "http://localhost:88/api/";
-    //this.url = "http://DESKTOP-SNT742M:88/api/";
+    //this.url = "http://localhost:88/api/";
+    this.url = "http://DESKTOP-SNT742M:88/api/";
   }
 
   getTareas(key$: number) {}

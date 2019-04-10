@@ -234,7 +234,7 @@ export class ProyectosPage {
   listaProyectos(){
 
     //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
-    this.pservice.getProyectos()
+    this.pservice.getProyectosTotales()
     .subscribe(        
     correcto => {             
       if(correcto.RetornoCorrecto==="S")
@@ -245,7 +245,7 @@ export class ProyectosPage {
         }
         else{
           let toast = this.toastCtrl.create({
-            message: 'No tiene proyectos asignados',
+            message: 'No hay proyectos',
             duration: 3000,
             position: 'middle'  
           });
@@ -335,6 +335,7 @@ export class ProyectosPage {
         this.user=JSON.parse(localStorage.getItem('usuario'));
 
         if (this.user.Administrador) {
+          console.log(this.user.Administrador);
           this.listaProyectos();
         }
         else  

@@ -110,7 +110,7 @@ export class TareasPage {
               }
               else{
                 let toast = this.toastCtrl.create({
-                  message: 'No tiene tareas asignadas',
+                  message: 'No hay tareas',
                   duration: 3000,
                   position: 'middle'
                 });

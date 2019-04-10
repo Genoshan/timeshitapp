@@ -139,8 +139,8 @@ private retornoUsuariosAsignadosAProyecto=
 
   constructor(public _http: HttpClient,public mihttp:Http) {
     
-    this.url = "http://localhost:88/api/";
-    //this.url = "http://DESKTOP-SNT742M:88/api/";
+    //this.url = "http://localhost:88/api/";
+    this.url = "http://DESKTOP-SNT742M:88/api/";
   }
 
 
@@ -255,7 +255,7 @@ private retornoUsuariosAsignadosAProyecto=
           
           this.listausuarios = this.retornoUsuarios.Retorno;
           //console.log(this.retornoListarProyectosDeUsuario.Retorno);
-
+//console.log(this.retornoUsuarios);
           return this.retornoUsuarios;            
         }
         else {

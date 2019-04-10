@@ -135,8 +135,8 @@ export class ProyectosserviceProvider {
 
   constructor(public http: HttpClient,public mihttp:Http) {
 
-    this.url = "http://localhost:88/api/";
-    //this.url = "http://DESKTOP-SNT742M:88/api/";
+    //this.url = "http://localhost:88/api/";
+    this.url = "http://DESKTOP-SNT742M:88/api/";
   }
 
   getProyectos(){
@@ -265,20 +265,8 @@ export class ProyectosserviceProvider {
         else
         {
           return this.retornoListarProyectosDeUsuario.Errores;
-        }//fin nueva forma
-
-        
-        //vieja forma sin retornos
-
-        //  this.proyectos = res.json();
-        //   if (this.proyectos.length>0)
-        //   {
-        //     return this.proyectos;
-        //   }
-        // else {
-        //   return false;
-        // }
-
+        }//fin nueva forma        
+  
       })
       .catch(this.handleError);
   }
@@ -389,40 +377,7 @@ export class ProyectosserviceProvider {
       .catch(this.handleError);
   }
 
-  // editarProyecto(p: Proyecto) {
-  //   //let headers = new Headers();
-  //   var body = {      
-  //     IdProyecto: p.IdProyecto,
-  //     Nombre: p.Nombre,
-  //     CodigoProyecto: p.CodigoProyecto,
-  //     FechaInicio: p.FechaInicio,
-  //     Estado: p.Estado
-  //   };   
-
-  //   let headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-
-  //   let options = new RequestOptions({ headers: headers });
-
-  //   return this.mihttp
-  //     .post(this.url + 'EditarProyecto', body, { headers: headers })
-  //     .map((resp: any) => {
-        
-  //       this.retornoEditarProyecto = resp.json();        
-  //       //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
-  //       if (this.retornoEditarProyecto.RetornoCorrecto==="S")
-  //       {
-  //         return this.retornoEditarProyecto;
-  //       }
-  //       else 
-  //       {
-  //         return this.retornoEditarProyecto.Errores;          
-  //       }//fin nueva forma
-
-  //     })
-  //     .catch(this.handleError);
-  // }
-
+  
   eliminarProyecto(k: Number, u: Usuario) {
     //console.log(k);
     //let headers = new Headers();
@@ -462,37 +417,7 @@ export class ProyectosserviceProvider {
         }//fin nueva forma
       })
       .catch(this.handleError);
-  }
-
-  // eliminarProyecto(k: Number) {
-  //   //console.log(k);
-  //   //let headers = new Headers();
-  //   var body = k
-  //   ;   
-
-  //   //console.log(body);
-  //   let headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-
-  //   let options = new RequestOptions({ headers: headers });
-
-  //   return this.mihttp
-  //     .post(this.url + 'EliminarProyecto', body, { headers: headers })
-  //     .map((resp: any) => {
-           
-  //       this.retornoEliminarProyecto = resp.json();        
-  //       //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
-  //       if (this.retornoEliminarProyecto.RetornoCorrecto==="S")
-  //       {
-  //         return this.retornoEliminarProyecto;
-  //       }
-  //       else 
-  //       {
-  //         return this.retornoEliminarProyecto.Errores;          
-  //       }//fin nueva forma
-  //     })
-  //     .catch(this.handleError);
-  // }
+  }  
 
   //MANEJADOR DE ERRORES DE SERVICIO
   private handleError(error:any)
